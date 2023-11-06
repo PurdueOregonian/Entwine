@@ -6,29 +6,27 @@ function CreateProfile() {
         handleSubmit
     } = useForm();
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (formData: any) => {
+        console.log(formData);
         /*
-        // Connection string for Azurite
-        const connectionStr = 'AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;';
+        // Define the API URL
+        const apiUrl = 'https://localhost:7253/WeatherForecast';
         
-        // Create a BlobServiceClient using the connection string
-        const blobServiceClient = BlobServiceClient.fromConnectionString(connectionStr);
-
-        // You can now interact with the Azurite Blob service. For example, list containers:
-        async function listContainers() {
-            const containersIterator = blobServiceClient.getContainerClient('$root').listContainers();
-
-            for await (const container of containersIterator) {
-                console.log(`Container name: ${container.name}`);
-            }
-        }
-
-        // Call the function to list containers
-        listContainers()
-            .then(() => console.log('Containers listed successfully'))
-            .catch((error) => console.error('Error listing containers', error));
+        // Make a GET request
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
             */
-        console.log(data);
     };
 
     return (
