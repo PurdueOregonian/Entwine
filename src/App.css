@@ -42,7 +42,7 @@
 }
 
 .modal {
-    display: none;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -52,11 +52,11 @@
     overflow: auto; /* Allow scrolling when the modal content is too long */
     z-index: 1; /* Ensure modal is on top of other elements */
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 .modal-content {
-    top: 0;
     background-color: #fff; /* White background */
     padding: 20px;
     border: 1px solid #888;
