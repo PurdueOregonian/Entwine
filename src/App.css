@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: auto; /* Allow scrolling when the modal content is too long */
+    z-index: 1; /* Ensure modal is on top of other elements */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    top: 0;
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 600px; /* Set a maximum width for the modal */
+    width: 100%; /* Ensure the modal width is 100% of the container */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}

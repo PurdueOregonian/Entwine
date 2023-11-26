@@ -11,14 +11,6 @@ function CreateProfile() {
         // Define the API URL
         const apiUrl = 'https://localhost:7253/SaveProfile';
 
-        fetch('https://localhost:7253/Login', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({Username: "bogus", Password: "bogus"})
-        })
-
         // Make a GET request
         fetch(apiUrl, {
             method: "POST",
@@ -52,7 +44,7 @@ function CreateProfile() {
                 </label>
                 <div className="form-control">
                     <label></label>
-                    <button type="submit">Login</button>
+                    <button type="submit">Save</button>
                 </div>
             </form>
         </div>
