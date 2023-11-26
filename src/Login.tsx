@@ -67,7 +67,7 @@ function Login() {
                             <div className="form-control">
                                 <label></label>
                                 <button type="submit">{loginPopupMode === 'Login' ? 'Login' : 'Register'}</button>
-                                <button onClick={() => setDisplayModal(false)}>Cancel</button>
+                                <button type="button" onClick={() => setDisplayModal(false)}>Cancel</button>
                             </div>
                         </form>
                     </div>
