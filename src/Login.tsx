@@ -32,11 +32,14 @@ function Login() {
             body: JSON.stringify(formData)
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.ok) {
+                    //TODO change message to succeeded
                 }
-                console.log(response);
-                return response;
+                return response.text();
+            })
+            .then(data => {
+                // This means there's an error
+                // TODO change message to error message
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -55,6 +58,7 @@ function Login() {
                                 <span>New user?</span><button onClick={() => setLoginPopupMode('Register')}>Register</button>
                             </>
                         }
+                        <div id="message"></div>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label>
                                 Username:
