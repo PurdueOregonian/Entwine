@@ -7,10 +7,12 @@ function Login() {
 
     const [displayModal, setDisplayModal] = useState(false);
     const [loginPopupMode, setLoginPopupMode] = useState<LoginPopupMode>('Login');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const displayTheModal = () => {
         setDisplayModal(true);
         setLoginPopupMode('Login');
+        setErrorMessage('');
     }
 
     const {
@@ -33,16 +35,16 @@ function Login() {
         })
             .then(response => {
                 if (response.ok) {
-                    //TODO change message to succeeded
+                    setErrorMessage('');
                 }
-                return response.text();
+                else {
+                    response.text().then(errorMessage => {
+                        setErrorMessage(errorMessage);
+                    })
+                }
             })
-            .then(data => {
-                // This means there's an error
-                // TODO change message to error message
-            })
-            .catch(error => {
-                console.error('Error:', error);
+            .catch(() => {
+                setErrorMessage(`An unexpected error occurred ${loginPopupMode === 'Login' ? 'logging in': 'registering'}.`);
             });
     };
 
@@ -58,7 +60,7 @@ function Login() {
                                 <span>New user?</span><button onClick={() => setLoginPopupMode('Register')}>Register</button>
                             </>
                         }
-                        <div id="message"></div>
+                        <p style={{ color: 'red' }}>{errorMessage}</p>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label>
                                 Username:
