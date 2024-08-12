@@ -9,16 +9,23 @@ function Login() {
     const [loginPopupMode, setLoginPopupMode] = useState<LoginPopupMode>('Login');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const {
+        register,
+        handleSubmit,
+        reset
+    } = useForm();
+
+    const setLoginPopupModeAndClear = (mode: LoginPopupMode) => {
+        setLoginPopupMode(mode);
+        reset();
+    }
+
     const displayTheModal = () => {
         setDisplayModal(true);
         setLoginPopupMode('Login');
         setErrorMessage('');
+        reset();
     }
-
-    const {
-        register,
-        handleSubmit
-    } = useForm();
 
     const onSubmit = (formData: any) => {
 
@@ -57,7 +64,7 @@ function Login() {
                         <h2>{loginPopupMode === 'Login' ? 'Login' : 'Register'}</h2>
                         {loginPopupMode === 'Login' &&
                             <>
-                                <span>New user?</span><button onClick={() => setLoginPopupMode('Register')}>Register</button>
+                                <span>New user?</span><button onClick={() => setLoginPopupModeAndClear('Register')}>Register</button>
                             </>
                         }
                         <p style={{ color: 'red' }}>{errorMessage}</p>
