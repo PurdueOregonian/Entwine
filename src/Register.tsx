@@ -1,13 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 
-type LoginProps = {
+type RegisterProps = {
     setDisplayModal: Dispatch<SetStateAction<boolean>>;
-    setDisplayRegisterModal: Dispatch<SetStateAction<boolean>>;
-    setLoggedInUser: Dispatch<SetStateAction<string | null>>;
 }
 
-const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: LoginProps) => {
+const Register = ({ setDisplayModal }: RegisterProps) => {
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -19,7 +17,7 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
     const onSubmit = (formData: any) => {
 
         // Define the API URL
-        const apiUrl = 'https://localhost:7253/Auth/Login';
+        const apiUrl = 'https://localhost:7253/Auth/Register';
 
         fetch(apiUrl, {
             method: "POST",
@@ -30,7 +28,6 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
         })
             .then(response => {
                 if (response.ok) {
-                    setLoggedInUser(formData.Username)
                     setDisplayModal(false);
                 }
                 else {
@@ -40,20 +37,14 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
                 }
             })
             .catch(() => {
-                setErrorMessage('An unexpected error occurred logging in.');
+                setErrorMessage('An unexpected error occurred registering.');
             });
     };
-
-    const onRegisterClicked = () => {
-        setDisplayModal(false);
-        setDisplayRegisterModal(true);
-    }
 
     return (
         <div id="loginModal" className="modal">
             <div className="modal-content">
-                <h2>Login</h2>
-                <span>New user?</span><button onClick={onRegisterClicked}>Register</button>
+                <h2>Register</h2>
                 <p style={{ color: 'red' }}>{errorMessage}</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>
@@ -66,7 +57,7 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
                     </label>
                     <div className="form-control">
                         <label></label>
-                        <button type="submit">Login</button>
+                        <button type="submit">Register</button>
                         <button type="button" onClick={() => setDisplayModal(false)}>Cancel</button>
                     </div>
                 </form>
@@ -75,4 +66,4 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
     );
 }
 
-export default Login;
+export default Register;
