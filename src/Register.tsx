@@ -49,15 +49,15 @@ const Register = ({ setDisplayModal }: RegisterProps) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>
                         Username:
-                        <input {...register("Username")}></input>
+                        <input data-testid="registerUsernameInput" {...register("Username")}></input>
                     </label>
                     <label>
                         Password:
-                        <input {...register("Password")}></input>
+                        <input data-testid="registerPasswordInput" {...register("Password")}></input>
                     </label>
                     <div className="form-control">
                         <label></label>
-                        <button type="submit">Register</button>
+                        <button data-testid="registerSubmit" type="submit">Register</button>
                         <button type="button" onClick={() => setDisplayModal(false)}>Cancel</button>
                     </div>
                 </form>
