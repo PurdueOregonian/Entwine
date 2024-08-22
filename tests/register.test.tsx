@@ -1,8 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from '../src/Register';
 
 describe('Register component', () => 
-    test('renders the Register component', () => {
+    test('renders the Register component', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true
@@ -21,15 +21,17 @@ describe('Register component', () =>
         const registerSubmit = screen.getByTestId('registerSubmit');
         fireEvent.click(registerSubmit);
 
-        expect(global.fetch).toHaveBeenCalledWith('https://localhost:7253/Auth/Login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Username: 'testuser',
-                Password: 'testpassword'
-            }),
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith('https://localhost:7253/Auth/Register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Username: 'testuser',
+                    Password: 'testpassword'
+                }),
+            });
         });
     })
 )
