@@ -33,11 +33,17 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
                     setLoggedInUser(formData.Username)
                     localStorage.setItem('username', formData.Username)
                     setDisplayModal(false);
+                    return response.text();
                 }
                 else {
                     response.text().then(errorMessage => {
                         setErrorMessage(errorMessage);
                     })
+                }
+            })
+            .then(response => {
+                if(typeof(response) === 'string'){
+                    localStorage.setItem('token', response);
                 }
             })
             .catch(() => {

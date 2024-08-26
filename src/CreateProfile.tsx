@@ -9,7 +9,7 @@ function CreateProfile() {
     const onSubmit = (formData: any) => {
 
         // Define the API URL
-        const apiUrl = 'https://localhost:7253/SaveProfile';
+        const apiUrl = 'https://localhost:7253/Profile/Save';
 
         // Make a GET request
         fetch(apiUrl, {

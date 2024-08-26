@@ -15,7 +15,8 @@ function App() {
         fetch("https://localhost:7253/Auth/Logout", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then(() => {
