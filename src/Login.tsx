@@ -31,6 +31,7 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
             .then(response => {
                 if (response.ok) {
                     setLoggedInUser(formData.Username)
+                    localStorage.setItem('username', formData.Username)
                     setDisplayModal(false);
                 }
                 else {
