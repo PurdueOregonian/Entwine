@@ -5,42 +5,29 @@ import MainPage from './MainPage'
 import Login from './Login'
 import { useState } from 'react'
 import Register from './Register'
+import LogoutButton from './LogoutButton'
 
 function App() {
     const [displayLoginModal, setDisplayLoginModal] = useState(false);
     const [displayRegisterModal, setDisplayRegisterModal] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState<string | null>(localStorage.getItem('username'));
 
-    const logout = () => {
-        fetch("https://localhost:7253/Auth/Logout", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then(() => {
-                setLoggedInUser(null);
-                localStorage.removeItem('username')
-            });
-    }
-
     return (
         <>
-            <div className="user-info">
-                <span>{loggedInUser ? `Logged in as ${loggedInUser}` : 'Not logged in'}</span>
-                {!loggedInUser && <button onClick={() => setDisplayLoginModal(true)}>Log In</button>}
-                {loggedInUser && <button onClick={() => logout()}>Log Out</button>}
-            </div>
-            {displayLoginModal && <Login
-                setDisplayModal={setDisplayLoginModal}
-                setDisplayRegisterModal={setDisplayRegisterModal}
-                setLoggedInUser={setLoggedInUser}
-            />}
-            {displayRegisterModal && <Register
-                setDisplayModal={setDisplayRegisterModal}
-            />}
             <Router>
+                <div className="user-info">
+                    <span>{loggedInUser ? `Logged in as ${loggedInUser}` : 'Not logged in'}</span>
+                    {!loggedInUser && <button onClick={() => setDisplayLoginModal(true)}>Log In</button>}
+                    {loggedInUser && <LogoutButton setLoggedInUser={setLoggedInUser}></LogoutButton>}
+                </div>
+                {displayLoginModal && <Login
+                    setDisplayModal={setDisplayLoginModal}
+                    setDisplayRegisterModal={setDisplayRegisterModal}
+                    setLoggedInUser={setLoggedInUser}
+                />}
+                {displayRegisterModal && <Register
+                    setDisplayModal={setDisplayRegisterModal}
+                />}
                 <header className="App-header">
                     <h1>Friends</h1>
                 </header>
