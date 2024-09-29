@@ -1,14 +1,17 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "./hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
 
-type LoginProps = {
-    setDisplayModal: Dispatch<SetStateAction<boolean>>;
-    setDisplayRegisterModal: Dispatch<SetStateAction<boolean>>;
-    setLoggedInUser: Dispatch<SetStateAction<string | null>>;
-}
+const apiUrl = 'https://localhost:7253/Auth/Login';
 
-const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: LoginProps) => {
+const Login = () => {
 
+    const { setAuth } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const [errorMessage, setErrorMessage] = useState('');
 
     const {
@@ -16,44 +19,43 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
         handleSubmit
     } = useForm();
 
-    const onSubmit = (formData: any) => {
-
-        // Define the API URL
-        const apiUrl = 'https://localhost:7253/Auth/Login';
-
-        fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => {
-                if (response.ok) {
-                    setLoggedInUser(formData.Username)
-                    localStorage.setItem('username', formData.Username)
-                    setDisplayModal(false);
-                    return response.text();
+    const onSubmit = async (formData: any) => {
+        try {
+            const response = await axios.post(
+                apiUrl,
+                JSON.stringify(formData),
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                });
+            const token = response?.data?.accessToken;
+            setAuth({
+                username: formData.Username,
+                password: formData.Password,
+                token: token
+            });
+            navigate(from, { replace: true });
+            
+        }
+        catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (!error?.response) {
+                    setErrorMessage('No Server Response');
+                }
+                if (error.response?.status === 400) {
+                    setErrorMessage('Incorrect Username or Password');
                 }
                 else {
-                    response.text().then(errorMessage => {
-                        setErrorMessage(errorMessage);
-                    })
+                    setErrorMessage('Unknown error logging in.');
                 }
-            })
-            .then(response => {
-                if(typeof(response) === 'string'){
-                    localStorage.setItem('token', response);
-                }
-            })
-            .catch(() => {
-                setErrorMessage('An unexpected error occurred logging in.');
-            });
+            }
+        }
     };
 
     const onRegisterClicked = () => {
-        setDisplayModal(false);
-        setDisplayRegisterModal(true);
+        navigate('/Register');
     }
 
     return (
@@ -74,7 +76,6 @@ const Login = ({ setDisplayModal, setDisplayRegisterModal, setLoggedInUser }: Lo
                     <div className="form-control">
                         <label></label>
                         <button type="submit">Login</button>
-                        <button type="button" onClick={() => setDisplayModal(false)}>Cancel</button>
                     </div>
                 </form>
             </div>

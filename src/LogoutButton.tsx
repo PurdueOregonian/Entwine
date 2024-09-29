@@ -1,12 +1,9 @@
-import { Dispatch, SetStateAction} from "react";
 import { useNavigate } from 'react-router-dom'
+import useAuth from './hooks/useAuth';
 
-type LogoutButtonProps = {
-    setLoggedInUser: Dispatch<SetStateAction<string | null>>;
-}
+const LogoutButton = () => {
 
-const LogoutButton = ({ setLoggedInUser }: LogoutButtonProps) => {
-
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
 
     const logout = () => {
@@ -18,9 +15,12 @@ const LogoutButton = ({ setLoggedInUser }: LogoutButtonProps) => {
             }
         })
             .then(() => {
-                setLoggedInUser(null);
-                localStorage.removeItem('username');
-                navigate('/');
+                setAuth({
+                    username: undefined,
+                    password: undefined,
+                    token: undefined
+                })
+                navigate('/Login');
             });
     }
 

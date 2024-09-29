@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import NavHeader from "./NavHeader";
 
 function CreateProfile() {
     const {
@@ -34,22 +35,25 @@ function CreateProfile() {
     };
 
     return (
-        <div className="CreateProfile">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    Name:
-                    <input {...register("Name") }></input>
-                </label>
-                <label>
-                    Interest:
-                    <input {...register("Interest")}></input>
-                </label>
-                <div className="form-control">
-                    <label></label>
-                    <button type="submit">Save</button>
-                </div>
-            </form>
-        </div>
+        <>
+            <NavHeader />
+            <div className="CreateProfile">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <label>
+                        Name:
+                        <input {...register("Name") }></input>
+                    </label>
+                    <label>
+                        Interest:
+                        <input {...register("Interest")}></input>
+                    </label>
+                    <div className="form-control">
+                        <label></label>
+                        <button type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 }
 

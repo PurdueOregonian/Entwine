@@ -1,8 +1,13 @@
+import NavHeader from "./NavHeader";
+
 function MainPage() {
     return (
-        <div className="MainPage">
-            <p>Main page stuff</p>
-        </div>
+        <>
+            <NavHeader />
+            <div className="MainPage">
+                <p>Main page stuff</p>
+            </div>
+        </>
     );
 }
 

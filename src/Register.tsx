@@ -1,12 +1,10 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-type RegisterProps = {
-    setDisplayModal: Dispatch<SetStateAction<boolean>>;
-}
+const Register = () => {
 
-const Register = ({ setDisplayModal }: RegisterProps) => {
-
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
     const {
@@ -28,7 +26,8 @@ const Register = ({ setDisplayModal }: RegisterProps) => {
         })
             .then(response => {
                 if (response.ok) {
-                    setDisplayModal(false);
+                    // TODO display success message
+                    navigate('/Login');
                 }
                 else {
                     response.text().then(errorMessage => {
@@ -58,7 +57,7 @@ const Register = ({ setDisplayModal }: RegisterProps) => {
                     <div className="form-control">
                         <label></label>
                         <button data-testid="registerSubmit" type="submit">Register</button>
-                        <button type="button" onClick={() => setDisplayModal(false)}>Cancel</button>
+                        <button type="button" onClick={() => navigate('/Login')}>Cancel</button>
                     </div>
                 </form>
             </div>
