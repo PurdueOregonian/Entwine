@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import useAuth from './hooks/useAuth';
+import { axiosPrivate } from './api/axios';
+import axios from 'axios';
 
 const LogoutButton = () => {
 
@@ -7,13 +9,14 @@ const LogoutButton = () => {
     const navigate = useNavigate();
 
     const logout = () => {
-        fetch("https://localhost:7253/Auth/Logout", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axiosPrivate.post(
+            "https://localhost:7253/Auth/Logout",
+            {},
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(() => {
                 setAuth({
                     username: undefined,
@@ -21,6 +24,12 @@ const LogoutButton = () => {
                     token: undefined
                 })
                 navigate('/Login');
+            })
+            .catch(error => {
+                if (axios.isAxiosError(error)) {
+                    // TODO actually handle the error
+                    console.error('Error:', error.message);
+                }
             });
     }
 

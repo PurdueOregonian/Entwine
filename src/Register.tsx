@@ -1,3 +1,5 @@
+import axios from "./api/axios";
+import axiosModule from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,32 +14,35 @@ const Register = () => {
         handleSubmit
     } = useForm();
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = async (formData: any) => {
 
-        // Define the API URL
         const apiUrl = 'https://localhost:7253/Auth/Register';
 
-        fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => {
-                if (response.ok) {
-                    // TODO display success message
-                    navigate('/Login');
+        try {
+            await axios.post(
+                apiUrl,
+                JSON.stringify(formData),
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            // TODO display success message
+            navigate('/Login');
+        }
+        catch (error) {
+            if (axiosModule.isAxiosError(error)) {
+                if (!error?.response) {
+                    setErrorMessage('No Server Response');
+                }
+                if (error.response?.status === 400) {
+                    setErrorMessage(error.response.statusText);
                 }
                 else {
-                    response.text().then(errorMessage => {
-                        setErrorMessage(errorMessage);
-                    })
+                    setErrorMessage('Unknown error logging in.');
                 }
-            })
-            .catch(() => {
-                setErrorMessage('An unexpected error occurred registering.');
-            });
+            }
+        }
     };
 
     return (

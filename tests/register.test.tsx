@@ -9,10 +9,7 @@ describe('Register component', () =>
             })
         ) as jest.Mock;
 
-        const mockSetDisplayModal = jest.fn();
-        render(<Register
-            setDisplayModal={mockSetDisplayModal}
-        />);
+        render(<Register />);
 
         const usernameInput = screen.getByTestId('registerUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });

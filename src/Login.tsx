@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from "./api/axios";
+import axiosModule from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "./hooks/useAuth";
@@ -27,10 +28,9 @@ const Login = () => {
                 {
                     headers: {
                         'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
+                    }
                 });
-            const token = response?.data?.accessToken;
+            const token = response?.data;
             setAuth({
                 username: formData.Username,
                 password: formData.Password,
@@ -40,7 +40,7 @@ const Login = () => {
             
         }
         catch (error) {
-            if (axios.isAxiosError(error)) {
+            if (axiosModule.isAxiosError(error)) {
                 if (!error?.response) {
                     setErrorMessage('No Server Response');
                 }

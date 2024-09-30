@@ -1,36 +1,38 @@
 import { useForm } from "react-hook-form";
 import NavHeader from "./NavHeader";
+import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import axios from "axios";
 
 function CreateProfile() {
     const {
         register,
         handleSubmit
     } = useForm();
-    const token = localStorage.getItem('token'); 
+    const axiosPrivate = useAxiosPrivate();
 
     const onSubmit = (formData: any) => {
 
-        // Define the API URL
         const apiUrl = 'https://localhost:7253/Profile/Save';
 
-        // Make a GET request
-        fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(formData)
-        })
+        axiosPrivate.post(apiUrl,
+            JSON.stringify(formData),
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
                 console.log(response);
                 return response;
             })
             .catch(error => {
-                console.error('Error:', error);
+                if (axios.isAxiosError(error)) {
+                    console.error('Error:', error.message);
+                }
             });
     };
 
