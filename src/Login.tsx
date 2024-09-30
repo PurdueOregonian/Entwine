@@ -1,6 +1,6 @@
 import axios from "./api/axios";
 import axiosModule from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "./hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ const apiUrl = 'https://localhost:7253/Auth/Login';
 
 const Login = () => {
 
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -54,9 +54,17 @@ const Login = () => {
         }
     };
 
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
     const onRegisterClicked = () => {
         navigate('/Register');
     }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist.toString());
+    }, [persist])
 
     return (
         <div id="loginModal" className="modal">
@@ -76,6 +84,14 @@ const Login = () => {
                     <div className="form-control">
                         <label></label>
                         <button type="submit">Login</button>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            onChange={togglePersist}
+                            checked={persist}
+                        />
+                        <label>Trust This Device</label>
                     </div>
                 </form>
             </div>

@@ -5,6 +5,7 @@ import MainPage from './MainPage'
 import Login from './Login'
 import Register from './Register'
 import RequireAuth from './RequireAuth'
+import PersistLogin from './PersistLogin'
 
 function App() {
     return (
@@ -13,9 +14,11 @@ function App() {
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/Register" element={<Register />} />
-                    <Route element={<RequireAuth /> }>
-                        <Route path="/CreateProfile" element={<CreateProfile />} />
-                        <Route path="/" element={<MainPage />} />
+                    <Route element={<PersistLogin />}>
+                        <Route element={<RequireAuth /> }>
+                            <Route path="/CreateProfile" element={<CreateProfile />} />
+                            <Route path="/" element={<MainPage />} />
+                        </Route>
                     </Route>
                 </Routes>
             </Router>

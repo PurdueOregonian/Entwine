@@ -4,14 +4,15 @@ import useAuth from "./useAuth";
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const refresh = async () => {
-        const response = await axios.get('/refresh',
+        // TODO handle error (server down)?
+        const response = await axios.get('https://localhost:7253/Auth/Refresh',
             {
                 withCredentials: true
             });
         setAuth(prev => {
-            return { ...prev, token: response.data.accessToken }
+            return { ...prev, token: response.data }
         })
-        return response.data.accessToken;
+        return response.data;
     }
     return refresh;
 }

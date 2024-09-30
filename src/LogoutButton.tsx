@@ -2,27 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import useAuth from './hooks/useAuth';
 import { axiosPrivate } from './api/axios';
 import axios from 'axios';
+import useLogout from './hooks/useLogout';
 
 const LogoutButton = () => {
 
-    const { setAuth } = useAuth();
+    const logout = useLogout();
     const navigate = useNavigate();
 
-    const logout = () => {
-        axiosPrivate.post(
-            "https://localhost:7253/Auth/Logout",
-            {},
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(() => {
-                setAuth({
-                    username: undefined,
-                    password: undefined,
-                    token: undefined
-                })
+    const signOut = () => {
+        logout()
+            .then(async () => {
                 navigate('/Login');
             })
             .catch(error => {
@@ -34,7 +23,7 @@ const LogoutButton = () => {
     }
 
     return (
-        <button onClick={() => logout()}>Log Out</button>
+        <button onClick={() => signOut()}>Log Out</button>
     );
 }
 
