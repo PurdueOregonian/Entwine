@@ -30,7 +30,7 @@ const Login = () => {
                         'Content-Type': 'application/json'
                     }
                 });
-            const token = response?.data;
+            const token = response?.data?.accessToken;
             setAuth({
                 username: formData.Username,
                 password: formData.Password,

@@ -5,7 +5,7 @@ const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const refresh = async () => {
         // TODO handle error (server down)?
-        const response = await axios.get('https://localhost:7253/Auth/Refresh',
+        const response = await axios.post('https://localhost:7253/Auth/Refresh',
             {
                 withCredentials: true
             });
