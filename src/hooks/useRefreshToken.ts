@@ -6,13 +6,14 @@ const useRefreshToken = () => {
     const refresh = async () => {
         // TODO handle error (server down)?
         const response = await axios.post('https://localhost:7253/Auth/Refresh',
+            {},
             {
                 withCredentials: true
             });
         setAuth(prev => {
-            return { ...prev, token: response.data }
+            return { ...prev, token: response?.data?.accessToken }
         })
-        return response.data;
+        return response?.data?.accessToken;
     }
     return refresh;
 }
