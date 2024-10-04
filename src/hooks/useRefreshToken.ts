@@ -1,11 +1,12 @@
 import axios from "../api/axios";
+import { backendUrl } from "../constants/constants";
 import useAuth from "./useAuth";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
     const refresh = async () => {
         // TODO handle error (server down)?
-        const response = await axios.post('https://localhost:7253/Auth/Refresh',
+        const response = await axios.post(`${backendUrl}/Auth/Refresh`,
             {},
             {
                 withCredentials: true

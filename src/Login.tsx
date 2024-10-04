@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "./hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const apiUrl = 'https://localhost:7253/Auth/Login';
+import { backendUrl } from "./constants/constants";
 
 const Login = () => {
 
@@ -23,7 +22,7 @@ const Login = () => {
     const onSubmit = async (formData: any) => {
         try {
             const response = await axios.post(
-                apiUrl,
+                `${backendUrl}/Auth/Login`,
                 JSON.stringify(formData),
                 {
                     headers: {

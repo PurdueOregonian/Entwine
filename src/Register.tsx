@@ -3,6 +3,7 @@ import axiosModule from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "./constants/constants";
 
 const Register = () => {
 
@@ -16,7 +17,7 @@ const Register = () => {
 
     const onSubmit = async (formData: any) => {
 
-        const apiUrl = 'https://localhost:7253/Auth/Register';
+        const apiUrl = `${backendUrl}/Auth/Register`;
 
         try {
             await axios.post(

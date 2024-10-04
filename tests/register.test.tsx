@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from '../src/Register';
+import { backendUrl } from '../src/constants/constants';
 
 describe('Register component', () => 
     test('renders the Register component', async () => {
@@ -19,7 +20,7 @@ describe('Register component', () =>
         fireEvent.click(registerSubmit);
 
         await waitFor(() => {
-            expect(global.fetch).toHaveBeenCalledWith('https://localhost:7253/Auth/Register', {
+            expect(global.fetch).toHaveBeenCalledWith(`${backendUrl}/Auth/Register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
