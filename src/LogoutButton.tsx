@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import useAuth from './hooks/useAuth';
-import { axiosPrivate } from './api/axios';
 import axios from 'axios';
 import useLogout from './hooks/useLogout';
 

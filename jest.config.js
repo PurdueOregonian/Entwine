@@ -1,7 +1,11 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 export default {
-  testEnvironment: "jsdom",
-  transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
-  },
+    testEnvironment: "jsdom",
+    transform: {
+        "^.+.tsx?$": ["ts-jest",{}],
+    },
+    testMatch: [
+        "**/tests/**/*.[jt]s?(x)"
+    ],
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
