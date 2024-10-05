@@ -1,8 +1,16 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from '../src/Register';
 import { backendUrl } from '../src/constants/constants';
+import { MemoryRouter as Router } from "react-router-dom";
+import axios from 'axios';
 
-describe('Register component', () => 
+jest.mock("axios");
+
+describe('Register component', () => {
+    beforeAll(() => {
+        (axios.post as jest.Mock).mockResolvedValue({ data: {} });
+    });
+
     test('renders the Register component', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -10,7 +18,10 @@ describe('Register component', () =>
             })
         ) as jest.Mock;
 
-        render(<Register />);
+        render(<Router>
+            <Register />
+        </Router>
+        );
 
         const usernameInput = screen.getByTestId('registerUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
@@ -20,16 +31,16 @@ describe('Register component', () =>
         fireEvent.click(registerSubmit);
 
         await waitFor(() => {
-            expect(global.fetch).toHaveBeenCalledWith(`${backendUrl}/Auth/Register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            expect(axios.post).toHaveBeenCalledWith(`${backendUrl}/Auth/Register`,
+                JSON.stringify({
                     Username: 'testuser',
                     Password: 'testpassword'
                 }),
-            });
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
         });
     })
-)
+})

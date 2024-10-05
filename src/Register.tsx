@@ -17,11 +17,9 @@ const Register = () => {
 
     const onSubmit = async (formData: any) => {
 
-        const apiUrl = `${backendUrl}/Auth/Register`;
-
         try {
             await axios.post(
-                apiUrl,
+                `${backendUrl}/Auth/Register`,
                 JSON.stringify(formData),
                 {
                     headers: {
