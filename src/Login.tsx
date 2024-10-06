@@ -67,35 +67,33 @@ const Login = () => {
     }, [persist])
 
     return (
-        <div id="loginModal" className="modal">
-            <div className="modal-content">
-                <h2>Login</h2>
-                <span>New user?</span><button onClick={onRegisterClicked}>Register</button>
-                <p style={{ color: 'red' }}>{errorMessage}</p>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>
-                        Username:
-                        <input {...register("Username")}></input>
-                    </label>
-                    <label>
-                        Password:
-                        <input {...register("Password")}></input>
-                    </label>
-                    <div className="form-control">
-                        <label></label>
-                        <button type="submit">Login</button>
-                    </div>
-                    <div>
-                        <input
-                            type="checkbox"
-                            onChange={togglePersist}
-                            checked={persist}
-                        />
-                        <label>Trust This Device</label>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <>
+            <h2>Login</h2>
+            <span>New user?</span><button onClick={onRegisterClicked}>Register</button>
+            <p style={{ color: 'red' }}>{errorMessage}</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <label>
+                    Username:
+                    <input {...register("Username")}></input>
+                </label>
+                <label>
+                    Password:
+                    <input {...register("Password")}></input>
+                </label>
+                <div className="form-control">
+                    <label></label>
+                    <button type="submit">Login</button>
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        onChange={togglePersist}
+                        checked={persist}
+                    />
+                    <label>Trust This Device</label>
+                </div>
+            </form>
+        </>
     );
 }
 

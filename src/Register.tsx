@@ -45,27 +45,25 @@ const Register = () => {
     };
 
     return (
-        <div id="loginModal" className="modal">
-            <div className="modal-content">
-                <h2>Register</h2>
-                <p style={{ color: 'red' }}>{errorMessage}</p>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>
-                        Username:
-                        <input data-testid="registerUsernameInput" {...register("Username")}></input>
-                    </label>
-                    <label>
-                        Password:
-                        <input data-testid="registerPasswordInput" {...register("Password")}></input>
-                    </label>
-                    <div className="form-control">
-                        <label></label>
-                        <button data-testid="registerSubmit" type="submit">Register</button>
-                        <button type="button" onClick={() => navigate('/Login')}>Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <>
+            <h2>Register</h2>
+            <p style={{ color: 'red' }}>{errorMessage}</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <label>
+                    Username:
+                    <input data-testid="registerUsernameInput" {...register("Username")}></input>
+                </label>
+                <label>
+                    Password:
+                    <input data-testid="registerPasswordInput" {...register("Password")}></input>
+                </label>
+                <div className="form-control">
+                    <label></label>
+                    <button data-testid="registerSubmit" type="submit">Register</button>
+                    <button type="button" onClick={() => navigate('/Login')}>Cancel</button>
+                </div>
+            </form>
+        </>
     );
 }
 
