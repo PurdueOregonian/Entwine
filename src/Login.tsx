@@ -72,16 +72,11 @@ const Login = () => {
             <span>New user?</span><button onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    Username:
-                    <input {...register("Username")}></input>
-                </label>
-                <label>
-                    Password:
-                    <input {...register("Password")}></input>
-                </label>
+                <div className="topDown center">
+                    <input className="loginField" placeholder="Username" {...register("Username")}></input>
+                    <input className="loginField" placeholder="Password" {...register("Password")}></input>
+                </div>
                 <div className="form-control">
-                    <label></label>
                     <button type="submit">Login</button>
                 </div>
                 <div>

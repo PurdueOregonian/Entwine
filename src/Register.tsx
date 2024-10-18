@@ -49,14 +49,10 @@ const Register = () => {
             <h2>Register</h2>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    Username:
-                    <input data-testid="registerUsernameInput" {...register("Username")}></input>
-                </label>
-                <label>
-                    Password:
-                    <input data-testid="registerPasswordInput" {...register("Password")}></input>
-                </label>
+                <div className="topDown center">
+                    <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
+                    <input className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
+                </div>
                 <div className="form-control">
                     <label></label>
                     <button data-testid="registerSubmit" type="submit">Register</button>
