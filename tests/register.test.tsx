@@ -9,20 +9,22 @@ jest.mock('../src/api/axios');
 describe('Register component', () => {
     beforeAll(() => {
         (axios.post as jest.Mock).mockResolvedValue({ data: {} });
-    });
-
-    test('renders the Register component', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true
             })
         ) as jest.Mock;
+    });
 
+    beforeEach(() => {
+        jest.clearAllMocks();
         render(<Router>
             <Register />
         </Router>
         );
+    })
 
+    test('renders the Register component', async () => {
         const usernameInput = screen.getByTestId('registerUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
         const passwordInput = screen.getByTestId('registerPasswordInput');
@@ -44,5 +46,18 @@ describe('Register component', () => {
                     },
                 });
         });
+    })
+
+    test('does not register if passwords do not match', async () => {
+        const usernameInput = screen.getByTestId('registerUsernameInput');
+        fireEvent.change(usernameInput, { target: { value: 'testuser' } });
+        const passwordInput = screen.getByTestId('registerPasswordInput');
+        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+        const passwordConfirmInput = screen.getByTestId('registerConfirmPasswordInput');
+        fireEvent.change(passwordConfirmInput, { target: { value: 'nottestpassword' } });
+        const registerSubmit = screen.getByTestId('registerSubmit');
+        fireEvent.click(registerSubmit);
+
+        expect(axios.post).not.toHaveBeenCalled();
     })
 })

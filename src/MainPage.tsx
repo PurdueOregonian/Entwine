@@ -5,7 +5,7 @@ function MainPage() {
         <>
             <NavHeader />
             <div className="MainPage">
-                <p>Main page stuff</p>
+                <span>Main page stuff</span>
             </div>
         </>
     );
