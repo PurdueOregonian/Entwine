@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import Register from '../src/Register';
 import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
@@ -56,7 +56,7 @@ describe('Register component', () => {
         const passwordConfirmInput = screen.getByTestId('registerConfirmPasswordInput');
         fireEvent.change(passwordConfirmInput, { target: { value: 'nottestpassword' } });
         const registerSubmit = screen.getByTestId('registerSubmit');
-        fireEvent.click(registerSubmit);
+        await act(async () => fireEvent.click(registerSubmit));
 
         expect(axios.post).not.toHaveBeenCalled();
     })
