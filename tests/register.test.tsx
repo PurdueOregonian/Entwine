@@ -27,6 +27,8 @@ describe('Register component', () => {
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
         const passwordInput = screen.getByTestId('registerPasswordInput');
         fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+        const passwordConfirmInput = screen.getByTestId('registerConfirmPasswordInput');
+        fireEvent.change(passwordConfirmInput, { target: { value: 'testpassword' } });
         const registerSubmit = screen.getByTestId('registerSubmit');
         fireEvent.click(registerSubmit);
 

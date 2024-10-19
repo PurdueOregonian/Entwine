@@ -69,18 +69,19 @@ const Login = () => {
     return (
         <>
             <h2>Login</h2>
-            <span>New user?</span><button onClick={onRegisterClicked}>Register</button>
+            <span>New user?</span><button className="register button" onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="topDown center">
+                <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" {...register("Username")}></input>
-                    <input className="loginField" placeholder="Password" {...register("Password")}></input>
+                    <input type="password" className="loginField" placeholder="Password" {...register("Password")}></input>
                 </div>
                 <div className="form-control">
-                    <button type="submit">Login</button>
+                    <button className="login button" type="submit">Login</button>
                 </div>
-                <div>
+                <div className="alignHorizontal center">
                     <input
+                        className="checkbox"
                         type="checkbox"
                         onChange={togglePersist}
                         checked={persist}

@@ -8,7 +8,18 @@ import { backendUrl } from "./constants/constants";
 const Register = () => {
 
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('');
+    const [message, setMessage] = useState('');
+    const [messageColor, setMessageColor] = useState('green');
+
+    const setErrorMessage = (theMessage: string) => {
+        setMessage(theMessage);
+        setMessageColor('red');
+    }
+
+    const setSuccessMessage = (theMessage: string) => {
+        setMessage(theMessage);
+        setMessageColor('green');
+    }
 
     const {
         register,
@@ -18,16 +29,24 @@ const Register = () => {
     const onSubmit = async (formData: any) => {
 
         try {
-            await axios.post(
-                `${backendUrl}/Auth/Register`,
-                JSON.stringify(formData),
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-            // TODO display success message
-            navigate('/Login');
+            if (formData.Password === formData.ConfirmPassword) {
+                await axios.post(
+                    `${backendUrl}/Auth/Register`,
+                    JSON.stringify({
+                        Username: formData.Username,
+                        Password: formData.Password
+                    }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                setSuccessMessage('Successfully registered! Redirecting...');
+                setTimeout(() => navigate('/Login'), 2000)
+            }
+            else {
+                setErrorMessage('Passwords do not match');
+            }
         }
         catch (error) {
             if (axiosModule.isAxiosError(error)) {
@@ -35,7 +54,7 @@ const Register = () => {
                     setErrorMessage('No Server Response');
                 }
                 if (error.response?.status === 400) {
-                    setErrorMessage(error.response.statusText);
+                    setErrorMessage(error.response.data);
                 }
                 else {
                     setErrorMessage('Unknown error logging in.');
@@ -47,16 +66,16 @@ const Register = () => {
     return (
         <>
             <h2>Register</h2>
-            <p style={{ color: 'red' }}>{errorMessage}</p>
+            <p style={{ color: messageColor }}>{message}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="topDown center">
+                <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
                     <input className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
+                    <input className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>
                 </div>
-                <div className="form-control">
-                    <label></label>
-                    <button data-testid="registerSubmit" type="submit">Register</button>
-                    <button type="button" onClick={() => navigate('/Login')}>Cancel</button>
+                <div className="form-control alignVertical center">
+                    <button className="login button" data-testid="registerSubmit" type="submit">Register</button>
+                    <button className="login button" type="button" onClick={() => navigate('/Login')}>Cancel</button>
                 </div>
             </form>
         </>

@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+button, input, span, label, h2 {
+    font-family: 'Segoe UI', sans-serif;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -61,11 +65,47 @@
     border-radius: 5px;
 }
 
-.center {
-    align-items: center;
+.button {
+    height: 40px;
+    font-size: 20px;
+    border-radius: 20px;
+    padding: 0;
+    background-color: dodgerblue;
+    cursor: pointer;
+    margin: 5px;
 }
 
-.topDown {
+.button:hover {
+    background-color: lightblue;
+}
+
+.register {
+    width: 120px;
+}
+
+.login {
+    width: 300px;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+}
+
+.alignVertical {
     display: flex;
     flex-direction: column;
+}
+
+.alignHorizontal {
+    display: flex;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.margin-bottom20{
+    margin-bottom: 20px;
 }
