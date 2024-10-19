@@ -57,6 +57,24 @@ button, input, span, label, h1, h2 {
   font-size: 16px;
 }
 
+.passwordContainer {
+    position: relative;
+    width: 300px;
+    justify-content: center;
+}
+
+.passwordIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.passwordField {
+    padding-right: 30px;
+}
+
 .loginField {
     width: 300px;
     height: 40px;

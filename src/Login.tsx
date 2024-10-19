@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import useAuth from "./hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { backendUrl } from "./constants/constants";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
 
@@ -13,6 +15,7 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const [errorMessage, setErrorMessage] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const {
         register,
@@ -74,7 +77,12 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" {...register("Username")}></input>
-                    <input type="password" className="loginField" placeholder="Password" {...register("Password")}></input>
+                    <div className="passwordContainer alignHorizontal">
+                        <input type={passwordVisible ? "text" : "password"} className="loginField passwordField" placeholder="Password" {...register("Password")}></input>
+                        {passwordVisible
+                            ? <VisibilityIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />
+                            : <VisibilityOffIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />}
+                    </div>
                 </div>
                 <div className="form-control">
                     <button className="login button" type="submit">Login</button>
