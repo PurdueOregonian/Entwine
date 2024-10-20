@@ -11,12 +11,10 @@ const NavHeader = () => {
                 <span>{`Logged in as ${auth.username}`}</span>
                 <LogoutButton />
             </div>
-            <header className="App-header">
-                <h1>Friends</h1>
-            </header>
-            <div className="Menu">
-                <button onClick={() => navigate('/')}>Home</button>
-                <button onClick={() => navigate('/CreateProfile')}>Create Profile</button>
+            <div className="alignHorizontal topBar">
+                <div className="siteTitle">Friends</div>
+                <a className="navLink" onClick={() => navigate('/')}>Home</a>
+                <a className="navLink" onClick={() => navigate('/CreateProfile')}>Create Profile</a>
             </div>
         </>)
 }
