@@ -4,7 +4,7 @@ function MainPage() {
     return (
         <>
             <NavHeader />
-            <div className="MainPage">
+            <div>
                 <span>Main page stuff</span>
             </div>
         </>

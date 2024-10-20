@@ -27,7 +27,6 @@ function Profile() {
                 if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                console.log(response);
                 return response;
             })
             .catch(error => {
@@ -40,7 +39,7 @@ function Profile() {
     return (
         <>
             <NavHeader />
-            <div className="Profile">
+            <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>
                         Name:
@@ -52,7 +51,7 @@ function Profile() {
                     </label>
                     <div className="form-control">
                         <label></label>
-                        <button type="submit">Save</button>
+                        <button className="button save" type="submit">Save</button>
                     </div>
                 </form>
             </div>
