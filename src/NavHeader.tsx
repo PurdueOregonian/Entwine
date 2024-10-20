@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LogoutButton from "./Login/LogoutButton";
+import LogoutButton from "./Auth/LogoutButton";
 import useAuth from "./hooks/useAuth";
 
 const NavHeader = () => {
