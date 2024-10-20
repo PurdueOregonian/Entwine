@@ -76,16 +76,16 @@ const Login = () => {
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">
-                    <input className="loginField" placeholder="Username" {...register("Username")}></input>
+                    <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
                     <div className="passwordContainer alignHorizontal">
-                        <input type={passwordVisible ? "text" : "password"} className="loginField passwordField" placeholder="Password" {...register("Password")}></input>
+                        <input type={passwordVisible ? "text" : "password"} className="loginField passwordField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
                         {passwordVisible
                             ? <VisibilityIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />
                             : <VisibilityOffIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />}
                     </div>
                 </div>
                 <div className="form-control">
-                    <button className="login button" type="submit">Login</button>
+                    <button className="login button" type="submit" data-testid="loginSubmit">Login</button>
                 </div>
                 <div className="alignHorizontal center">
                     <input
