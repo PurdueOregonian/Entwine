@@ -4,7 +4,7 @@ import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "./constants/constants";
 
-function CreateProfile() {
+function Profile() {
     const {
         register,
         handleSubmit
@@ -40,7 +40,7 @@ function CreateProfile() {
     return (
         <>
             <NavHeader />
-            <div className="CreateProfile">
+            <div className="Profile">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>
                         Name:
@@ -60,4 +60,4 @@ function CreateProfile() {
     );
 }
 
-export default CreateProfile;
+export default Profile;
