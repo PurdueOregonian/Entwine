@@ -127,7 +127,9 @@
 .topBar {
   margin-top: 12px;
   margin-bottom: 12px;
+  padding-bottom: 12px;
   align-items: center;
+  border-bottom: 2px solid black;
 }
 
 .siteTitle {
