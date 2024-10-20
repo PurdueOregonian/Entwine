@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import axios from '../src/api/axios';
-import Login from '../src/Login';
+import Login from '../src/Login/Login';
 
 jest.mock('../src/api/axios');
 

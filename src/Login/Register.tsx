@@ -1,9 +1,9 @@
-import axios from "./api/axios";
+import axios from "../api/axios";
 import axiosModule from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { backendUrl } from "./constants/constants";
+import { backendUrl } from "../constants/constants";
 
 const Register = () => {
 

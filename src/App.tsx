@@ -2,10 +2,10 @@ import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Profile from './Profile'
 import MainPage from './MainPage'
-import Login from './Login'
-import Register from './Register'
-import RequireAuth from './RequireAuth'
-import PersistLogin from './PersistLogin'
+import Login from './Login/Login'
+import Register from './Login/Register'
+import RequireAuth from './Login/RequireAuth'
+import PersistLogin from './Login/PersistLogin'
 
 function App() {
     return (

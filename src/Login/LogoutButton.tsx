@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import useLogout from './hooks/useLogout';
+import useLogout from '../hooks/useLogout';
 
 const LogoutButton = () => {
 

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import Register from '../src/Register';
+import Register from '../src/Login/Register';
 import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import axios from '../src/api/axios';

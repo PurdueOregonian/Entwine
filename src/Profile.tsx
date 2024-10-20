@@ -39,8 +39,8 @@ function Profile() {
     return (
         <>
             <NavHeader />
-            <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="alignVertical">
                     <label>
                         Name:
                         <input {...register("Name") }></input>
@@ -53,8 +53,8 @@ function Profile() {
                         <label></label>
                         <button className="button save" type="submit">Save</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </>
     );
 }

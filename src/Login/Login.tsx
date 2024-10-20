@@ -1,10 +1,10 @@
-import axios from "./api/axios";
+import axios from "../api/axios";
 import axiosModule from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "./hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { backendUrl } from "./constants/constants";
+import { backendUrl } from "../constants/constants";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
