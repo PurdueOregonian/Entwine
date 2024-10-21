@@ -4,8 +4,13 @@ import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "./constants/constants";
 import DatePicker from "./DatePicker";
+import { useState } from "react";
 
 function Profile() {
+    const [month, setMonth] = useState('');
+    const [day, setDay] = useState('');
+    const [year, setYear] = useState('');
+
     const {
         register,
         handleSubmit
@@ -43,7 +48,14 @@ function Profile() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical">
                     <label>Date of Birth</label>
-                    <DatePicker />
+                    <DatePicker
+                        month={month}
+                        day={day}
+                        year={year}
+                        setMonth={setMonth}
+                        setDay={setDay}
+                        setYear={setYear}
+                    />
                     <label>
                         Name:
                         <input {...register("Name") }></input>

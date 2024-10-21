@@ -1,11 +1,17 @@
-import { useState } from "react";
 import InputWithValidation from "./InputWithValidation";
 
-const DatePicker = () => {
-    const [month, setMonth] = useState('');
-    const [day, setDay] = useState('');
-    const [year, setYear] = useState('');
+type DatePickerProps = {
+    month: string;
+    day: string;
+    year: string;
+    setMonth: React.Dispatch<React.SetStateAction<string>>;
+    setDay: React.Dispatch<React.SetStateAction<string>>;
+    setYear: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const DatePicker: React.FC<DatePickerProps> = ({
+    month, day, year, setMonth, setDay, setYear
+}) => {
     const validateMonth = (input: string) => {
         return /^(0?[1-9]|1[0-2])?$/.test(input);
     }
