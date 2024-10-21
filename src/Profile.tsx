@@ -3,6 +3,7 @@ import NavHeader from "./NavHeader";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "./constants/constants";
+import DatePicker from "./DatePicker";
 
 function Profile() {
     const {
@@ -41,6 +42,8 @@ function Profile() {
             <NavHeader />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical">
+                    <label>Date of Birth</label>
+                    <DatePicker />
                     <label>
                         Name:
                         <input {...register("Name") }></input>
