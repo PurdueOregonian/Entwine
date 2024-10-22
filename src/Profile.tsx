@@ -5,6 +5,7 @@ import axios from "axios";
 import { backendUrl } from "./constants/constants";
 import DatePicker from "./DatePicker";
 import { useState } from "react";
+import RectangleSelector from "./RectangleSelector";
 
 function Profile() {
     const [month, setMonth] = useState('');
@@ -46,19 +47,28 @@ function Profile() {
         <>
             <NavHeader />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical">
-                    <label>Date of Birth</label>
-                    <DatePicker
-                        month={month}
-                        day={day}
-                        year={year}
-                        setMonth={setMonth}
-                        setDay={setDay}
-                        setYear={setYear}
-                    />
+                <div className="alignVertical center">
+                    <div className="alignHorizontal center gap10">
+                        <label>Date of Birth</label>
+                        <DatePicker
+                            month={month}
+                            day={day}
+                            year={year}
+                            setMonth={setMonth}
+                            setDay={setDay}
+                            setYear={setYear}
+                        />
+                    </div>
+                    <div className="alignHorizontal center gap10">
+                        <label>Gender</label>
+                        <RectangleSelector
+                            labels={["Male", "Female", "Other"]}
+                            onSelect={() => { }}
+                        />
+                    </div>
                     <label>
                         Name:
-                        <input {...register("Name") }></input>
+                        <input {...register("Name")}></input>
                     </label>
                     <label>
                         Interest:

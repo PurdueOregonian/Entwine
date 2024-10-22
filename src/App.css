@@ -145,7 +145,7 @@ input {
   margin-bottom: 12px;
   padding-bottom: 12px;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid lightgray;
 }
 
 .siteTitle {
@@ -162,4 +162,22 @@ input {
 
 .navLink:hover {
   color: dodgerblue;
+}
+
+.rectangleSelectorOption {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: 2px solid skyblue;
+  color: white;
+  cursor: pointer;
+}
+
+.rectangleSelectorUnselected {
+  background-color: lightblue;
+}
+
+.rectangleSelectorSelected {
+  background-color: dodgerblue;
 }
