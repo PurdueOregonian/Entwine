@@ -11,36 +11,40 @@ function Profile() {
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [year, setYear] = useState('');
+    const [gender, setGender] = useState('');
 
     const {
-        register,
         handleSubmit
     } = useForm();
     const axiosPrivate = useAxiosPrivate();
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = () => {
+        const dateOfBirth = `${year}-${month}-${day}`;
+
+        const dataToSubmit = {
+            DateOfBirth: dateOfBirth,
+            Gender: gender
+        };
 
         const apiUrl = `${backendUrl}/Profile/Save`;
 
-        axiosPrivate.post(apiUrl,
-            JSON.stringify(formData),
-            {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.status !== 200) {
-                    throw new Error('Network response was not ok');
-                }
-                return response;
-            })
-            .catch(error => {
-                if (axios.isAxiosError(error)) {
-                    console.error('Error:', error.message);
-                }
-            });
+        axiosPrivate.post(apiUrl, JSON.stringify(dataToSubmit), {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.status !== 200) {
+                throw new Error('Network response was not ok');
+            }
+            return response;
+        })
+        .catch(error => {
+            if (axios.isAxiosError(error)) {
+                console.error('Error:', error.message);
+            }
+        });
     };
 
     return (
@@ -63,17 +67,9 @@ function Profile() {
                         <label>Gender</label>
                         <RectangleSelector
                             labels={["Male", "Female", "Other"]}
-                            onSelect={() => { }}
+                            onSelect={(gender: string) => { setGender(gender) }}
                         />
                     </div>
-                    <label>
-                        Name:
-                        <input {...register("Name")}></input>
-                    </label>
-                    <label>
-                        Interest:
-                        <input {...register("Interest")}></input>
-                    </label>
                     <div className="form-control">
                         <label></label>
                         <button className="button save" type="submit">Save</button>
