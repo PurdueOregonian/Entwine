@@ -94,7 +94,7 @@ const Login = () => {
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label>Trust This Device</label>
+                    <label className="checkboxLabel" onClick={togglePersist}>Trust This Device</label>
                 </div>
             </form>
         </>

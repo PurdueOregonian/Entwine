@@ -130,6 +130,11 @@ input {
 .checkbox {
     width: 20px;
     height: 20px;
+    cursor: pointer;
+}
+
+.checkboxLabel {
+  cursor: pointer;
 }
 
 .margin-bottom20{
