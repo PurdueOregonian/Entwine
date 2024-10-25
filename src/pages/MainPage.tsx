@@ -1,4 +1,4 @@
-import NavHeader from "./NavHeader";
+import NavHeader from "../components/NavHeader";
 
 function MainPage() {
     return (

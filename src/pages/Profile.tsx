@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import NavHeader from "./NavHeader";
-import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import NavHeader from "../components/NavHeader";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
-import { backendUrl } from "./constants/constants";
-import DatePicker from "./DatePicker";
+import { backendUrl } from "../constants/constants";
+import DatePicker from "../components/DatePicker";
 import { useState } from "react";
-import RectangleSelector from "./RectangleSelector";
+import RectangleSelector from "../components/RectangleSelector";
 import { Typography } from "@mui/material";
 
 function Profile() {

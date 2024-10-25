@@ -1,12 +1,12 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Profile from './Profile'
-import MainPage from './MainPage'
+import Profile from './pages/Profile'
+import MainPage from './pages/MainPage'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import RequireAuth from './Auth/RequireAuth'
 import PersistLogin from './Auth/PersistLogin'
-import Search from './Search'
+import Search from './pages/Search'
 
 function App() {
     return (

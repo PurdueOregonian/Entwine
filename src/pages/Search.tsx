@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
-import IntegerSliderRangeSelect from "./IntegerSliderRangeSelect";
-import NavHeader from "./NavHeader";
+import IntegerSliderRangeSelect from "../components/IntegerSliderRangeSelect";
+import NavHeader from "../components/NavHeader";
 import { useState } from "react";
-import MultipleRectangleSelector from "./MultipleRectangleSelector";
+import MultipleRectangleSelector from "../components/MultipleRectangleSelector";
 
 function Search() {
     const [minAge, setMinAge] = useState(18);

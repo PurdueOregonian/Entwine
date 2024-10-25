@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
-import Profile from '../src/Profile';
+import Profile from '../src/pages/Profile';
 import { axiosPrivate } from '../src/api/axios';
 
 jest.mock('../src/api/axios');
