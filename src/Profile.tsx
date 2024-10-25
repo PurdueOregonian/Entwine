@@ -6,6 +6,7 @@ import { backendUrl } from "./constants/constants";
 import DatePicker from "./DatePicker";
 import { useState } from "react";
 import RectangleSelector from "./RectangleSelector";
+import { Typography } from "@mui/material";
 
 function Profile() {
     const [month, setMonth] = useState('');
@@ -53,7 +54,7 @@ function Profile() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center">
                     <div className="alignHorizontal center gap10">
-                        <label>Date of Birth</label>
+                        <Typography>Date of Birth</Typography>
                         <DatePicker
                             month={month}
                             day={day}
@@ -64,14 +65,13 @@ function Profile() {
                         />
                     </div>
                     <div className="alignHorizontal center gap10">
-                        <label>Gender</label>
+                        <Typography>Gender</Typography>
                         <RectangleSelector
                             labels={["Male", "Female", "Other"]}
                             onSelect={(gender: string) => { setGender(gender) }}
                         />
                     </div>
                     <div className="form-control">
-                        <label></label>
                         <button className="button save" type="submit" data-testid="saveProfile">Save</button>
                     </div>
                 </div>
