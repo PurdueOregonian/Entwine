@@ -72,7 +72,7 @@ function Profile() {
                     </div>
                     <div className="form-control">
                         <label></label>
-                        <button className="button save" type="submit">Save</button>
+                        <button className="button save" type="submit" data-testid="saveProfile">Save</button>
                     </div>
                 </div>
             </form>

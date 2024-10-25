@@ -17,6 +17,7 @@ const RectangleSelector: React.FC<RectangleSelectorProps> = ({ labels, onSelect 
         <div style={{ display: 'flex' }}>
             {labels.map((label) => (
                 <div
+                    data-testid={`rectangleSelector-${label}`}
                     className={"rectangleSelectorOption " + (selected === label ? "rectangleSelectorSelected" : "rectangleSelectorUnselected")}
                     key={label}
                     onClick={() => handleClick(label)}

@@ -6,6 +6,7 @@ import Login from './Auth/Login'
 import Register from './Auth/Register'
 import RequireAuth from './Auth/RequireAuth'
 import PersistLogin from './Auth/PersistLogin'
+import Search from './Search'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route element={<PersistLogin />}>
                         <Route element={<RequireAuth /> }>
                             <Route path="/Profile" element={<Profile />} />
+                            <Route path="/Search" element={<Search />} />
                             <Route path="/" element={<MainPage />} />
                         </Route>
                     </Route>

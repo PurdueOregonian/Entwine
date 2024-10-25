@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 type InputWithValidationProps = {
+    testId: string;
     placeholder: string;
     input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
@@ -8,7 +9,7 @@ type InputWithValidationProps = {
 }
 
 const InputWithValidation: React.FC<InputWithValidationProps> = ({
-    placeholder, input, setInput, validateInput
+    testId, placeholder, input, setInput, validateInput
 }) => {
 
     const [isValid, setIsValid] = useState(true);
@@ -28,6 +29,7 @@ const InputWithValidation: React.FC<InputWithValidationProps> = ({
 
     return (
         <input
+            data-testid={testId}
             type="text"
             value={input}
             onChange={handleInputChange}

@@ -145,6 +145,10 @@ input {
   gap: 10px;
 }
 
+.gap20{
+  gap: 20px;
+}
+
 .topBar {
   margin-top: 12px;
   margin-bottom: 12px;

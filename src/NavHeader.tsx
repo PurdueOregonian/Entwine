@@ -15,6 +15,7 @@ const NavHeader = () => {
                 <div className="siteTitle">Friends</div>
                 <a className="navLink" onClick={() => navigate('/')}>Home</a>
                 <a className="navLink" onClick={() => navigate('/Profile')}>Profile</a>
+                <a className="navLink" onClick={() => navigate('/Search')}>Search</a>
             </div>
         </>)
 }
