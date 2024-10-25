@@ -149,6 +149,21 @@ input {
   gap: 20px;
 }
 
+.activeNavBarLink {
+  position: relative;
+  color: dodgerblue;
+}
+
+.activeNavBarLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  background-color: dodgerblue;
+}
+
 .topBar {
   margin-top: 12px;
   margin-bottom: 12px;
