@@ -1,13 +1,14 @@
 import React from 'react';
 
-type RectangleSelectorProps = {
-    labels: string[];
-    selected: string | null;
-    setSelected: React.Dispatch<React.SetStateAction<string>>;
+type RectangleSelectorProps<T extends string> = {
+    labels: T[];
+    selected: T | null;
+    setSelected: React.Dispatch<React.SetStateAction<T | null>>;
 };
 
-const RectangleSelector: React.FC<RectangleSelectorProps> = ({ labels, selected, setSelected }) => {
-    const handleClick = (label: string) => {
+const RectangleSelector = <T extends string>(props: RectangleSelectorProps<T>): React.ReactElement => {
+    const {labels, selected, setSelected} = props;
+    const handleClick = (label: T) => {
         setSelected(label);
     };
 

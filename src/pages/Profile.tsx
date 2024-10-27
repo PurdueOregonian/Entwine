@@ -7,13 +7,14 @@ import DatePicker from "../components/DatePicker";
 import { useEffect, useState } from "react";
 import RectangleSelector from "../components/RectangleSelector";
 import { Typography } from "@mui/material";
-import { RetrievedProfileData } from "../RetrievedProfileData";
+import { RetrievedProfileData } from "../types/RetrievedProfileData";
+import { Gender } from "../types/Gender";
 
 function Profile() {
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [year, setYear] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
 
     const {
@@ -76,7 +77,7 @@ function Profile() {
                     setMonth('');
                     setDay('');
                 }
-                setGender(data.gender ?? '');
+                setGender(data.gender ?? null);
                 setLoaded(true);
             })
             .catch(error => {

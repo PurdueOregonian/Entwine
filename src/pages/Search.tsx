@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { backendUrl } from "../constants/constants";
 import axios from "axios";
-import { SearchResultProfileData } from "../SearchResultProfileData";
+import { SearchResultProfileData } from "../types/SearchResultProfileData";
 
 function Search() {
     const [minAge, setMinAge] = useState(18);
