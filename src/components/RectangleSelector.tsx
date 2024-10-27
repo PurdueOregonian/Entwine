@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 type RectangleSelectorProps = {
     labels: string[];
-    onSelect: (selected: string) => void;
+    selected: string | null;
+    setSelected: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const RectangleSelector: React.FC<RectangleSelectorProps> = ({ labels, onSelect }) => {
-    const [selected, setSelected] = useState<string | null>(null);
-
+const RectangleSelector: React.FC<RectangleSelectorProps> = ({ labels, selected, setSelected }) => {
     const handleClick = (label: string) => {
         setSelected(label);
-        onSelect(label);
     };
 
     return (

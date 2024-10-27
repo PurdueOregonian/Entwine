@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 type MultipleRectangleSelectorProps = {
     labels: string[];
-    onSelect: (selected: string[]) => void;
+    selected: string[];
+    setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const MultipleRectangleSelector: React.FC<MultipleRectangleSelectorProps> = ({ labels, onSelect }) => {
-    const [selected, setSelected] = useState<string[]>([]);
-
+const MultipleRectangleSelector: React.FC<MultipleRectangleSelectorProps> = ({ labels, selected, setSelected }) => {
     const handleClick = (label: string) => {
         setSelected((prevSelected) => {
             let newSelected;
@@ -16,7 +15,6 @@ const MultipleRectangleSelector: React.FC<MultipleRectangleSelectorProps> = ({ l
             } else {
                 newSelected = [...prevSelected, label];
             }
-            onSelect(newSelected);
             return newSelected;
         });
     };
