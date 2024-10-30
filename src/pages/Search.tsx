@@ -8,8 +8,11 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { backendUrl } from "../constants/constants";
 import axios from "axios";
 import { SearchResultProfileData } from "../types/SearchResultProfileData";
+import { useNavigate } from "react-router-dom";
 
 function Search() {
+    const navigate = useNavigate();
+
     const [minAge, setMinAge] = useState(18);
     const [maxAge, setMaxAge] = useState(100);
     const [genders, setGenders] = useState<string[]>([]);
@@ -53,6 +56,7 @@ function Search() {
             });
     };
 
+    // TODO replace results with links to profiles and/or more info
     return (
         <>
             <NavHeader />
@@ -84,7 +88,9 @@ function Search() {
             </form>
             <div>
                 {usernames.map((username, index) => (
-                    <Typography key={index}>{username}</Typography>
+                    <a key={index} onClick={() => navigate(`/Profile/${username}`)}>
+                        {username}
+                    </a>
                 ))}
             </div>
         </>
