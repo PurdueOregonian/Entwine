@@ -5,7 +5,7 @@ import { backendUrl } from "../constants/constants";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { Gender } from "../types/Gender";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RetrievedOtherProfileData } from "../types/RetrievedOtherProfileData";
 
 function OtherUserProfile() {
@@ -13,6 +13,7 @@ function OtherUserProfile() {
     const [age, setAge] = useState<number | null>(null);
     const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
+    const navigate = useNavigate();
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -32,6 +33,9 @@ function OtherUserProfile() {
                 return response.data;
             })
             .then((data: RetrievedOtherProfileData) => {
+                if(data.age === null && data.gender === null){
+                    navigate('/NotFound');
+                }
                 setAge(data.age);
                 setGender(data.gender ?? null);
                 setLoaded(true);

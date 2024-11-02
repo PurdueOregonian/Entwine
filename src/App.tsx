@@ -8,6 +8,7 @@ import RequireAuth from './Auth/RequireAuth'
 import PersistLogin from './Auth/PersistLogin'
 import Search from './pages/Search'
 import OtherUserProfile from './pages/OtherUserProfile'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                             <Route path="/Profile/:username" element={<OtherUserProfile />} />
                             <Route path="/Search" element={<Search />} />
                             <Route path="/" element={<MainPage />} />
+                            <Route path="*" element={<NotFoundPage />} />
                         </Route>
                     </Route>
                 </Routes>
