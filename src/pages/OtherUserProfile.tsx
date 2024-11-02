@@ -48,6 +48,7 @@ function OtherUserProfile() {
             <NavHeader />
             {loaded &&
                 <div className="alignVertical center">
+                    <Typography variant="h4">{username}</Typography>
                     <div className="alignHorizontal center gap10">
                         <Typography>Age</Typography>
                         <Typography>{age}</Typography>
