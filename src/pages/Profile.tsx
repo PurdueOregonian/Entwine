@@ -10,6 +10,8 @@ import RectangleSelector from "../components/RectangleSelector";
 import { Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
+import ColoredMessage from "../components/ColoredMessage";
+import { ColoredMessageData } from "../types/ColoredMessageData";
 
 function Profile() {
     const [month, setMonth] = useState('');
@@ -17,6 +19,7 @@ function Profile() {
     const [year, setYear] = useState('');
     const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
+    const [coloredMessageData, setColoredMessageData] = useState<ColoredMessageData>({});
 
     const {
         handleSubmit
@@ -40,12 +43,19 @@ function Profile() {
             }
         })
             .then(response => {
-                if (response.status !== 200) {
-                    throw new Error('Network response was not ok');
-                }
+                setColoredMessageData({
+                    color: 'green',
+                    message: 'Successfully saved!',
+                    vanishAfter: 3000
+                });
                 return response;
             })
             .catch(error => {
+                setColoredMessageData({
+                    color: 'red',
+                    message: 'Error saving profile',
+                    vanishAfter: 3000
+                });
                 if (axios.isAxiosError(error)) {
                     console.error('Error:', error.message);
                 }
@@ -113,10 +123,15 @@ function Profile() {
                                 setSelected={setGender}
                             />
                         </div>
-                        <Location />
+                        <Location
+                            location="TODO some bogus city"
+                        />
                         <div className="form-control">
                             <button className="button" type="submit" data-testid="saveProfile">Save</button>
                         </div>
+                        <ColoredMessage
+                            data={coloredMessageData}
+                        />
                     </div>
                 </form>
             }

@@ -4,22 +4,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../constants/constants";
+import { ColoredMessageData } from "../types/ColoredMessageData";
+import ColoredMessage from "../components/ColoredMessage";
 
 const Register = () => {
 
     const navigate = useNavigate();
-    const [message, setMessage] = useState('');
-    const [messageColor, setMessageColor] = useState('green');
-
-    const setErrorMessage = (theMessage: string) => {
-        setMessage(theMessage);
-        setMessageColor('red');
-    }
-
-    const setSuccessMessage = (theMessage: string) => {
-        setMessage(theMessage);
-        setMessageColor('green');
-    }
+    const [coloredMessageData, setColoredMessageData] = useState<ColoredMessageData>({});
 
     const {
         register,
@@ -41,23 +32,38 @@ const Register = () => {
                             'Content-Type': 'application/json'
                         }
                     });
-                setSuccessMessage('Successfully registered! Redirecting...');
+                setColoredMessageData({
+                    color: 'green',
+                    message: 'Successfully registered! Redirecting...'
+                });
                 setTimeout(() => navigate('/Login'), 2000)
             }
             else {
-                setErrorMessage('Passwords do not match');
+                setColoredMessageData({
+                    color: 'red',
+                    message: 'Passwords do not match'
+                });
             }
         }
         catch (error) {
             if (axiosModule.isAxiosError(error)) {
                 if (!error?.response) {
-                    setErrorMessage('No Server Response');
+                    setColoredMessageData({
+                        color: 'red',
+                        message: 'No Server Response'
+                    });
                 }
                 if (error.response?.status === 400) {
-                    setErrorMessage(error.response.data);
+                    setColoredMessageData({
+                        color: 'red',
+                        message: error.response.data
+                    });
                 }
                 else {
-                    setErrorMessage('Unknown error logging in.');
+                    setColoredMessageData({
+                        color: 'red',
+                        message: 'Unknown error logging in.'
+                    });
                 }
             }
         }
@@ -66,7 +72,9 @@ const Register = () => {
     return (
         <>
             <h2>Register</h2>
-            <p style={{ color: messageColor }}>{message}</p>
+            <ColoredMessage
+                data={coloredMessageData}
+            />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
