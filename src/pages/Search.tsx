@@ -82,15 +82,17 @@ function Search() {
                         />
                     </div>
                     <div className="form-control">
-                        <button className="button search" type="submit" data-testid="searchProfiles">Search</button>
+                        <button className="button" type="submit" data-testid="searchProfiles">Search</button>
                     </div>
                 </div>
             </form>
             <div>
                 {usernames.map((username, index) => (
-                    <a key={index} onClick={() => navigate(`/Profile/${username}`)}>
-                        {username}
-                    </a>
+                    <div key={index}>
+                        <a className="navLink" onClick={() => navigate(`/Profile/${username}`)}>
+                            {username}
+                        </a>
+                    </div>
                 ))}
             </div>
         </>

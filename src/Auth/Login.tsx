@@ -72,7 +72,7 @@ const Login = () => {
     return (
         <>
             <h2>Login</h2>
-            <span>New user?</span><button className="register button" onClick={onRegisterClicked}>Register</button>
+            <span>New user?</span><button className="button" onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">
@@ -85,7 +85,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="form-control">
-                    <button className="login button" type="submit" data-testid="loginSubmit">Login</button>
+                    <button className="button" type="submit" data-testid="loginSubmit">Login</button>
                 </div>
                 <div className="alignHorizontal center">
                     <input

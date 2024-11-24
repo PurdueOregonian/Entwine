@@ -4,6 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "../constants/constants";
 import DatePicker from "../components/DatePicker";
+import Location from "../components/Location";
 import { useEffect, useState } from "react";
 import RectangleSelector from "../components/RectangleSelector";
 import { Typography } from "@mui/material";
@@ -112,8 +113,9 @@ function Profile() {
                                 setSelected={setGender}
                             />
                         </div>
+                        <Location />
                         <div className="form-control">
-                            <button className="button save" type="submit" data-testid="saveProfile">Save</button>
+                            <button className="button" type="submit" data-testid="saveProfile">Save</button>
                         </div>
                     </div>
                 </form>

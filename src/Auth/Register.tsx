@@ -70,12 +70,12 @@ const Register = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
-                    <input className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
-                    <input className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>
+                    <input type="password" className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
+                    <input type="password" className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>
                 </div>
                 <div className="form-control alignVertical center">
-                    <button className="login button" data-testid="registerSubmit" type="submit">Register</button>
-                    <button className="login button" type="button" onClick={() => navigate('/Login')}>Cancel</button>
+                    <button className="button" data-testid="registerSubmit" type="submit">Register</button>
+                    <button className="button" type="button" onClick={() => navigate('/Login')}>Cancel</button>
                 </div>
             </form>
         </>

@@ -86,7 +86,8 @@ input {
     font-size: 20px;
     border-radius: 20px;
     border-width: 0px;
-    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: dodgerblue;
     text-decoration: none;
     cursor: pointer;
@@ -95,26 +96,6 @@ input {
 
 .button:hover {
     background-color: lightblue;
-}
-
-.register {
-    width: 120px;
-}
-
-.save {
-  width: 80px;
-}
-
-.search {
-  width: 110px;
-}
-
-.login {
-    width: 300px;
-}
-
-.logout {
-  width: 120px;
 }
 
 .center {
