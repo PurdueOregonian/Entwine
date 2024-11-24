@@ -7,8 +7,8 @@ import path from 'path';
 export default defineConfig({
     server: {
         https: {
-            key: fs.readFileSync(path.resolve(__dirname, './src/certs/key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, './src/certs/cert.pem')),
+            key: fs.readFileSync(path.resolve(__dirname, './src/certs/local-dev.key')),
+            cert: fs.readFileSync(path.resolve(__dirname, './src/certs/local-dev.crt')),
         },
         host: 'localhost',
         port: 5173
