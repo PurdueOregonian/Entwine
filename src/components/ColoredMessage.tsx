@@ -1,28 +1,34 @@
 import { Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
 import { ColoredMessageData } from '../types/ColoredMessageData';
 
-type ColoredMessageProps = {
-    data: ColoredMessageData
-};
-
-const ColoredMessage = (props: ColoredMessageProps): React.ReactElement => {
-    const { message, color, vanishAfter } = props.data;
+const ColoredMessage = forwardRef((_, ref) => {
+    const [message, setMessage] = useState('');
+    const [color, setColor] = useState('');
     const [fadingOut, setFadingOut] = useState(false);
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
+    const vanishTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
+    const showMessage = (data: ColoredMessageData) => {
         setVisible(true);
         setFadingOut(false);
+        setMessage(data.message);
+        setColor(data.color);
 
-        if (vanishAfter) {
-            const timer = setTimeout(() => {
-                setFadingOut(true);
-            }, vanishAfter);
-
-            return () => clearTimeout(timer);
+        if (vanishTimerRef.current) {
+            clearTimeout(vanishTimerRef.current);
         }
-    }, [props]);
+
+        if (data.vanishAfter) {
+            vanishTimerRef.current = setTimeout(() => {
+                setFadingOut(true);
+            }, data.vanishAfter);
+        }
+    }
+
+    useImperativeHandle(ref, () => ({
+        showMessage,
+    }));
 
     useEffect(() => {
         if (fadingOut) {
@@ -42,6 +48,6 @@ const ColoredMessage = (props: ColoredMessageProps): React.ReactElement => {
             )}
         </>
     );
-};
+});
 
 export default ColoredMessage;

@@ -58,6 +58,7 @@ describe('Register component', () => {
         const registerSubmit = screen.getByTestId('registerSubmit');
         await act(async () => fireEvent.click(registerSubmit));
 
+        screen.getByText('Passwords do not match');
         expect(axios.post).not.toHaveBeenCalled();
     })
 })

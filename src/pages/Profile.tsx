@@ -5,7 +5,7 @@ import axios from "axios";
 import { backendUrl } from "../constants/constants";
 import DatePicker from "../components/DatePicker";
 import Location from "../components/Location";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "../components/RectangleSelector";
 import { Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
@@ -19,15 +19,28 @@ function Profile() {
     const [year, setYear] = useState('');
     const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
-    const [coloredMessageData, setColoredMessageData] = useState<ColoredMessageData>({});
+    const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
 
     const {
         handleSubmit
     } = useForm();
     const axiosPrivate = useAxiosPrivate();
 
+    const isValidDate: (date: string) => boolean = (date: string) => {
+        const newDate = new Date(date);
+        return newDate instanceof Date && !isNaN(newDate.getTime());
+    }
+
     const onSubmit = () => {
         const dateOfBirth = `${year}-${month}-${day}`;
+
+        if (!isValidDate(dateOfBirth)) {
+            coloredMessageRef.current?.showMessage({
+                color: 'red',
+                message: 'Date is invalid'
+            });
+            return;
+        }
 
         const dataToSubmit = {
             DateOfBirth: dateOfBirth,
@@ -43,7 +56,7 @@ function Profile() {
             }
         })
             .then(response => {
-                setColoredMessageData({
+                coloredMessageRef.current?.showMessage({
                     color: 'green',
                     message: 'Successfully saved!',
                     vanishAfter: 3000
@@ -51,7 +64,7 @@ function Profile() {
                 return response;
             })
             .catch(error => {
-                setColoredMessageData({
+                coloredMessageRef.current?.showMessage({
                     color: 'red',
                     message: 'Error saving profile',
                     vanishAfter: 3000
@@ -130,7 +143,7 @@ function Profile() {
                             <button className="button" type="submit" data-testid="saveProfile">Save</button>
                         </div>
                         <ColoredMessage
-                            data={coloredMessageData}
+                            ref={coloredMessageRef}
                         />
                     </div>
                 </form>

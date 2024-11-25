@@ -1,6 +1,6 @@
 import axios from "../api/axios";
 import axiosModule from "axios";
-import { useState } from "react";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../constants/constants";
@@ -10,7 +10,7 @@ import ColoredMessage from "../components/ColoredMessage";
 const Register = () => {
 
     const navigate = useNavigate();
-    const [coloredMessageData, setColoredMessageData] = useState<ColoredMessageData>({});
+    const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
 
     const {
         register,
@@ -32,14 +32,14 @@ const Register = () => {
                             'Content-Type': 'application/json'
                         }
                     });
-                setColoredMessageData({
+                coloredMessageRef.current?.showMessage({
                     color: 'green',
                     message: 'Successfully registered! Redirecting...'
                 });
                 setTimeout(() => navigate('/Login'), 2000)
             }
             else {
-                setColoredMessageData({
+                coloredMessageRef.current?.showMessage({
                     color: 'red',
                     message: 'Passwords do not match'
                 });
@@ -48,19 +48,19 @@ const Register = () => {
         catch (error) {
             if (axiosModule.isAxiosError(error)) {
                 if (!error?.response) {
-                    setColoredMessageData({
+                    coloredMessageRef.current?.showMessage({
                         color: 'red',
                         message: 'No Server Response'
                     });
                 }
                 if (error.response?.status === 400) {
-                    setColoredMessageData({
+                    coloredMessageRef.current?.showMessage({
                         color: 'red',
                         message: error.response.data
                     });
                 }
                 else {
-                    setColoredMessageData({
+                    coloredMessageRef.current?.showMessage({
                         color: 'red',
                         message: 'Unknown error logging in.'
                     });
@@ -73,7 +73,7 @@ const Register = () => {
         <>
             <h2>Register</h2>
             <ColoredMessage
-                data={coloredMessageData}
+                ref={coloredMessageRef}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center margin-bottom20">

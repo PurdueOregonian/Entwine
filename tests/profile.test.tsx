@@ -5,6 +5,7 @@ import Profile from '../src/pages/Profile';
 import { axiosPrivate } from '../src/api/axios';
 
 jest.mock('../src/api/axios');
+jest.useFakeTimers();
 
 describe('Profile component', () => {
     beforeAll(() => {
@@ -42,8 +43,9 @@ describe('Profile component', () => {
         fireEvent.click(female);
 
         const saveProfile = screen.getByTestId('saveProfile');
-        fireEvent.click(saveProfile);
+        await act(async () => fireEvent.click(saveProfile));
 
+        screen.getByText('Successfully saved!');
         await waitFor(() => {
             expect(axiosPrivate.post).toHaveBeenCalledWith(`${backendUrl}/Profile/Save`,
                 JSON.stringify({
@@ -57,5 +59,11 @@ describe('Profile component', () => {
                     "withCredentials": true
                 });
         });
+
+        //TODO fix. Bad because it relies on the implementation of ColoredMessage. But better than nothing.
+        //Tests that the message vanishes eventually.
+        await act(async () => jest.runAllTimers());
+        await act(async () => jest.runAllTimers());
+        expect((screen.queryAllByText('Successfully saved!')).length).toEqual(0);
     })
 })
