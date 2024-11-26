@@ -24,6 +24,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
         return /^([12]\d{3})?$/.test(input);
     }
 
+    const handleBlur = (setInput: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+        if (value.length === 1 && /^[1-9]$/.test(value)) {
+            setInput('0' + value);
+        }
+    }
+
     return (
         <div className="alignHorizontal gap10 center">
             <div className="alignVertical" style={{ marginBottom: '10px' }}>
@@ -34,6 +40,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     input={month}
                     setInput={setMonth}
                     validateInput={validateMonth}
+                    onBlur={() => handleBlur(setMonth, month)}
                 />
             </div>
             <div className="alignVertical" style={{ marginBottom: '10px' }}>
@@ -44,6 +51,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     input={day}
                     setInput={setDay}
                     validateInput={validateDay}
+                    onBlur={() => handleBlur(setDay, day)}
                 />
             </div>
             <div className="alignVertical" style={{ marginBottom: '10px' }}>

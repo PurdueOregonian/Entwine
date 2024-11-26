@@ -6,10 +6,11 @@ type InputWithValidationProps = {
     input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
     validateInput: (input: string) => boolean;
+    onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputWithValidation: React.FC<InputWithValidationProps> = ({
-    testId, placeholder, input, setInput, validateInput
+    testId, placeholder, input, setInput, validateInput, onBlur
 }) => {
 
     const [isValid, setIsValid] = useState(true);
@@ -18,12 +19,15 @@ const InputWithValidation: React.FC<InputWithValidationProps> = ({
         setInput(e.target.value);
     };
 
-    const onBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (validateInput(e.target.value)) {
             setIsValid(true);
         }
         else{
             setIsValid(false);
+        }
+        if (onBlur) {
+            onBlur(e);
         }
     }
 
@@ -33,7 +37,7 @@ const InputWithValidation: React.FC<InputWithValidationProps> = ({
             type="text"
             value={input}
             onChange={handleInputChange}
-            onBlur={onBlur}
+            onBlur={handleBlur}
             placeholder={placeholder}
             style={{ width: 30 + 7.5 * placeholder.length + 'px', borderColor: isValid ? 'black' : 'red', backgroundColor: isValid ? 'white' : 'pink' }}
         />

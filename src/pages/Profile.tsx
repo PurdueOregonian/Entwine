@@ -26,21 +26,40 @@ function Profile() {
     } = useForm();
     const axiosPrivate = useAxiosPrivate();
 
-    const isValidDate: (date: string) => boolean = (date: string) => {
-        const newDate = new Date(date);
-        return newDate instanceof Date && !isNaN(newDate.getTime());
+    const isValidDate: () => boolean = () => {
+        const yearNumber = Number(year);
+        const monthNumber = Number(month);
+        const dayNumber = Number(day);
+        if (isNaN(monthNumber) || isNaN(dayNumber) || isNaN(yearNumber)) {
+            return false;
+        }
+    
+        if (yearNumber < 1000 || yearNumber > 9999) {
+            return false;
+        }
+    
+        if (monthNumber < 1 || monthNumber > 12) {
+            return false;
+        }
+    
+        const daysInMonth = new Date(yearNumber, monthNumber, 0).getDate();
+        if (dayNumber < 1 || dayNumber > daysInMonth) {
+            return false;
+        }
+    
+        return true;
     }
 
     const onSubmit = () => {
-        const dateOfBirth = `${year}-${month}-${day}`;
-
-        if (!isValidDate(dateOfBirth)) {
+        if (!isValidDate()) {
             coloredMessageRef.current?.showMessage({
                 color: 'red',
                 message: 'Date is invalid'
             });
             return;
         }
+
+        const dateOfBirth = `${year}-${month}-${day}`;
 
         const dataToSubmit = {
             DateOfBirth: dateOfBirth,
