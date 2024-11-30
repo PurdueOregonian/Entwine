@@ -16,7 +16,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
     const [tempMinValue, setTempMinValue] = useState(minValue);
     const [tempMaxValue, setTempMaxValue] = useState(maxValue);
 
-    const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    const handleSliderChange = (_event: Event, newValue: number | number[]) => {
         const [newMin, newMax] = newValue as number[];
         setMinValue(newMin);
         setMaxValue(newMax);
@@ -66,6 +66,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
                 onBlur={handleMinBlur}
                 slotProps={{
                     htmlInput: {
+                        "data-testid": "minField",
                         min: min,
                         max: max,
                         style: { width: '80px', padding: '8px' }
@@ -88,6 +89,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
                 onBlur={handleMaxBlur}
                 slotProps={{
                     htmlInput: {
+                        "data-testid": "maxField",
                         min: min,
                         max: max,
                         style: { width: '80px', padding: '8px' }

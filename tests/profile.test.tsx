@@ -7,7 +7,7 @@ import { axiosPrivate } from '../src/api/axios';
 jest.mock('../src/api/axios');
 jest.useFakeTimers();
 
-describe('Profile component', () => {
+describe('Profile page', () => {
     beforeAll(() => {
         (axiosPrivate.get as jest.Mock).mockResolvedValue({ status: 200, data: {
             dateOfBirth: '2002-10-04',
