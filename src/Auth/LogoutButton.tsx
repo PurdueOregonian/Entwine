@@ -21,7 +21,7 @@ const LogoutButton = () => {
     }
 
     return (
-        <button className="button" onClick={() => signOut()}>Log Out</button>
+        <button data-testid="logoutButton" className="button" onClick={() => signOut()}>Log Out</button>
     );
 }
 
