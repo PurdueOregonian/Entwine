@@ -33,20 +33,20 @@ function Profile() {
         if (isNaN(monthNumber) || isNaN(dayNumber) || isNaN(yearNumber)) {
             return false;
         }
-    
+
         if (yearNumber < 1000 || yearNumber > 9999) {
             return false;
         }
-    
+
         if (monthNumber < 1 || monthNumber > 12) {
             return false;
         }
-    
+
         const daysInMonth = new Date(yearNumber, monthNumber, 0).getDate();
         if (dayNumber < 1 || dayNumber > daysInMonth) {
             return false;
         }
-    
+
         return true;
     }
 
@@ -155,9 +155,12 @@ function Profile() {
                                 setSelected={setGender}
                             />
                         </div>
-                        <Location
-                            location="TODO some bogus city"
-                        />
+                        <div className="alignHorizontal center gap10">
+                            <Typography>Location</Typography>
+                            <Location
+                                location="TODO some bogus city"
+                            />
+                        </div>
                         <div className="form-control">
                             <button className="button" type="submit" data-testid="saveProfile">Save</button>
                         </div>
