@@ -33,8 +33,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
     return (
         <div className="alignHorizontal gap10 center">
             <div className="alignVertical" style={{ marginBottom: '10px' }}>
-                <label>Month</label>
                 <InputWithValidation
+                    label="Month"
                     testId="month"
                     placeholder="MM"
                     input={month}
@@ -44,8 +44,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 />
             </div>
             <div className="alignVertical" style={{ marginBottom: '10px' }}>
-                <label htmlFor="day">Day</label>
                 <InputWithValidation
+                    label="Day"
                     testId="day"
                     placeholder="DD"
                     input={day}
@@ -55,8 +55,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 />
             </div>
             <div className="alignVertical" style={{ marginBottom: '10px' }}>
-                <label htmlFor="year">Year</label>
                 <InputWithValidation
+                    label="Year"
                     testId="year"
                     placeholder="YYYY"
                     input={year}

@@ -69,7 +69,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
                         "data-testid": "minField",
                         min: min,
                         max: max,
-                        style: { width: '80px', padding: '8px' }
+                        style: { width: '80px', padding: '8px', backgroundColor: 'white' }
                     }
                 }}
             />
@@ -92,7 +92,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
                         "data-testid": "maxField",
                         min: min,
                         max: max,
-                        style: { width: '80px', padding: '8px' }
+                        style: { width: '80px', padding: '8px', backgroundColor: 'white' }
                     }
                 }}
             />

@@ -6,9 +6,27 @@ import { AuthProvider } from './Auth/AuthContext.tsx'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
+  components: {
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          overflow: 'hidden'
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          overflow: 'hidden'
+        },
+      },
+    }
+  },
   typography: {
     fontFamily: "'Raleway', sans-serif",
-  },
+  }
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
