@@ -16,7 +16,7 @@ const NavHeader = () => {
                 <LogoutButton />
             </div>
             <div className="alignHorizontal topBar">
-                <div className="siteTitle">Friends</div>
+                <div className="siteTitle">Entwine</div>
                 <a className={`navLink ${isActive('/') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/')}>
                     Home
                 </a>
