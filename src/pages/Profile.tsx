@@ -19,6 +19,7 @@ function Profile() {
     const [year, setYear] = useState('');
     const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
+    const [location, setLocation] = useState('');
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
 
     const {
@@ -158,7 +159,8 @@ function Profile() {
                         <div className="alignHorizontal center gap10">
                             <Typography>Location</Typography>
                             <Location
-                                location="TODO some bogus city"
+                                location={location}
+                                setLocation={setLocation}
                             />
                         </div>
                         <div className="form-control">
