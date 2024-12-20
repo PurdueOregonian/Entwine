@@ -1,4 +1,4 @@
-import axios from "../api/axios";
+import axios, { axiosPrivate } from "../api/axios";
 import axiosModule from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -39,8 +39,29 @@ const Login = () => {
                 password: formData.Password,
                 token: token
             });
-            navigate(from, { replace: true });
-            
+            axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const apiUrl = `${backendUrl}/Profile`;
+            axiosPrivate.get(apiUrl, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((response) => {
+                    if(response.data.dateOfBirth){
+                        navigate(from, { replace: true });
+                    }
+                    else{
+                        navigate('/SetupProfile');
+                    }
+                })
+                .catch(error => {
+                    if (error.response) {
+                        if (error.response.status === 404) {
+                            navigate('/SetupProfile');
+                        }
+                    }
+                })
         }
         catch (error) {
             if (axiosModule.isAxiosError(error)) {
