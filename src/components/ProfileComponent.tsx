@@ -125,6 +125,9 @@ function ProfileComponent() {
                 setLoaded(true);
             })
             .catch(error => {
+                if(error.status === 404){
+                    setLoaded(true);
+                }
                 if (axios.isAxiosError(error)) {
                     console.error('Error:', error.message);
                 }

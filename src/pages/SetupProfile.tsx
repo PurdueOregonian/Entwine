@@ -3,8 +3,11 @@ import useAuth from "../hooks/useAuth";
 
 function SetupProfile() {
     const { auth } = useAuth();
-    <span>{`Welcome, ${auth.username}!`}</span>
-    return <ProfileComponent />
+
+    return (<>
+        <span>{`Welcome, ${auth.username}!`}</span>
+        <ProfileComponent />
+    </>)
 }
 
 export default SetupProfile;
