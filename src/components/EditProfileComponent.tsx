@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import NavHeader from "./NavHeader";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "../constants/constants";
