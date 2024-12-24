@@ -41,7 +41,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ redirectOnSuccess }
             return false;
         }
 
-        if (yearNumber < 1000 || yearNumber > 9999) {
+        if (yearNumber < 1000 || yearNumber > (new Date()).getUTCFullYear()) {
             return false;
         }
 
@@ -62,6 +62,14 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ redirectOnSuccess }
             coloredMessageRef.current?.showMessage({
                 color: 'red',
                 message: 'Date is invalid'
+            });
+            return;
+        }
+
+        if (!gender) {
+            coloredMessageRef.current?.showMessage({
+                color: 'red',
+                message: 'Gender not selected'
             });
             return;
         }
