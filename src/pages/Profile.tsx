@@ -1,11 +1,11 @@
 import NavHeader from "../components/NavHeader";
-import ProfileComponent from "../components/ProfileComponent";
+import EditProfileComponent from "../components/EditProfileComponent";
 
 function Profile() {
     return (
         <>
             <NavHeader />
-            <ProfileComponent
+            <EditProfileComponent
                 redirectOnSuccess={false}
             />
         </>

@@ -1,4 +1,4 @@
-import ProfileComponent from "../components/ProfileComponent";
+import EditProfileComponent from "../components/EditProfileComponent";
 import useAuth from "../hooks/useAuth";
 
 function SetupProfile() {
@@ -6,7 +6,7 @@ function SetupProfile() {
 
     return (<>
         <span>{`Welcome, ${auth.username}!`}</span>
-        <ProfileComponent
+        <EditProfileComponent
             redirectOnSuccess={true}
         />
     </>)

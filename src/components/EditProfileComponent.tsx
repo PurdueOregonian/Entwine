@@ -14,11 +14,11 @@ import ColoredMessage from "./ColoredMessage";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import { useNavigate } from "react-router-dom";
 
-type ProfileComponentProps = {
+type EditProfileComponentProps = {
     redirectOnSuccess: boolean;
 };
 
-const ProfileComponent: React.FC<ProfileComponentProps> = ({ redirectOnSuccess }) => {
+const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnSuccess }) => {
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [year, setYear] = useState('');
@@ -197,4 +197,4 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ redirectOnSuccess }
     );
 }
 
-export default ProfileComponent;
+export default EditProfileComponent;
