@@ -6,7 +6,9 @@ function SetupProfile() {
 
     return (<>
         <span>{`Welcome, ${auth.username}!`}</span>
-        <ProfileComponent />
+        <ProfileComponent
+            redirectOnSuccess={true}
+        />
     </>)
 }
 

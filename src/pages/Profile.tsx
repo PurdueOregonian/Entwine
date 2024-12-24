@@ -5,7 +5,9 @@ function Profile() {
     return (
         <>
             <NavHeader />
-            <ProfileComponent />
+            <ProfileComponent
+                redirectOnSuccess={false}
+            />
         </>
     );
 }

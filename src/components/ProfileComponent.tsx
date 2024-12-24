@@ -12,8 +12,13 @@ import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
 import ColoredMessage from "./ColoredMessage";
 import { ColoredMessageData } from "../types/ColoredMessageData";
+import { useNavigate } from "react-router-dom";
 
-function ProfileComponent() {
+type ProfileComponentProps = {
+    redirectOnSuccess: boolean;
+};
+
+const ProfileComponent: React.FC<ProfileComponentProps> = ({ redirectOnSuccess }) => {
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [year, setYear] = useState('');
@@ -21,6 +26,7 @@ function ProfileComponent() {
     const [loaded, setLoaded] = useState(false);
     const [location, setLocation] = useState('');
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
+    const navigate = useNavigate();
 
     const {
         handleSubmit
@@ -78,9 +84,14 @@ function ProfileComponent() {
             .then(response => {
                 coloredMessageRef.current?.showMessage({
                     color: 'green',
-                    message: 'Successfully saved!',
+                    message: 'Successfully saved!' + (redirectOnSuccess ? ' Redirecting...' : ''),
                     vanishAfter: 3000
                 });
+                if (redirectOnSuccess) {
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3000);
+                }
                 return response;
             })
             .catch(error => {
@@ -125,7 +136,7 @@ function ProfileComponent() {
                 setLoaded(true);
             })
             .catch(error => {
-                if(error.status === 404){
+                if (error.status === 404) {
                     setLoaded(true);
                 }
                 if (axios.isAxiosError(error)) {
