@@ -33,6 +33,9 @@ describe('Profile page', () => {
     })
 
     test('submits profile', async () => {
+        const profileModeButton = await screen.findByTestId('profileModeButton');
+        fireEvent.click(profileModeButton);
+
         const monthInput = await screen.findByTestId('month');
         fireEvent.change(monthInput, { target: { value: '07' } });
         const dayInput = screen.getByTestId('day');

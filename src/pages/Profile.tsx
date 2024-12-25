@@ -15,7 +15,7 @@ function Profile() {
                 {profileMode === 'Edit' && <EditProfileComponent
                     redirectOnSuccess={false}
                 />}
-                <button className="button" type="button" onClick={() => setProfileMode(profileMode === 'View' ? 'Edit' : 'View')}>
+                <button data-testid="profileModeButton" className="button" type="button" onClick={() => setProfileMode(profileMode === 'View' ? 'Edit' : 'View')}>
                     {profileMode === 'View' ? 'Edit' : 'Back'}
                 </button>
             </div>
