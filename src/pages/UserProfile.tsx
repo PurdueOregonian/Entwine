@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { Gender } from "../types/Gender";
 import { useNavigate, useParams } from "react-router-dom";
-import { RetrievedOtherProfileData } from "../types/RetrievedOtherProfileData";
+import { RetrievedOtherProfileData as PublicProfileData } from "../types/RetrievedOtherProfileData";
 
-function OtherUserProfile() {
+function UserProfile() {
     const { username } = useParams();
     const [age, setAge] = useState<number | null>(null);
     const [gender, setGender] = useState<Gender | null>(null);
@@ -32,7 +32,7 @@ function OtherUserProfile() {
                 }
                 return response.data;
             })
-            .then((data: RetrievedOtherProfileData) => {
+            .then((data: PublicProfileData) => {
                 if(data.age === null && data.gender === null){
                     navigate('/NotFound');
                 }
@@ -67,4 +67,4 @@ function OtherUserProfile() {
     );
 }
 
-export default OtherUserProfile;
+export default UserProfile;
