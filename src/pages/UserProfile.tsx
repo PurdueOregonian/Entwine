@@ -1,4 +1,3 @@
-import NavHeader from "../components/NavHeader";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "../constants/constants";
@@ -7,9 +6,12 @@ import { Typography } from "@mui/material";
 import { Gender } from "../types/Gender";
 import { useNavigate, useParams } from "react-router-dom";
 import { RetrievedOtherProfileData as PublicProfileData } from "../types/RetrievedOtherProfileData";
+import useAuth from "../hooks/useAuth";
 
 function UserProfile() {
-    const { username } = useParams();
+    const { auth } = useAuth();
+    const { usernameFromRoute } = useParams();
+    const username = usernameFromRoute ?? auth.username;
     const [age, setAge] = useState<number | null>(null);
     const [gender, setGender] = useState<Gender | null>(null);
     const [loaded, setLoaded] = useState(false);
@@ -49,7 +51,6 @@ function UserProfile() {
 
     return (
         <>
-            <NavHeader />
             {loaded &&
                 <div className="alignVertical center">
                     <Typography variant="h4">{username}</Typography>
