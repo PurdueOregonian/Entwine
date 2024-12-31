@@ -14,7 +14,7 @@ type ChatMessage = {
 
 type User = {
   id: number;
-  userName: string;
+  username: string;
 };
 
 type ChatProps = {
@@ -95,10 +95,10 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className={`chat-user ${selectedUser === user.userName ? 'selected' : ''}`}
-                  onClick={() => handleUserClick(user.userName)}
+                  className={`chat-user ${selectedUser === user.username ? 'selected' : ''}`}
+                  onClick={() => handleUserClick(user.username)}
                 >
-                  {user.userName}
+                  {user.username}
                 </li>
               ))}
             </ul>
@@ -132,7 +132,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               <ul className="userList">
                 {searchResults.map((result) => (
                   <li key={result.id} onClick={() => handleAddUser(result)}>
-                    {result.userName}
+                    {result.username}
                   </li>
                 ))}
               </ul>
