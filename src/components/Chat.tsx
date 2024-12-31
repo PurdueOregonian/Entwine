@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
+import SearchIcon from '@mui/icons-material/Search';
 
 type ChatMessage = {
   id: number;
@@ -12,7 +14,7 @@ type ChatMessage = {
 
 type User = {
   id: number;
-  username: string;
+  userName: string;
 };
 
 type ChatProps = {
@@ -24,6 +26,9 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchResults, setSearchResults] = useState<User[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const apiUrl = `${backendUrl}/Chat`;
 
@@ -52,6 +57,32 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
       .catch((err) => console.error('Error fetching messages:', err));
   };
 
+  const handleAddUser = async (user: User) => {
+    try {
+      await axiosPrivate.post(`${apiUrl}/AddUser`, { user });
+      setUsers([...users, user]);
+      setShowSearch(false);
+      setSearchQuery('');
+      setSearchResults([]);
+    } catch (err) {
+      console.error('Error adding user:', err);
+    }
+  };
+
+  const searchUsers = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axiosPrivate.get(`${backendUrl}/Search?searchString=${searchQuery}`)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Network response was not ok');
+        }
+        return response.data;
+      })
+      .then((data) => setSearchResults(data))
+      .catch((err) => console.error('Error fetching search results:', err
+      ));
+  }
+
   return (
     <>
       {isOpen && <div className="chatOverlay">
@@ -60,23 +91,53 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
           {users.length === 0 ? (
             <p>No chats. Click "New Chat" to start a chat.</p>
           ) : (
-            <ul>
+            <ul className="userList">
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className={`chat-user ${selectedUser === user.username ? 'selected' : ''}`}
-                  onClick={() => handleUserClick(user.username)}
+                  className={`chat-user ${selectedUser === user.userName ? 'selected' : ''}`}
+                  onClick={() => handleUserClick(user.userName)}
                 >
-                  {user.username}
+                  {user.userName}
                 </li>
               ))}
             </ul>
           )}
+          <AddCommentIcon
+            className="topRightButton"
+            onClick={() => setShowSearch(true)}
+          >
+          </AddCommentIcon>
         </div>
 
         <div className="separator"></div>
 
         <div className="chat-contents">
+          {showSearch && (
+            <div className="search-bar">
+              <form onSubmit={searchUsers}>
+                <div className="searchContainer">
+                  <input
+                    className="searchInput"
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search users..."
+                  />
+                  <button type="submit" className='searchButton'>
+                    <SearchIcon />
+                  </button>
+                </div>
+              </form>
+              <ul className="userList">
+                {searchResults.map((result) => (
+                  <li key={result.id} onClick={() => handleAddUser(result)}>
+                    {result.userName}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {selectedUser && (
             <>
               <h3>Chat with {selectedUser}</h3>
@@ -92,7 +153,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
           )}
         </div>
         <CloseIcon
-          className="closeChatButton"
+          className="topRightButton"
           onClick={() => setIsOpen(false)}
         >
         </CloseIcon>

@@ -79,6 +79,29 @@ input {
     cursor: pointer;
 }
 
+.searchContainer {
+    position: relative;
+}
+
+.searchButton {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.searchInput {
+    width: 280px;
+    height: 30px;
+    font-size: 18px;
+    margin: 5px;
+    border-radius: 5px;
+    padding-right: 35px;
+}
+
 .passwordField {
     padding-right: 35px;
 }
@@ -217,7 +240,7 @@ input {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.closeChatButton {
+.topRightButton {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -225,31 +248,30 @@ input {
 }
 
 .chat-selection {
+  position: relative;
   width: 30%;
   padding: 20px;
   overflow-y: auto;
 }
 
-.chat-selection ul {
-  list-style: none;
+.userList {
+  list-style-type: none;
   padding: 0;
 }
 
-.chat-selection .chat-user {
+.userList li {
   padding: 10px;
   margin-bottom: 5px;
   cursor: pointer;
-  background-color: #e0e0e0;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-.chat-selection .chat-user:hover {
-  background-color: #d6d6d6;
+.userList li:hover {
+  color: dodgerblue;
 }
 
-.chat-selection .chat-user.selected {
-  background-color: #cccccc;
+.userList li.selected {
   font-weight: bold;
 }
 
