@@ -1,8 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import LogoutButton from "../Auth/LogoutButton";
 import useAuth from "../hooks/useAuth";
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import Chat from "./Chat";
+import { useState } from "react";
 
 const NavHeader = () => {
+    const [isChatOpen, setIsChatOpen] = useState(false);
     const { auth } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -11,7 +15,14 @@ const NavHeader = () => {
 
     return (
         <>
-            <div className="user-info">
+            <div className="navbarTopRight">
+                <div
+                    className="navbarIcons"
+                    onClick={() => setIsChatOpen(!isChatOpen)}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <ChatBubbleOutlineIcon fontSize="large" />
+                </div>
                 <span>{`Logged in as ${auth.username}`}</span>
                 <LogoutButton />
             </div>
@@ -27,6 +38,10 @@ const NavHeader = () => {
                     Search
                 </a>
             </div>
+            <Chat
+                isOpen={isChatOpen}
+                setIsOpen={setIsChatOpen}
+            />
         </>
     );
 };

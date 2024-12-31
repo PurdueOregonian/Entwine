@@ -51,11 +51,18 @@ input {
   color: #888;
 }
 
-.user-info {
+.navbarTopRight {
   position: absolute;
+  display: flex;
+  align-items: center;
   top: 10px;
   right: 10px;
   font-size: 16px;
+}
+
+.navbarIcons {
+  margin-right: 8px;
+  margin-top: 8px;
 }
 
 .passwordContainer {
@@ -193,4 +200,103 @@ input {
 
 .rectangleSelectorSelected {
   background-color: dodgerblue;
+}
+
+.chatOverlay {
+  position: fixed;
+  top: auto;
+  right: 30px;
+  bottom: 0;
+  height: 500px;
+  width: 600px;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  z-index: 1000;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.closeChatButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.chat-selection {
+  width: 30%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chat-selection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-selection .chat-user {
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.chat-selection .chat-user:hover {
+  background-color: #d6d6d6;
+}
+
+.chat-selection .chat-user.selected {
+  background-color: #cccccc;
+  font-weight: bold;
+}
+
+.separator {
+  width: 1px;
+  background-color: #cccccc;
+}
+
+.chat-contents {
+  width: 70%;
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 5px;
+  word-wrap: break-word;
+}
+
+.message.incoming {
+  align-self: flex-start;
+  background-color: #e0f7fa;
+}
+
+.message.outgoing {
+  align-self: flex-end;
+  background-color: #d1c4e9;
+}
+
+.message-content {
+  margin: 0;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #777;
+  text-align: right;
 }
