@@ -41,10 +41,10 @@ const NavHeader = () => {
                     Search
                 </a>
             </div>
-            <Chat
+            {isChatOpen && <Chat
                 isOpen={isChatOpen}
                 setIsOpen={setIsChatOpen}
-            />
+            />}
         </>
     );
 };
