@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Chat from "./Chat";
 import { useState } from "react";
+import { Tooltip } from "@mui/material";
 
 const NavHeader = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -21,7 +22,9 @@ const NavHeader = () => {
                     onClick={() => setIsChatOpen(!isChatOpen)}
                     style={{ cursor: 'pointer' }}
                 >
-                    <ChatBubbleOutlineIcon fontSize="large" />
+                    <Tooltip title="Open Chat">
+                        <ChatBubbleOutlineIcon className="muiClickableButton" fontSize="large" />
+                    </Tooltip>
                 </div>
                 <span>{`Logged in as ${auth.username}`}</span>
                 <LogoutButton />

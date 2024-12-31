@@ -4,6 +4,7 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import SearchIcon from '@mui/icons-material/Search';
+import { Tooltip } from '@mui/material';
 
 type ChatMessage = {
   id: number;
@@ -103,11 +104,12 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               ))}
             </ul>
           )}
-          <AddCommentIcon
-            className="topRightButton"
-            onClick={() => setShowSearch(true)}
-          >
-          </AddCommentIcon>
+          <Tooltip title="New Chat">
+            <AddCommentIcon
+              className="topRightButton muiClickableButton"
+              onClick={() => setShowSearch(true)}
+            />
+          </Tooltip>
         </div>
 
         <div className="separator"></div>
@@ -124,9 +126,11 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search users..."
                   />
-                  <button type="submit" className='searchButton'>
-                    <SearchIcon />
-                  </button>
+                  <Tooltip title="Search">
+                    <button type="submit" className='searchButton'>
+                      <SearchIcon />
+                    </button>
+                  </Tooltip>
                 </div>
               </form>
               <ul className="userList">
@@ -152,11 +156,13 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
             </>
           )}
         </div>
-        <CloseIcon
-          className="topRightButton"
-          onClick={() => setIsOpen(false)}
-        >
-        </CloseIcon>
+        <Tooltip title="Close">
+          <CloseIcon
+            className="topRightButton muiClickableButton"
+            onClick={() => setIsOpen(false)}
+          >
+          </CloseIcon>
+        </Tooltip>
       </div>
       }
     </>
