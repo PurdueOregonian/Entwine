@@ -262,12 +262,12 @@ input {
   overflow-y: auto;
 }
 
-.userList {
+.chatList {
   list-style-type: none;
   padding: 0;
 }
 
-.userList li {
+.chatList li {
   padding: 10px;
   margin-bottom: 5px;
   cursor: pointer;
@@ -275,11 +275,11 @@ input {
   transition: background-color 0.3s ease;
 }
 
-.userList li:hover {
+.chatList li:hover {
   color: dodgerblue;
 }
 
-.userList li.selected {
+.chatList li.selected {
   font-weight: bold;
 }
 

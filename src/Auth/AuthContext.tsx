@@ -4,6 +4,7 @@ interface Auth {
     username?: string;
     password?: string;
     token?: string;
+    userId?: number;
 }
 interface AuthContextType {
     auth: Auth;

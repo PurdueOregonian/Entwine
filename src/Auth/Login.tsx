@@ -33,11 +33,13 @@ const Login = () => {
                     },
                     withCredentials: true
                 });
+            const userId = response?.data?.userId;
             const token = response?.data?.accessToken;
             setAuth({
                 username: formData.Username,
                 password: formData.Password,
-                token: token
+                token: token,
+                userId: userId
             });
             axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const apiUrl = `${backendUrl}/Profile`;
