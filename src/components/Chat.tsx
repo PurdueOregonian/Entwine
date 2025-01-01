@@ -36,6 +36,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [message, setMessage] = useState('');
 
   const { auth } = useAuth();
 
@@ -104,6 +105,26 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
       .then((data) => setSearchResults(data))
       .catch((err) => console.error('Error fetching search results:', err
       ));
+  }
+
+  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage('');
+    axiosPrivate.post(`${apiUrl}/${chats[selectedChatIndex].id}/Messages`, {
+      chatId: chats[selectedChatIndex].id,
+      senderId: auth.userId,
+      content: message
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Network response was not ok');
+        }
+        return response.data;
+      })
+      .then((data) => {
+        setMessages([...messages, data]);
+      })
+      .catch((err) => console.error('Error sending message:', err));
   }
   
   const newChatClicked = () => {
@@ -179,6 +200,17 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
                     <span className="message-timestamp">{new Date(message.timeSent).toLocaleTimeString()}</span>
                   </div>
                 ))}
+                <form onSubmit={sendMessage}>
+                  <div>
+                    <input
+                      className="messageBox"
+                      type="text"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Send a message..."
+                    />
+                  </div>
+                </form>
               </div>
             </>
           )}
