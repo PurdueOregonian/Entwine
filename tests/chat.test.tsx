@@ -1,0 +1,69 @@
+import { fireEvent, render, screen } from '@testing-library/react';
+import { backendUrl } from '../src/constants/constants';
+import { MemoryRouter as Router } from "react-router-dom";
+import { axiosPrivate } from '../src/api/axios';
+import Chat from '../src/components/Chat';
+import useAuth from '../src/hooks/useAuth';
+
+jest.mock('../src/api/axios');
+jest.mock('../src/hooks/useAuth', () => ({
+    __esModule: true,
+    default: jest.fn()
+}));
+
+describe('Search page', () => {
+    beforeAll(() => {
+        (axiosPrivate.get as jest.Mock).mockImplementation((url) => {
+            if (url === `${backendUrl}/Chat`) {
+                return Promise.resolve({
+                    data: [
+                        { id: 1, usernames: ['JohnDoe'] },
+                        { id: 2, usernames: ['JaneDoe'] }
+                    ],
+                    status: 200
+                });
+            } else if (url === `${backendUrl}/Chat/1/Messages`) {
+                return Promise.resolve({
+                    data: [
+                        { id: 1, senderId: 1, content: 'Hello', timeSent: '2023-01-01T00:00:00Z' },
+                        { id: 2, senderId: 2, content: 'Hi', timeSent: '2023-01-01T00:01:00Z' }
+                    ],
+                    status: 200
+                });
+            } else {
+                return Promise.reject(new Error('Unknown endpoint'));
+            }
+        });
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true
+            })
+        ) as jest.Mock;
+
+        (useAuth as jest.Mock).mockReturnValue({
+            auth: {
+                userId: 1,
+                token: 'mock-token'
+            }
+        });
+    });
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        render(<Router>
+            <Chat
+                isOpen={true}
+                setIsOpen={() => { }}
+            />
+        </Router>
+        );
+    })
+
+    test('can view already existing chats', async () => {
+        const chat1 = await screen.findByText('JohnDoe');
+        fireEvent.click(chat1);
+
+        await screen.findByText('Hello');
+        screen.getByText('Hi');
+    })
+})

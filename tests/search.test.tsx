@@ -8,7 +8,13 @@ jest.mock('../src/api/axios');
 
 describe('Search page', () => {
     beforeAll(() => {
-        (axiosPrivate.post as jest.Mock).mockResolvedValue({ data: { status: 200 } });
+        (axiosPrivate.post as jest.Mock).mockResolvedValue({
+            data: [
+                { username: 'Jan Doe', dateOfBirth: '1995-01-02', gender: 'Other' },
+                { username: 'Jane Doe', dateOfBirth: '1996-02-07', gender: 'Female' }
+            ],
+            status: 200
+        });
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true
@@ -52,5 +58,8 @@ describe('Search page', () => {
                     "withCredentials": true
                 });
         });
+
+        await screen.findByText('Jan Doe');
+        screen.getByText('Jane Doe');
     })
 })
