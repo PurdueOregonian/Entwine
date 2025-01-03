@@ -10,6 +10,7 @@ jest.mock('../src/hooks/useAuth', () => ({
     __esModule: true,
     default: jest.fn()
 }));
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
 describe('Search page', () => {
     beforeAll(() => {
