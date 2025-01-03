@@ -5,19 +5,11 @@ import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import SearchIcon from '@mui/icons-material/Search';
 import { Tooltip } from '@mui/material';
-import useAuth from '../hooks/useAuth';
-import SendIcon from '@mui/icons-material/Send';
+import Messages from './Messages';
 
 type ChatData = {
   id: number;
   usernames: string[];
-}
-
-type ChatMessage = {
-  id: number;
-  senderId: number;
-  content: string;
-  timeSent: string;
 };
 
 type User = {
@@ -33,13 +25,9 @@ type ChatProps = {
 const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const [chats, setChats] = useState<ChatData[]>([]);
   const [selectedChatIndex, setSelectedChatIndex] = useState<number>(-1);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [message, setMessage] = useState('');
-
-  const { auth } = useAuth();
 
   const apiUrl = `${backendUrl}/Chat`;
 
@@ -58,15 +46,6 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const handleChatClick = (chatIndex: number) => {
     setShowSearch(false);
     setSelectedChatIndex(chatIndex);
-    axiosPrivate.get(`${apiUrl}/${chats[chatIndex].id}/Messages`)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error('Network response was not ok');
-        }
-        return response.data;
-      })
-      .then((data) => setMessages(data))
-      .catch((err) => console.error('Error fetching messages:', err));
   };
 
   const handleAddChat = async (user: User) => {
@@ -86,7 +65,6 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
           var chatId = data.id;
           setChats([...chats, {id: chatId, usernames: [user.username]}]);
           setSelectedChatIndex(chats.length);
-          setMessages([]);
         })
         .catch((err) => console.error('Error adding chat:', err));
     } catch (err) {
@@ -106,30 +84,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
       .then((data) => setSearchResults(data))
       .catch((err) => console.error('Error fetching search results:', err
       ));
-  }
-
-  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if(message === '') {
-      return;
-    }
-    setMessage('');
-    axiosPrivate.post(`${apiUrl}/${chats[selectedChatIndex].id}/Messages`, {
-      chatId: chats[selectedChatIndex].id,
-      senderId: auth.userId,
-      content: message
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error('Network response was not ok');
-        }
-        return response.data;
-      })
-      .then((data) => {
-        setMessages([...messages, data]);
-      })
-      .catch((err) => console.error('Error sending message:', err));
-  }
+  };
   
   const newChatClicked = () => {
     setShowSearch(true);
@@ -199,29 +154,9 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
           {selectedChatIndex !== -1 && (
             <>
               <h3>Chat with {chats[selectedChatIndex].usernames.join(', ')}</h3>
-              <div className="messages">
-                {messages.map((message) => (
-                  <div key={message.id} className={`message ${message.senderId === auth.userId ? 'outgoing' : 'incoming'}`}>
-                    <p className="message-content">{message.content}</p>
-                    <span className="message-timestamp">{new Date(message.timeSent).toLocaleTimeString()}</span>
-                  </div>
-                ))}
-                <form onSubmit={sendMessage}>
-                  <div>
-                    <input
-                      data-testid="messageBox"
-                      className="messageBox"
-                      type="text"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Send a message..."
-                    />
-                    <button data-testid="sendMessageButton" type="submit" className='sendMessageButton'>
-                      <SendIcon />
-                    </button>
-                  </div>
-                </form>
-              </div>
+              <Messages
+                chatId={chats[selectedChatIndex].id}
+              />
             </>
           )}
         </div>
