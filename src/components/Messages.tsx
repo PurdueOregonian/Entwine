@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import useAuth from '../hooks/useAuth';
@@ -22,6 +22,16 @@ const Messages: React.FC<MessagesProps> = ({ chatId }) => {
   const { auth } = useAuth();
 
   const apiUrl = `${backendUrl}/Chat`;
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView();
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   useEffect(() => {
     axiosPrivate.get(`${apiUrl}/${chatId}/Messages`)
@@ -59,13 +69,16 @@ const Messages: React.FC<MessagesProps> = ({ chatId }) => {
   }
 
   return (
-    <div className="messages">
-      {messages.map((message) => (
-        <div key={message.id} className={`message ${message.senderId === auth.userId ? 'outgoing' : 'incoming'}`}>
-          <p className="message-content">{message.content}</p>
-          <span className="message-timestamp">{new Date(message.timeSent).toLocaleTimeString()}</span>
-        </div>
-      ))}
+    <div className="messagesContainer">
+      <div className="messages">
+        {messages.map((message) => (
+          <div key={message.id} className={`message ${message.senderId === auth.userId ? 'outgoing' : 'incoming'}`}>
+            <p className="message-content">{message.content}</p>
+            <span className="message-timestamp">{new Date(message.timeSent).toLocaleTimeString()}</span>
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
       <form onSubmit={sendMessage}>
         <div>
           <input
