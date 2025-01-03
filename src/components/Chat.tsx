@@ -6,6 +6,7 @@ import { axiosPrivate } from '../api/axios';
 import SearchIcon from '@mui/icons-material/Search';
 import { Tooltip } from '@mui/material';
 import useAuth from '../hooks/useAuth';
+import SendIcon from '@mui/icons-material/Send';
 
 type ChatData = {
   id: number;
@@ -109,6 +110,9 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if(message === '') {
+      return;
+    }
     setMessage('');
     axiosPrivate.post(`${apiUrl}/${chats[selectedChatIndex].id}/Messages`, {
       chatId: chats[selectedChatIndex].id,
@@ -154,6 +158,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
           )}
           <Tooltip title="New Chat">
             <AddCommentIcon
+              data-testid="newChat"
               className="topRightButton muiClickableButton"
               onClick={() => {newChatClicked()}}
             />
@@ -168,6 +173,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               <form onSubmit={searchUsers}>
                 <div className="searchContainer">
                   <input
+                    data-testid="searchInput"
                     className="searchInput"
                     type="text"
                     value={searchQuery}
@@ -175,7 +181,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
                     placeholder="Search users..."
                   />
                   <Tooltip title="Search">
-                    <button type="submit" className='searchButton'>
+                    <button data-testid="searchButton" type="submit" className='searchButton'>
                       <SearchIcon />
                     </button>
                   </Tooltip>
@@ -203,12 +209,16 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
                 <form onSubmit={sendMessage}>
                   <div>
                     <input
+                      data-testid="messageBox"
                       className="messageBox"
                       type="text"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Send a message..."
                     />
+                    <button data-testid="sendMessageButton" type="submit" className='sendMessageButton'>
+                      <SendIcon />
+                    </button>
                   </div>
                 </form>
               </div>

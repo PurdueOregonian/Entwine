@@ -30,6 +30,36 @@ describe('Search page', () => {
                     ],
                     status: 200
                 });
+            } else if (url === `${backendUrl}/Search?searchString=SomeOtherUser`) {
+                return Promise.resolve({
+                    data: [
+                        { id: 4, username: 'SomeOtherUser' }
+                    ],
+                    status: 200
+                });
+            } else {
+                return Promise.reject(new Error('Unknown endpoint'));
+            }
+        });
+        (axiosPrivate.post as jest.Mock).mockImplementation((url) => {
+            if (url === `${backendUrl}/Chat`) {
+                return Promise.resolve({
+                    data: {
+                        id: 3,
+                        userIds: [1, 4]
+                    },
+                    status: 200
+                });
+            } else if (url === `${backendUrl}/Chat/1/Messages`) {
+                return Promise.resolve({
+                    data: {
+                        id: 3,
+                        senderId: 1,
+                        content: 'SomeMessage',
+                        timeSent: '2023-01-01T00:00:00Z'
+                    },
+                    status: 200
+                });
             } else {
                 return Promise.reject(new Error('Unknown endpoint'));
             }
@@ -65,5 +95,43 @@ describe('Search page', () => {
 
         await screen.findByText('Hello');
         screen.getByText('Hi');
+    })
+
+    test('can send a message', async () => {
+        const chat1 = await screen.findByText('JohnDoe');
+        fireEvent.click(chat1);
+
+        const messageBox = await screen.findByTestId('messageBox');
+        fireEvent.change(messageBox, { target: { value: 'SomeMessage' } });
+        fireEvent.blur(messageBox);
+
+        const sendMessageButton = screen.getByTestId('sendMessageButton');
+        fireEvent.click(sendMessageButton);
+
+        await screen.findByText('SomeMessage');
+        const messageBoxAfter = screen.getByTestId('messageBox') as HTMLInputElement;
+        expect(messageBoxAfter.value).toBe('');
+    })
+
+    test('can add a new chat', async () => {
+        const newChatButton = screen.getByTestId('newChat');
+        fireEvent.click(newChatButton);
+
+        expect(screen.queryByTestId('messageBox')).toBeNull();
+
+        const searchBar = screen.getByTestId('searchInput');
+        fireEvent.change(searchBar, { target: { value: 'SomeOtherUser' } });
+        fireEvent.blur(searchBar);
+
+        const searchButton = screen.getByTestId('searchButton');
+        fireEvent.click(searchButton);
+
+        const searchResult = await screen.findByText('SomeOtherUser');
+        fireEvent.click(searchResult);
+        
+        expect(screen.queryByTestId('searchInput')).toBeNull();
+        expect(screen.queryByTestId('searchButton')).toBeNull();
+
+        await screen.findByTestId('messageBox');
     })
 })

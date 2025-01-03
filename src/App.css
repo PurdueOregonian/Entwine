@@ -97,6 +97,17 @@ input {
   color: dodgerblue;
 }
 
+.sendMessageButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  cursor: pointer;
+}
+
+.sendMessageButton:hover {
+  color: dodgerblue;
+}
+
 .searchInput {
     width: 280px;
     height: 30px;
