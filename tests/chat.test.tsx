@@ -4,7 +4,9 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { axiosPrivate } from '../src/api/axios';
 import Chat from '../src/components/Chat';
 import useAuth from '../src/hooks/useAuth';
+import MockHubConnection from '../testUtils/mockhubconnection';
 
+const mockHubConnection = new MockHubConnection();
 jest.mock('../src/api/axios');
 jest.mock('../src/hooks/useAuth', () => ({
     __esModule: true,
@@ -16,12 +18,7 @@ jest.mock('@microsoft/signalr', () => {
       ...originalModule,
       HubConnectionBuilder: jest.fn().mockImplementation(() => ({
         withUrl: jest.fn().mockReturnThis(),
-        build: jest.fn().mockReturnValue({
-          start: jest.fn().mockResolvedValue(undefined),
-          stop: jest.fn().mockResolvedValue(undefined),
-          on: jest.fn(),
-          off: jest.fn()
-        })
+        build: jest.fn().mockReturnValue(mockHubConnection)
       }))
     };
   });
@@ -67,6 +64,8 @@ describe('Search page', () => {
                     status: 200
                 });
             } else if (url === `${backendUrl}/Chat/1/Messages`) {
+                const newMessage = { id: 3, senderId: 1, content: 'SomeMessage', timeSent: '2023-01-01T00:00:00Z' };
+                mockHubConnection.simulateMessage('ReceiveMessage', newMessage);
                 return Promise.resolve({
                     data: {
                         id: 3,
