@@ -10,6 +10,21 @@ jest.mock('../src/hooks/useAuth', () => ({
     __esModule: true,
     default: jest.fn()
 }));
+jest.mock('@microsoft/signalr', () => {
+    const originalModule = jest.requireActual('@microsoft/signalr');
+    return {
+      ...originalModule,
+      HubConnectionBuilder: jest.fn().mockImplementation(() => ({
+        withUrl: jest.fn().mockReturnThis(),
+        build: jest.fn().mockReturnValue({
+          start: jest.fn().mockResolvedValue(undefined),
+          stop: jest.fn().mockResolvedValue(undefined),
+          on: jest.fn(),
+          off: jest.fn()
+        })
+      }))
+    };
+  });
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
 describe('Search page', () => {

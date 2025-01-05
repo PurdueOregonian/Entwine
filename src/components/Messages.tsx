@@ -3,6 +3,7 @@ import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import useAuth from '../hooks/useAuth';
 import SendIcon from '@mui/icons-material/Send';
+import * as signalR from '@microsoft/signalr';
 
 type ChatMessage = {
   id: number;
@@ -43,6 +44,20 @@ const Messages: React.FC<MessagesProps> = ({ chatId }) => {
       })
       .then((data) => setMessages(data))
       .catch((err) => console.error('Error fetching messages:', err));
+
+    var hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(`${backendUrl}/chatHub?chatId=${chatId}`, {
+        accessTokenFactory: () => auth.token || ''
+      }).build();
+    hubConnection.on("ReceiveMessage", (message: ChatMessage) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+    hubConnection.start();
+    return () => {
+      hubConnection.off("ReceiveMessage");
+      hubConnection.stop()
+        .catch(err => console.error('Error stopping SignalR connection:', err));
+    };
   }, [chatId]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,10 +75,6 @@ const Messages: React.FC<MessagesProps> = ({ chatId }) => {
         if (response.status !== 200) {
           throw new Error('Network response was not ok');
         }
-        return response.data;
-      })
-      .then((data) => {
-        setMessages([...messages, data]);
       })
       .catch((err) => console.error('Error sending message:', err));
   }
