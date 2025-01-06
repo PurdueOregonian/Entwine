@@ -129,6 +129,9 @@ describe('Search page', () => {
     })
 
     test('can add a new chat', async () => {
+        // Wait for chats to load. New chat button should not appear before that
+        await screen.findByText('JohnDoe');
+
         const newChatButton = screen.getByTestId('newChat');
         fireEvent.click(newChatButton);
 

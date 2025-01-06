@@ -28,6 +28,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const apiUrl = `${backendUrl}/Chat`;
 
@@ -39,8 +40,11 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
         }
         return response.data;
       })
-      .then((data) => setChats(data))
-      .catch((err) => console.error('Error fetching users:', err));
+      .then((data) => {
+        setChats(data);
+        setLoading(false);
+      })
+      .catch((err) => console.error('Error fetching chats for user:', err));
   }, []);
 
   const handleChatClick = (chatIndex: number) => {
@@ -63,7 +67,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
         })
         .then((data) => {
           var chatId = data.id;
-          setChats([...chats, {id: chatId, usernames: [user.username]}]);
+          setChats([...chats, { id: chatId, usernames: [user.username] }]);
           setSelectedChatIndex(chats.length);
         })
         .catch((err) => console.error('Error adding chat:', err));
@@ -85,7 +89,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
       .catch((err) => console.error('Error fetching search results:', err
       ));
   };
-  
+
   const newChatClicked = () => {
     setShowSearch(true);
     setSelectedChatIndex(-1);
@@ -96,28 +100,34 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
       {isOpen && <div className="chatOverlay">
         <div className="chat-selection">
           <h3>Chats</h3>
-          {chats.length === 0 ? (
-            <p>No chats. Click "New Chat" to start a chat.</p>
+          {loading ? (
+            <p>Loading...</p> // Display loading message
           ) : (
-            <ul className="chatList">
-              {chats.map((chat, index) => (
-                <li
-                  key={chat.id}
-                  className={`chat-user ${selectedChatIndex === index ? 'selected' : ''}`}
-                  onClick={() => handleChatClick(index)}
-                >
-                  {chat.usernames.join(', ')}
-                </li>
-              ))}
-            </ul>
+            <>
+              {chats.length === 0 ? (
+                <p>No chats. Click "New Chat" to start a chat.</p>
+              ) : (
+                <ul className="chatList">
+                  {chats.map((chat, index) => (
+                    <li
+                      key={chat.id}
+                      className={`chat-user ${selectedChatIndex === index ? 'selected' : ''}`}
+                      onClick={() => handleChatClick(index)}
+                    >
+                      {chat.usernames.join(', ')}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <Tooltip title="New Chat">
+                <AddCommentIcon
+                  data-testid="newChat"
+                  className="topRightButton muiClickableButton"
+                  onClick={() => { newChatClicked() }}
+                />
+              </Tooltip>
+            </>
           )}
-          <Tooltip title="New Chat">
-            <AddCommentIcon
-              data-testid="newChat"
-              className="topRightButton muiClickableButton"
-              onClick={() => {newChatClicked()}}
-            />
-          </Tooltip>
         </div>
 
         <div className="separator"></div>
