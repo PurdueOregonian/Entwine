@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import IntegerSliderRangeSelect from "../components/IntegerSliderRangeSelect";
-import NavHeader from "../components/NavHeader";
 import { useState } from "react";
 import MultipleRectangleSelector from "../components/MultipleRectangleSelector";
 import { useForm } from "react-hook-form";
@@ -59,7 +58,6 @@ function Search() {
     // TODO replace results with links to profiles and/or more info
     return (
         <>
-            <NavHeader />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center gap10">
                     <div className="alignHorizontal center gap10">
