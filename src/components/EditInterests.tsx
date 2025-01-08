@@ -22,6 +22,7 @@ const EditInterests = ({ onClose, interests, setInterests, interestMap, interest
     return (
         <Box>
             <CloseIcon
+                data-testid="closeEditInterests"
                 className="topRightButton muiClickableButton"
                 onClick={onClose}
             >
@@ -34,6 +35,7 @@ const EditInterests = ({ onClose, interests, setInterests, interestMap, interest
                             .filter(interest => interest.categories.includes(category.id))
                             .map(interest => (
                                 <InterestChip
+                                    key={interest.id}
                                     interest={interest}
                                     isSelected={interests.includes(interest.id)}
                                     onClick={() => handleClick(interest)}

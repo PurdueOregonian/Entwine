@@ -187,7 +187,11 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                         <div className="alignHorizontal center gap10">
                             <Typography>Interests</Typography>
                             <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
-                            <IconButton onClick={() => setIsProfileModalOpen(true)} aria-label="edit interests" component="span">
+                            <IconButton
+                                data-testid="editInterestsButton"
+                                onClick={() => setIsProfileModalOpen(true)}
+                                aria-label="edit interests"
+                                component="span">
                                 <EditIcon />
                             </IconButton>
 

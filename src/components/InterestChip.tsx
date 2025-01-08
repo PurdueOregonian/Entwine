@@ -10,6 +10,7 @@ const InterestChip = ({ interest, isSelected, onClick }: InterestChipProps) => {
     return (
         <>
             <Chip
+                data-testid={`interestChip-${interest.id}`}
                 label={interest.name}
                 onClick={() => onClick(interest)}
                 color={isSelected ? 'primary' : 'default'}
