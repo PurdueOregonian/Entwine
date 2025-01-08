@@ -6,12 +6,15 @@ import DatePicker from "./DatePicker";
 import Location from "./Location";
 import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "./RectangleSelector";
-import { Typography } from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
 import ColoredMessage from "./ColoredMessage";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import { useNavigate } from "react-router-dom";
+import EditInterests from "./EditInterests";
+import EditIcon from '@mui/icons-material/Edit';
+import useStaticData from "../hooks/useStaticData";
 
 type EditProfileComponentProps = {
     redirectOnSuccess: boolean;
@@ -22,10 +25,13 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     const [day, setDay] = useState('');
     const [year, setYear] = useState('');
     const [gender, setGender] = useState<Gender | null>(null);
+    const [interests, setInterests] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
     const [location, setLocation] = useState('');
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
     const navigate = useNavigate();
+    const { interestMap, interestCategoryMap } = useStaticData();
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
     const {
         handleSubmit
@@ -77,7 +83,8 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
 
         const dataToSubmit = {
             DateOfBirth: dateOfBirth,
-            Gender: gender
+            Gender: gender,
+            Interests: interests
         };
 
         const apiUrl = `${backendUrl}/Profile/Save`;
@@ -140,6 +147,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                     setDay('');
                 }
                 setGender(data.gender ?? null);
+                setInterests(data.interests ?? []);
                 setLoaded(true);
             })
             .catch(error => {
@@ -175,6 +183,33 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 selected={gender}
                                 setSelected={setGender}
                             />
+                        </div>
+                        <div className="alignHorizontal center gap10">
+                            <Typography>Interests</Typography>
+                            <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
+                            <IconButton onClick={() => setIsProfileModalOpen(true)} aria-label="edit interests" component="span">
+                                <EditIcon />
+                            </IconButton>
+
+                            <Modal
+                                open={isProfileModalOpen}
+                                onClose={() => setIsProfileModalOpen(false)}
+                                aria-labelledby="edit-interests-modal"
+                                aria-describedby="edit-interests-modal-description"
+                            >
+                                <Box className="editProfileModal">
+                                    <Typography id="edit-interests-modal" variant="h6" component="h2">
+                                        Edit Interests
+                                    </Typography>
+                                    <EditInterests
+                                        onClose={() => setIsProfileModalOpen(false)}
+                                        interests={interests}
+                                        setInterests={setInterests}
+                                        interestMap={interestMap}
+                                        interestCategoryMap={interestCategoryMap}
+                                    />
+                                </Box>
+                            </Modal>
                         </div>
                         <div className="alignHorizontal center gap10">
                             <Typography>Location</Typography>

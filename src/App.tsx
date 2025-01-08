@@ -11,12 +11,23 @@ import NotFoundPage from './pages/NotFoundPage'
 import SetupProfile from './pages/SetupProfile'
 import OtherUserProfile from './pages/OtherUserProfile'
 import NavHeader from './components/NavHeader'
+import { StaticDataProvider } from './StaticDataContext'
 
 function WithNavHeader() {
     return (
         <>
             <NavHeader />
             <Outlet />
+        </>
+    );
+}
+
+function WithStaticData() {
+    return (
+        <>
+            <StaticDataProvider>
+                <Outlet />
+            </StaticDataProvider>
         </>
     );
 }
@@ -30,13 +41,15 @@ function App() {
                     <Route path="/Register" element={<Register />} />
                     <Route element={<PersistLogin />}>
                         <Route element={<RequireAuth />}>
-                            <Route path="/SetupProfile" element={<SetupProfile />} />
-                            <Route element={<WithNavHeader />}>
-                                <Route path="/Profile" element={<Profile />} />
-                                <Route path="/Profile/:usernameFromRoute" element={<OtherUserProfile />} />
-                                <Route path="/Search" element={<Search />} />
-                                <Route path="/" element={<MainPage />} />
-                                <Route path="*" element={<NotFoundPage />} />
+                            <Route element={<WithStaticData />}>
+                                <Route path="/SetupProfile" element={<SetupProfile />} />
+                                <Route element={<WithNavHeader />}>
+                                    <Route path="/Profile" element={<Profile />} />
+                                    <Route path="/Profile/:usernameFromRoute" element={<OtherUserProfile />} />
+                                    <Route path="/Search" element={<Search />} />
+                                    <Route path="/" element={<MainPage />} />
+                                    <Route path="*" element={<NotFoundPage />} />
+                                </Route>
                             </Route>
                         </Route>
                     </Route>

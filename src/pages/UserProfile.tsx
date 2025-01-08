@@ -7,6 +7,7 @@ import { Gender } from "../types/Gender";
 import { useNavigate, useParams } from "react-router-dom";
 import { RetrievedOtherProfileData as PublicProfileData } from "../types/RetrievedOtherProfileData";
 import useAuth from "../hooks/useAuth";
+import useStaticData from "../hooks/useStaticData";
 
 function UserProfile() {
     const { auth } = useAuth();
@@ -14,8 +15,10 @@ function UserProfile() {
     const username = usernameFromRoute ?? auth.username;
     const [age, setAge] = useState<number | null>(null);
     const [gender, setGender] = useState<Gender | null>(null);
+    const [interests, setInterests] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
+    const { interestMap } = useStaticData();
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -40,6 +43,7 @@ function UserProfile() {
                 }
                 setAge(data.age);
                 setGender(data.gender ?? null);
+                setInterests(data.interests);
                 setLoaded(true);
             })
             .catch(error => {
@@ -61,6 +65,10 @@ function UserProfile() {
                     <div className="alignHorizontal center gap10">
                         <Typography>Gender</Typography>
                         <Typography>{gender}</Typography>
+                    </div>
+                    <div className="alignHorizontal center gap10">
+                        <Typography>Interests</Typography>
+                        <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                     </div>
                 </div>
             }
