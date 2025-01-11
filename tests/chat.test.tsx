@@ -50,6 +50,13 @@ describe('Search page', () => {
                     ],
                     status: 200
                 });
+            } else if (url === `${backendUrl}/Search?searchString=JohnDoe`) {
+                return Promise.resolve({
+                    data: [
+                        { id: 1, username: 'JohnDoe' }
+                    ],
+                    status: 200
+                });
             } else {
                 return Promise.reject(new Error('Unknown endpoint'));
             }
@@ -144,12 +151,33 @@ describe('Search page', () => {
         const searchButton = screen.getByTestId('searchButton');
         fireEvent.click(searchButton);
 
-        const searchResult = await screen.findByText('SomeOtherUser');
+        const searchResult = await screen.findByTestId('user-search-result-SomeOtherUser');
         fireEvent.click(searchResult);
         
         expect(screen.queryByTestId('searchInput')).toBeNull();
         expect(screen.queryByTestId('searchButton')).toBeNull();
 
         await screen.findByTestId('messageBox');
+    })
+
+    test('does not add a new chat if there is already a chat with the user', async () => {
+        await screen.findByText('JohnDoe');
+
+        const newChatButton = screen.getByTestId('newChat');
+        fireEvent.click(newChatButton);
+
+        const searchBar = screen.getByTestId('searchInput');
+        fireEvent.change(searchBar, { target: { value: 'JohnDoe' } });
+        fireEvent.blur(searchBar);
+
+        const searchButton = screen.getByTestId('searchButton');
+        fireEvent.click(searchButton);
+
+        const searchResult = await screen.findByTestId('user-search-result-JohnDoe');
+        fireEvent.click(searchResult);
+
+        // Should open existing chat
+        await screen.findByText('Hello');
+        screen.getByText('Hi');
     })
 })

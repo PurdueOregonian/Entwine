@@ -55,6 +55,10 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const handleAddChat = async (user: User) => {
     // Not handling chats with more than 2 users yet
     try {
+      const index = chats.findIndex(chat => chat.usernames.includes(user.username));
+      if (index !== -1) {
+        setSelectedChatIndex(index);
+      }
       setShowSearch(false);
       setSearchQuery('');
       setSearchResults([]);
@@ -154,7 +158,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               </form>
               <ul className="chatList">
                 {searchResults.map((result) => (
-                  <li key={result.id} onClick={() => handleAddChat(result)}>
+                  <li data-testid={`user-search-result-${result.username}`} key={result.id} onClick={() => handleAddChat(result)}>
                     {result.username}
                   </li>
                 ))}
