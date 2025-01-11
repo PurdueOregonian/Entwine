@@ -8,6 +8,7 @@ import { backendUrl } from "../constants/constants";
 import axios from "axios";
 import { SearchResultProfileData } from "../types/SearchResultProfileData";
 import { useNavigate } from "react-router-dom";
+import { User } from "../types/User";
 
 function Search() {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ function Search() {
     const [maxAge, setMaxAge] = useState(100);
     const [genders, setGenders] = useState<string[]>([]);
 
-    const [usernames, setUsernames] = useState<string[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
     const {
         handleSubmit
@@ -45,8 +46,8 @@ function Search() {
                 return response.data;
             })
             .then(data => {
-                const usernames = data.map((profile: SearchResultProfileData) => profile.username);
-                setUsernames(usernames);
+                const users = data.map(({ id, username }: SearchResultProfileData) => ({ id, username }));
+                setUsers(users);
             })
             .catch(error => {
                 if (axios.isAxiosError(error)) {
@@ -85,10 +86,10 @@ function Search() {
                 </div>
             </form>
             <div>
-                {usernames.map((username, index) => (
+                {users.map((user, index) => (
                     <div key={index}>
-                        <a className="navLink" onClick={() => navigate(`/Profile/${username}`)}>
-                            {username}
+                        <a className="navLink" onClick={() => navigate(`/Profile/${user.id}`)}>
+                            {user.username}
                         </a>
                     </div>
                 ))}

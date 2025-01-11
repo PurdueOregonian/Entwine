@@ -6,15 +6,11 @@ import { axiosPrivate } from '../api/axios';
 import SearchIcon from '@mui/icons-material/Search';
 import { Tooltip } from '@mui/material';
 import Messages from './Messages';
+import { User } from '../types/User';
 
 type ChatData = {
   id: number;
   usernames: string[];
-};
-
-type User = {
-  id: number;
-  username: string;
 };
 
 type ChatProps = {

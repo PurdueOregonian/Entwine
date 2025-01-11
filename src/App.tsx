@@ -45,7 +45,7 @@ function App() {
                                 <Route path="/SetupProfile" element={<SetupProfile />} />
                                 <Route element={<WithNavHeader />}>
                                     <Route path="/Profile" element={<Profile />} />
-                                    <Route path="/Profile/:usernameFromRoute" element={<OtherUserProfile />} />
+                                    <Route path="/Profile/:userIdFromRoute" element={<OtherUserProfile />} />
                                     <Route path="/Search" element={<Search />} />
                                     <Route path="/" element={<MainPage />} />
                                     <Route path="*" element={<NotFoundPage />} />

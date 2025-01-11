@@ -11,8 +11,9 @@ import useStaticData from "../hooks/useStaticData";
 
 function UserProfile() {
     const { auth } = useAuth();
-    const { usernameFromRoute } = useParams();
-    const username = usernameFromRoute ?? auth.username;
+    const { userIdFromRoute } = useParams();
+    const userId = userIdFromRoute ?? auth.userId;
+    const [username, setUsername] = useState('');
     const [age, setAge] = useState<number | null>(null);
     const [gender, setGender] = useState<Gender | null>(null);
     const [interests, setInterests] = useState<number[]>([]);
@@ -23,7 +24,7 @@ function UserProfile() {
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
-        const apiUrl = `${backendUrl}/Profile/${username}`;
+        const apiUrl = `${backendUrl}/Profile/${userId}`;
 
         axiosPrivate.get(apiUrl, {
             withCredentials: true,
@@ -41,6 +42,7 @@ function UserProfile() {
                 if(data.age === null && data.gender === null){
                     navigate('/NotFound');
                 }
+                setUsername(data.username);
                 setAge(data.age);
                 setGender(data.gender ?? null);
                 setInterests(data.interests);
@@ -51,7 +53,7 @@ function UserProfile() {
                     console.error('Error:', error.message);
                 }
             });
-    }, [username])
+    }, [userId])
 
     return (
         <>
