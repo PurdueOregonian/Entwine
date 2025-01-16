@@ -3,7 +3,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
 import { backendUrl } from "../constants/constants";
 import DatePicker from "./DatePicker";
-import Location from "./Location";
+import LocationComponent from "./LocationComponent";
 import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "./RectangleSelector";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import EditInterests from "./EditInterests";
 import EditIcon from '@mui/icons-material/Edit';
 import useStaticData from "../hooks/useStaticData";
+import { Location } from "../types/Location";
 
 type EditProfileComponentProps = {
     redirectOnSuccess: boolean;
@@ -27,7 +28,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     const [gender, setGender] = useState<Gender | null>(null);
     const [interests, setInterests] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
-    const [location, setLocation] = useState('');
+    const [location, setLocation] = useState<Location>({city: '', country: ''});
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
     const navigate = useNavigate();
     const { interestMap, interestCategoryMap } = useStaticData();
@@ -217,7 +218,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                         </div>
                         <div className="alignHorizontal center gap10">
                             <Typography>Location</Typography>
-                            <Location
+                            <LocationComponent
                                 location={location}
                                 setLocation={setLocation}
                             />
