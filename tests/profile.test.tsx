@@ -25,11 +25,47 @@ describe('Profile page', () => {
               [2, { id: 2, name: 'Category 2' }]
             ]),
           });
-        (axiosPrivate.get as jest.Mock).mockResolvedValue({ status: 200, data: {
-            dateOfBirth: '2002-10-04',
-            gender: 'Male',
-            interests: [3],
-        } });
+          (axiosPrivate.get as jest.Mock).mockImplementation((url) => {
+            if (url === `${backendUrl}/Profile`) {
+                return Promise.resolve({
+                    data: {
+                        dateOfBirth: '2002-10-04',
+                        gender: 'Male',
+                        interests: [3],
+                        location: {
+                            city: 'City',
+                            state: 'State',
+                            country: 'Country'
+                        }
+                    },
+                    status: 200
+                });
+            } else if (url.startsWith(`${backendUrl}/Location`)) {
+                return Promise.resolve({
+                    data: {
+                        city: 'NewCity',
+                        state: 'NewState',
+                        country: 'NewCountry'
+                    },
+                    status: 200
+                });
+            } else {
+                return Promise.reject(new Error('Unknown endpoint'));
+            }
+        });
+        Object.defineProperty(global.navigator, 'geolocation', {
+            value: {
+              getCurrentPosition: jest.fn().mockImplementation((success) => {
+                success({
+                  coords: {
+                    latitude: 40.7128,
+                    longitude: -74.0060
+                  }
+                });
+              })
+            },
+            writable: true
+          });
         (axiosPrivate.post as jest.Mock).mockResolvedValue({ data: { status: 200 } });
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -70,6 +106,9 @@ describe('Profile page', () => {
         fireEvent.click(interestChip4s[1]);
         const closeEditInterests = screen.getByTestId('closeEditInterests');
         fireEvent.click(closeEditInterests);
+        const updateLocationButton = screen.getByTestId('updateLocation');
+        fireEvent.click(updateLocationButton);
+        await screen.findByText('NewCity, NewState');
 
         const saveProfile = screen.getByTestId('saveProfile');
         await act(async () => fireEvent.click(saveProfile));
@@ -87,7 +126,12 @@ describe('Profile page', () => {
         expect(parsedData).toEqual(expect.objectContaining({
             DateOfBirth: '2002-07-22',
             Gender: 'Female',
-            Interests: expect.arrayContaining([1, 3, 4])
+            Interests: expect.arrayContaining([1, 3, 4]),
+            Location: {
+                city: 'NewCity',
+                state: 'NewState',
+                country: 'NewCountry'
+            }
         }));
 
         expect(config).toEqual(expect.objectContaining({

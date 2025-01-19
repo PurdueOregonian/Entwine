@@ -6,8 +6,8 @@ import { axiosPrivate } from '../api/axios';
 import { Location } from '../types/Location';
 
 type LocationProps = {
-    location: Location;
-    setLocation: React.Dispatch<React.SetStateAction<Location>>;
+    location: Location | null;
+    setLocation: React.Dispatch<React.SetStateAction<Location | null>>;
 };
 
 const LocationComponent = (props: LocationProps): React.ReactElement => {
@@ -40,7 +40,9 @@ const LocationComponent = (props: LocationProps): React.ReactElement => {
     }
     return (
         <div className="alignHorizontal center gap10">
-            <Typography>{location.city}, ${location.state ?? location.country}</Typography>
+            {location && (
+                <Typography>{location.city}, {location.state ?? location.country}</Typography>
+            )}
             <button className="button" type="button" onClick={locate} data-testid="updateLocation">Locate Me</button>
         </div>
     );

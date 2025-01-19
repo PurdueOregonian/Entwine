@@ -28,7 +28,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     const [gender, setGender] = useState<Gender | null>(null);
     const [interests, setInterests] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
-    const [location, setLocation] = useState<Location>({city: '', country: ''});
+    const [location, setLocation] = useState<Location | null>(null);
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
     const navigate = useNavigate();
     const { interestMap, interestCategoryMap } = useStaticData();
@@ -80,12 +80,21 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
             return;
         }
 
+        if (location === null) {
+            coloredMessageRef.current?.showMessage({
+                color: 'red',
+                message: 'Location not selected'
+            });
+            return;
+        }
+
         const dateOfBirth = `${year}-${month}-${day}`;
 
         const dataToSubmit = {
             DateOfBirth: dateOfBirth,
             Gender: gender,
-            Interests: interests
+            Interests: interests,
+            Location: location
         };
 
         const apiUrl = `${backendUrl}/Profile/Save`;
@@ -149,6 +158,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                 }
                 setGender(data.gender ?? null);
                 setInterests(data.interests ?? []);
+                setLocation(data.location ?? null);
                 setLoaded(true);
             })
             .catch(error => {
