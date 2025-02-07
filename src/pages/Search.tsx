@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { backendUrl } from "../constants/constants";
 import axios from "axios";
-import { SearchResultProfileData } from "../types/SearchResultProfileData";
+import { UserSearchResult } from "../types/UserSearchResult";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types/User";
 
@@ -31,7 +31,7 @@ function Search() {
             Gender: genders
         };
 
-        const apiUrl = `${backendUrl}/Search`;
+        const apiUrl = `${backendUrl}/Search/Users/Profile`;
 
         axiosPrivate.post(apiUrl, JSON.stringify(dataToSubmit), {
             withCredentials: true,
@@ -46,7 +46,7 @@ function Search() {
                 return response.data;
             })
             .then(data => {
-                const users = data.map(({ id, username }: SearchResultProfileData) => ({ id, username }));
+                const users = data.map(({ id, username }: UserSearchResult) => ({ id, username }));
                 setUsers(users);
             })
             .catch(error => {

@@ -45,7 +45,7 @@ describe('Search page', () => {
         fireEvent.click(searchButton);
 
         await waitFor(() => {
-            expect(axiosPrivate.post).toHaveBeenCalledWith(`${backendUrl}/Search`,
+            expect(axiosPrivate.post).toHaveBeenCalledWith(`${backendUrl}/Search/Users/Profile`,
                 JSON.stringify({
                     MinAge: 23,
                     MaxAge: 84,

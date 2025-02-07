@@ -78,7 +78,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
 
   const searchUsers = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axiosPrivate.get(`${backendUrl}/Search?searchString=${searchQuery}`)
+    axiosPrivate.get(`${backendUrl}/Search/Users/Username?searchString=${searchQuery}`)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Network response was not ok');

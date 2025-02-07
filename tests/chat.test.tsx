@@ -43,14 +43,14 @@ describe('Search page', () => {
                     ],
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Search?searchString=SomeOtherUser`) {
+            } else if (url === `${backendUrl}/Search/Users/Username?searchString=SomeOtherUser`) {
                 return Promise.resolve({
                     data: [
                         { id: 4, username: 'SomeOtherUser' }
                     ],
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Search?searchString=JohnDoe`) {
+            } else if (url === `${backendUrl}/Search/Users/Username?searchString=JohnDoe`) {
                 return Promise.resolve({
                     data: [
                         { id: 1, username: 'JohnDoe' }
