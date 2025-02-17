@@ -14,15 +14,16 @@ type ChatMessage = {
 
 type MessagesProps = {
   chatId: number;
+  isCommunityChat: boolean;
 };
 
-const Messages: React.FC<MessagesProps> = ({ chatId }) => {
+const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState('');
 
   const { auth } = useAuth();
 
-  const apiUrl = `${backendUrl}/Chat`;
+  const apiUrl = `${backendUrl}${isCommunityChat ? '/Community' : ''}/Chat`;
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,7 @@ const Messages: React.FC<MessagesProps> = ({ chatId }) => {
       .catch((err) => console.error('Error fetching messages:', err));
 
     var hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${backendUrl}/chatHub?chatId=${chatId}`, {
+      .withUrl(`${backendUrl}/${isCommunityChat ? 'communityChatHub' : 'chatHub'}?chatId=${chatId}`, {
         accessTokenFactory: () => auth.token || ''
       }).build();
     hubConnection.on("ReceiveMessage", (message: ChatMessage) => {

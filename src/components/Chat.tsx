@@ -166,6 +166,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
               <h3>Chat with {chats[selectedChatIndex].usernames.join(', ')}</h3>
               <Messages
                 chatId={chats[selectedChatIndex].id}
+                isCommunityChat={false}
               />
             </>
           )}
