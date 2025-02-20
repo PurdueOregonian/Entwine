@@ -1,9 +1,18 @@
 #root {
+  height: 100%;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-body{
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
   background-color: rgb(204, 233, 252);
 }
 
@@ -199,6 +208,7 @@ input {
 }
 
 .topBar {
+  margin-left: 12px;
   margin-top: 12px;
   margin-bottom: 12px;
   padding-bottom: 12px;
@@ -366,4 +376,6 @@ input {
 .communityChat {
   display: flex;
   flex-direction: row;
+  flex: 1;
+  min-height: 0;
 }
