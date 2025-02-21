@@ -15,10 +15,10 @@ import { StaticDataProvider } from './StaticDataContext'
 
 function WithNavHeader() {
     return (
-        <>
+        <div className="page">
             <NavHeader />
             <Outlet />
-        </>
+        </div>
     );
 }
 

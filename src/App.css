@@ -1,9 +1,17 @@
 #root {
-  height: 100%;
   margin: 0 auto;
   text-align: center;
+}
+
+.page {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+h2 {
+  margin: 0;
+  padding: 24px;
 }
 
 html {
