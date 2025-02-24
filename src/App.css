@@ -9,6 +9,21 @@
   flex-direction: column;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  border: 1px solid #d5d5d5;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: #eeeeee;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #b0b0b0;
+}
+
 h2 {
   margin: 0;
   padding: 24px;
@@ -340,6 +355,7 @@ input {
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
+  padding-right: 8px;
 }
 
 .message {
