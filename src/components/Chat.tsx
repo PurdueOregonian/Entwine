@@ -98,7 +98,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   return (
     <>
       {isOpen && <div className="chatOverlay">
-        <div className="chat-selection">
+        <div className="chat-selection p-5 w-[30%]">
           <div className='text-xl font-semibold m-2'>Chats</div>
           {loading ? (
             <p>Loading...</p> // Display loading message

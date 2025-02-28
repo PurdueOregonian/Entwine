@@ -302,8 +302,6 @@ input {
 
 .chat-selection {
   position: relative;
-  width: 30%;
-  padding: 20px;
   overflow-y: auto;
 }
 

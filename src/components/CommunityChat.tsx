@@ -15,7 +15,7 @@ const CommunityChat: React.FC<CommunityChatProps> = ({ chats }) => {
 
   return (
     <div className='communityChat'>
-      <div className="chat-selection">
+      <div className="chat-selection p-5 w-[20%]">
         <div className='text-2xl font-semibold m-2'>Chats</div>
         <>
           <ul className="chatList">
