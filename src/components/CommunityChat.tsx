@@ -16,7 +16,7 @@ const CommunityChat: React.FC<CommunityChatProps> = ({ chats }) => {
   return (
     <div className='communityChat'>
       <div className="chat-selection">
-        <h3>Chats</h3>
+        <div className='text-2xl font-semibold m-2'>Chats</div>
         <>
           <ul className="chatList">
             {chats.map((chat, index) => (

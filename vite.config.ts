@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,5 +14,5 @@ export default defineConfig({
         host: 'localhost',
         port: 5173
     },
-  plugins: [react()]
+  plugins: [react(), tailwindcss()]
 })

@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 #root {
   margin: 0 auto;
   text-align: center;
@@ -22,11 +24,6 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
   background: #b0b0b0;
-}
-
-h2 {
-  margin: 0;
-  padding: 24px;
 }
 
 html {
@@ -159,6 +156,10 @@ input {
     font-size: 24px;
     margin: 5px;
     border-radius: 5px;
+    background-color: white;
+    border-color: #000;
+    border-width: 2px;
+    outline: none;
 }
 
 .button {

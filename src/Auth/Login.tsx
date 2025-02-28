@@ -94,7 +94,7 @@ const Login = () => {
 
     return (
         <>
-            <h2>Login</h2>
+            <div className="text-2xl p-4 font-semibold">Login</div>
             <span>New user?</span><button className="button" onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
