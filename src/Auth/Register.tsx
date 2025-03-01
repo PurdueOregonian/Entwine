@@ -71,7 +71,7 @@ const Register = () => {
 
     return (
         <>
-            <h2>Register</h2>
+            <div className="text-2xl p-4 font-semibold">Register</div>
             <ColoredMessage
                 ref={coloredMessageRef}
             />

@@ -139,7 +139,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
                 <div className="searchContainer">
                   <input
                     data-testid="searchInput"
-                    className="searchInput"
+                    className="w-70 h-9 m-1 p-1 pr-9 rounded-md border-2 text-lg"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
