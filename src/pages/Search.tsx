@@ -61,7 +61,7 @@ function Search() {
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center gap-2.5">
-                    <div className="alignHorizontal center gap-2.5">
+                    <div className="flex center gap-2.5">
                         <Typography>Age</Typography>
                         <IntegerSliderRangeSelect
                             minValue={minAge}
@@ -72,7 +72,7 @@ function Search() {
                             max={100}
                         />
                     </div>
-                    <div className="alignHorizontal center gap-2.5">
+                    <div className="flex center gap-2.5">
                         <Typography>Gender</Typography>
                         <MultipleRectangleSelector
                             labels={["Male", "Female", "Other"]}

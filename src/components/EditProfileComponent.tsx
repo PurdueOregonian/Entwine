@@ -176,7 +176,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
             {loaded &&
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="alignVertical center">
-                        <div className="alignHorizontal center gap-2.5">
+                        <div className="flex center gap-2.5">
                             <Typography>Date of Birth</Typography>
                             <DatePicker
                                 month={month}
@@ -187,7 +187,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 setYear={setYear}
                             />
                         </div>
-                        <div className="alignHorizontal center gap-2.5">
+                        <div className="flex center gap-2.5">
                             <Typography>Gender</Typography>
                             <RectangleSelector
                                 labels={["Male", "Female", "Other"]}
@@ -195,7 +195,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 setSelected={setGender}
                             />
                         </div>
-                        <div className="alignHorizontal center gap-2.5">
+                        <div className="flex center gap-2.5">
                             <Typography>Interests</Typography>
                             <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                             <IconButton
@@ -226,7 +226,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 </Box>
                             </Modal>
                         </div>
-                        <div className="alignHorizontal center gap-2.5">
+                        <div className="flex center gap-2.5">
                             <Typography>Location</Typography>
                             <LocationComponent
                                 location={location}

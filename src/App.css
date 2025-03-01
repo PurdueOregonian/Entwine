@@ -129,15 +129,6 @@ body {
     justify-content: center;
 }
 
-.alignVertical {
-    display: flex;
-    flex-direction: column;
-}
-
-.alignHorizontal {
-    display: flex;
-}
-
 .activeNavBarLink {
   position: relative;
   color: dodgerblue;

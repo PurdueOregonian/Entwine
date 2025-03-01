@@ -60,15 +60,15 @@ function UserProfile() {
             {loaded &&
                 <div className="alignVertical center">
                     <Typography variant="h4">{username}</Typography>
-                    <div className="alignHorizontal center gap-2.5">
+                    <div className="flex center gap-2.5">
                         <Typography>Age</Typography>
                         <Typography>{age}</Typography>
                     </div>
-                    <div className="alignHorizontal center gap-2.5">
+                    <div className="flex center gap-2.5">
                         <Typography>Gender</Typography>
                         <Typography>{gender}</Typography>
                     </div>
-                    <div className="alignHorizontal center gap-2.5">
+                    <div className="flex center gap-2.5">
                         <Typography>Interests</Typography>
                         <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                     </div>

@@ -28,7 +28,7 @@ const NavHeader = () => {
                 <span>{`Logged in as ${auth.username}`}</span>
                 <LogoutButton />
             </div>
-            <div className="alignHorizontal topBar">
+            <div className="flex topBar">
                 <div className="siteTitle">Entwine</div>
                 <a className={`navLink ${isActive('/') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/')}>
                     Home

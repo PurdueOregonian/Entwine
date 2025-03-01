@@ -100,7 +100,7 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="alignVertical center">
                     <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
-                    <div className="passwordContainer alignHorizontal">
+                    <div className="passwordContainer flex">
                         <input type={passwordVisible ? "text" : "password"} className="pr-9 loginField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
                         {passwordVisible
                             ? <VisibilityIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />
@@ -110,7 +110,7 @@ const Login = () => {
                 <div className="form-control">
                     <button className="button" type="submit" data-testid="loginSubmit">Login</button>
                 </div>
-                <div className="alignHorizontal center">
+                <div className="flex center">
                     <input
                         className="checkbox w-5 h-5 cursor-pointer"
                         type="checkbox"

@@ -31,7 +31,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
 
     return (
-        <div className="alignHorizontal gap-2.5 center mb-2.5">
+        <div className="flex gap-2.5 center mb-2.5">
             <div className="alignVertical">
                 <InputWithValidation
                     label="Month"
