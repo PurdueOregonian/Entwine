@@ -13,7 +13,7 @@ const RectangleSelector = <T extends string>(props: RectangleSelectorProps<T>): 
     };
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className='flex'>
             {labels.map((label) => (
                 <div
                     data-testid={`rectangleSelector-${label}`}

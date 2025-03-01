@@ -76,7 +76,7 @@ const Register = () => {
                 ref={coloredMessageRef}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical center margin-bottom20">
+                <div className="alignVertical center">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
                     <input type="password" className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
                     <input type="password" className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>

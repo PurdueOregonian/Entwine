@@ -57,7 +57,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
     };
 
     return (
-        <div className="alignHorizontal center gap20" style={{ width: '400px' }}>
+        <div className="alignHorizontal center gap-5 w-100">
             <TextField
                 label="Min"
                 type="number"

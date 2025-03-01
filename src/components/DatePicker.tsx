@@ -31,8 +31,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
 
     return (
-        <div className="alignHorizontal gap10 center">
-            <div className="alignVertical" style={{ marginBottom: '10px' }}>
+        <div className="alignHorizontal gap-2.5 center mb-2.5">
+            <div className="alignVertical">
                 <InputWithValidation
                     label="Month"
                     testId="month"
@@ -43,7 +43,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     onBlur={() => handleBlur(setMonth, month)}
                 />
             </div>
-            <div className="alignVertical" style={{ marginBottom: '10px' }}>
+            <div className="alignVertical">
                 <InputWithValidation
                     label="Day"
                     testId="day"
@@ -54,7 +54,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     onBlur={() => handleBlur(setDay, day)}
                 />
             </div>
-            <div className="alignVertical" style={{ marginBottom: '10px' }}>
+            <div className="alignVertical">
                 <InputWithValidation
                     label="Year"
                     testId="year"

@@ -98,7 +98,7 @@ const Login = () => {
             <span>New user?</span><button className="button" onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical center margin-bottom20">
+                <div className="alignVertical center">
                     <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
                     <div className="passwordContainer alignHorizontal">
                         <input type={passwordVisible ? "text" : "password"} className="pr-9 loginField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
@@ -112,12 +112,12 @@ const Login = () => {
                 </div>
                 <div className="alignHorizontal center">
                     <input
-                        className="checkbox"
+                        className="checkbox w-5 h-5 cursor-pointer"
                         type="checkbox"
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label className="checkboxLabel text-xl ml-1" onClick={togglePersist}>Trust This Device</label>
+                    <label className="cursor-pointer text-xl ml-1" onClick={togglePersist}>Trust This Device</label>
                 </div>
             </form>
         </>

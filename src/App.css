@@ -138,28 +138,6 @@ body {
     display: flex;
 }
 
-.checkbox {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.checkboxLabel {
-  cursor: pointer;
-}
-
-.margin-bottom20{
-    margin-bottom: 20px;
-}
-
-.gap10{
-  gap: 10px;
-}
-
-.gap20{
-  gap: 20px;
-}
-
 .activeNavBarLink {
   position: relative;
   color: dodgerblue;

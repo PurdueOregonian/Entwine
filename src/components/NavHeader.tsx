@@ -18,9 +18,8 @@ const NavHeader = () => {
         <>
             <div className="navbarTopRight">
                 <div
-                    className="navbarIcons"
+                    className="navbarIcons cursor-pointer"
                     onClick={() => setIsChatOpen(!isChatOpen)}
-                    style={{ cursor: 'pointer' }}
                 >
                     <Tooltip title="Open Chat">
                         <ChatBubbleOutlineIcon className="muiClickableButton" fontSize="large" />
