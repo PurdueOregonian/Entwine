@@ -175,7 +175,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
         <>
             {loaded &&
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="alignVertical center">
+                    <div className="center">
                         <div className="flex center gap-2.5">
                             <Typography>Date of Birth</Typography>
                             <DatePicker

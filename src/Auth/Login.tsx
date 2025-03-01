@@ -98,7 +98,7 @@ const Login = () => {
             <span>New user?</span><button className="button" onClick={onRegisterClicked}>Register</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical center">
+                <div className="flex flex-col center">
                     <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
                     <div className="passwordContainer flex">
                         <input type={passwordVisible ? "text" : "password"} className="pr-9 loginField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>

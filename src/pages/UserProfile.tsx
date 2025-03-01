@@ -58,7 +58,7 @@ function UserProfile() {
     return (
         <>
             {loaded &&
-                <div className="alignVertical center">
+                <div className="center">
                     <Typography variant="h4">{username}</Typography>
                     <div className="flex center gap-2.5">
                         <Typography>Age</Typography>

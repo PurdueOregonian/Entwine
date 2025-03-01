@@ -60,7 +60,7 @@ function Search() {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical center gap-2.5">
+                <div className="center gap-2.5">
                     <div className="flex center gap-2.5">
                         <Typography>Age</Typography>
                         <IntegerSliderRangeSelect

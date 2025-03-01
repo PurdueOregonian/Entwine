@@ -76,12 +76,12 @@ const Register = () => {
                 ref={coloredMessageRef}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="alignVertical center">
+                <div className="flex flex-col center">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
                     <input type="password" className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
                     <input type="password" className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>
                 </div>
-                <div className="form-control alignVertical center">
+                <div className="form-control flex flex-col center">
                     <button className="button" data-testid="registerSubmit" type="submit">Register</button>
                     <button className="button" type="button" onClick={() => navigate('/Login')}>Cancel</button>
                 </div>
