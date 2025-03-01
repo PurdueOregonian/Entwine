@@ -101,7 +101,7 @@ const Login = () => {
                 <div className="alignVertical center margin-bottom20">
                     <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
                     <div className="passwordContainer alignHorizontal">
-                        <input type={passwordVisible ? "text" : "password"} className="loginField passwordField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
+                        <input type={passwordVisible ? "text" : "password"} className="pr-9 loginField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
                         {passwordVisible
                             ? <VisibilityIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />
                             : <VisibilityOffIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />}
@@ -117,7 +117,7 @@ const Login = () => {
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label className="checkboxLabel" onClick={togglePersist}>Trust This Device</label>
+                    <label className="checkboxLabel text-xl ml-1" onClick={togglePersist}>Trust This Device</label>
                 </div>
             </form>
         </>

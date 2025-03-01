@@ -95,7 +95,7 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
         <div>
           <input
             data-testid="messageBox"
-            className="messageBox w-70 h-9 m-1 p-1 rounded-md border-2 text-lg"
+            className="messageBox w-70 h-9 m-1 p-1 rounded-md border-2 text-lg outline-none bg-white"
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
