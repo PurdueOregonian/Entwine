@@ -28,8 +28,8 @@ const NavHeader = () => {
                 <span>{`Logged in as ${auth.username}`}</span>
                 <LogoutButton />
             </div>
-            <div className="flex topBar">
-                <div className="siteTitle">Entwine</div>
+            <div className="flex m-3 pb-3 items-center border-b-1 border-gray-300">
+                <div className="text-4xl font-bold mr-8">Entwine</div>
                 <a className={`navLink ${isActive('/') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/')}>
                     Home
                 </a>

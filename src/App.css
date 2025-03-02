@@ -144,21 +144,6 @@ body {
   background-color: dodgerblue;
 }
 
-.topBar {
-  margin-left: 12px;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  align-items: center;
-  border-bottom: 1px solid lightgray;
-}
-
-.siteTitle {
-  font-size: 40px;
-  font-weight: bold;
-  margin-right: 30px;
-}
-
 .navLink {
   font-size: 24px;
   margin-right: 15px;
