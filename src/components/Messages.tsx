@@ -7,7 +7,7 @@ import * as signalR from '@microsoft/signalr';
 
 type ChatMessage = {
   id: number;
-  senderId: number;
+  username: string;
   content: string;
   timeSent: string;
 };
@@ -84,9 +84,9 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
     <div className="messagesContainer">
       <div className="messages">
         {messages.map((message) => (
-          <div key={message.id} className={`message ${message.senderId === auth.userId ? 'outgoing' : 'incoming'}`}>
-            <p className="message-content">{message.content}</p>
-            <span className="message-timestamp">{new Date(message.timeSent).toLocaleTimeString()}</span>
+          <div key={message.id} className="self-start">
+            <span className="message-timestamp">{message.username} {new Date(message.timeSent).toLocaleTimeString()}</span>
+            <p className="message-content text-left">{message.content}</p>
           </div>
         ))}
         <div ref={messagesEndRef} />

@@ -262,16 +262,6 @@ body {
   word-wrap: break-word;
 }
 
-.message.incoming {
-  align-self: flex-start;
-  background-color: #e0f7fa;
-}
-
-.message.outgoing {
-  align-self: flex-end;
-  background-color: #d1c4e9;
-}
-
 .message-content {
   margin: 0;
 }
