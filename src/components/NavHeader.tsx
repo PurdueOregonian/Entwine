@@ -30,13 +30,13 @@ const NavHeader = () => {
             </div>
             <div className="flex m-3 pb-3 items-center border-b-1 border-gray-300">
                 <div className="text-4xl font-bold mr-8">Entwine</div>
-                <a className={`navLink ${isActive('/') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/')}>
+                <a className={`navLink mr-4 ${isActive('/') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/')}>
                     Home
                 </a>
-                <a className={`navLink ${isActive('/Profile') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/Profile')}>
+                <a className={`navLink mr-4 ${isActive('/Profile') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/Profile')}>
                     Profile
                 </a>
-                <a className={`navLink ${isActive('/Search') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/Search')}>
+                <a className={`navLink mr-4 ${isActive('/Search') ? 'activeNavBarLink' : ''}`} onClick={() => navigate('/Search')}>
                     Search
                 </a>
             </div>

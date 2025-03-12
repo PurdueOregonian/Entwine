@@ -3,6 +3,7 @@ import useProfileData from "../hooks/useProfileData";
 import useStaticData from "../hooks/useStaticData";
 import { Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 type ProfilePopupProps = {
     userId: string;
@@ -14,6 +15,7 @@ const ProfilePopup = ({ userId, onClose, position }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null);
     const { username, age, gender, interests, loaded } = useProfileData(userId);
     const { interestMap } = useStaticData();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -36,7 +38,9 @@ const ProfilePopup = ({ userId, onClose, position }: ProfilePopupProps) => {
         onClick={(e) => e.stopPropagation()}>
             {loaded && (
                 <>
-                    <Typography>{username}</Typography>
+                    <a className="navLink font-semibold" onClick={() => navigate(`/Profile/${userId}`)}>
+                        {username}
+                    </a>
                     <Typography>Age: {age}</Typography>
                     <Typography>Gender: {gender}</Typography>
                     <Typography>Interests: {interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
