@@ -99,15 +99,17 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
     <div className="messagesContainer">
       <div className="messages">
         {messages.map((message) => (
-          <div key={message.id} className="self-start">
-            <span
-              className="text-gray-500 cursor-pointer mr-1"
-              onClick={(e) => handleUsernameClick(e, message.userId)}
-            >
-              {message.username}
-            </span>
-            <span className="text-gray-500 text-xs text-right">{new Date(message.timeSent).toLocaleTimeString()}</span>
-            <p className="message-content text-left">{message.content}</p>
+          <div key={message.id} className="flex flex-col">
+            <div className="flex items-center">
+              <span
+                className="text-gray-500 cursor-pointer mr-1"
+                onClick={(e) => handleUsernameClick(e, message.userId)}
+              >
+                {message.username}
+              </span>
+              <span className="text-gray-500 text-xs mt-1">{new Date(message.timeSent).toLocaleTimeString()}</span>
+            </div>
+            <p className="message-content text-left break-words whitespace-normal">{message.content}</p>
           </div>
         ))}
         <div ref={messagesEndRef} />
