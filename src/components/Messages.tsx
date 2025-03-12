@@ -4,9 +4,11 @@ import { axiosPrivate } from '../api/axios';
 import useAuth from '../hooks/useAuth';
 import SendIcon from '@mui/icons-material/Send';
 import * as signalR from '@microsoft/signalr';
+import ProfilePopup from './ProfilePopup';
 
 type ChatMessage = {
   id: number;
+  userId: number;
   username: string;
   content: string;
   timeSent: string;
@@ -20,6 +22,8 @@ type MessagesProps = {
 const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState('');
+  const [popupUserId, setPopupUserId] = useState<string | null>(null);
+  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const { auth } = useAuth();
 
@@ -80,12 +84,29 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
       .catch((err) => console.error('Error sending message:', err));
   }
 
+  const handleUsernameClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>, userId: number) => {
+    const linkElement = event.currentTarget;
+    const linkRect = linkElement.getBoundingClientRect();
+    setPopupUserId(userId.toString());
+    setPopupPosition({ x: linkRect.right + 10, y: linkRect.top });
+  };
+
+  const handleClosePopup = () => {
+    setPopupUserId(null);
+  };
+
   return (
     <div className="messagesContainer">
       <div className="messages">
         {messages.map((message) => (
           <div key={message.id} className="self-start">
-            <span className="message-timestamp">{message.username} {new Date(message.timeSent).toLocaleTimeString()}</span>
+            <span
+              className="text-gray-500 cursor-pointer mr-1"
+              onClick={(e) => handleUsernameClick(e, message.userId)}
+            >
+              {message.username}
+            </span>
+            <span className="text-gray-500 text-xs text-right">{new Date(message.timeSent).toLocaleTimeString()}</span>
             <p className="message-content text-left">{message.content}</p>
           </div>
         ))}
@@ -106,6 +127,9 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
           </button>
         </div>
       </form>
+      {popupUserId && (
+        <ProfilePopup userId={popupUserId} onClose={handleClosePopup} position={popupPosition} />
+      )}
     </div>
   );
 };
