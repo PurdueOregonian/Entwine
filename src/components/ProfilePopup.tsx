@@ -46,7 +46,6 @@ const ProfilePopup = ({ userId, onClose, position }: ProfilePopupProps) => {
                     <Typography>Interests: {interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                 </>)}
             {!loaded && <Typography>Loading...</Typography>}
-            <button onClick={onClose}>Close</button>
         </Box>
     );
 };
