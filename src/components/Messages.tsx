@@ -5,6 +5,7 @@ import useAuth from '../hooks/useAuth';
 import SendIcon from '@mui/icons-material/Send';
 import * as signalR from '@microsoft/signalr';
 import ProfilePopup from './ProfilePopup';
+import { createPortal } from 'react-dom';
 
 type ChatMessage = {
   id: number;
@@ -130,9 +131,16 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
         </div>
       </form>
       {popupUserId && (
-        <ProfilePopup userId={popupUserId} onClose={handleClosePopup} position={popupPosition} />
+        <ProfilePopupPortal userId={popupUserId} onClose={handleClosePopup} position={popupPosition} />
       )}
     </div>
+  );
+};
+
+const ProfilePopupPortal: React.FC<{ userId: string, onClose: () => void, position: { x: number, y: number } }> = ({ userId, onClose, position }) => {
+  return createPortal(
+    <ProfilePopup userId={userId} onClose={onClose} position={position} />,
+    document.body
   );
 };
 
