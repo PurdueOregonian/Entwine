@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { backendUrl } from "../constants/constants";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -25,7 +24,7 @@ const Login = () => {
     const onSubmit = async (formData: any) => {
         try {
             const response = await axios.post(
-                `${backendUrl}/Auth/Login`,
+                '/Auth/Login',
                 JSON.stringify(formData),
                 {
                     headers: {
@@ -42,7 +41,7 @@ const Login = () => {
                 userId: userId
             });
             axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const apiUrl = `${backendUrl}/Profile`;
+            const apiUrl = '/Profile';
             axiosPrivate.get(apiUrl, {
                 withCredentials: true,
                 headers: {

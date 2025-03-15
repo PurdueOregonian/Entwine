@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { backendUrl } from '../src/constants/constants';
 import { axiosPrivate } from '../src/api/axios';
 import LogoutButton from '../src/Auth/LogoutButton';
 import { MemoryRouter as Router } from 'react-router-dom';
@@ -30,7 +29,7 @@ describe('Logout button', () => {
         fireEvent.click(logoutButton);
         
         await waitFor(() => {
-            expect(axiosPrivate.post).toHaveBeenCalledWith(`${backendUrl}/Auth/Logout`,
+            expect(axiosPrivate.post).toHaveBeenCalledWith('/Auth/Logout',
                 {},
                 {
                     "withCredentials": true

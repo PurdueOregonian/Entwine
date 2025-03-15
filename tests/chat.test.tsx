@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import { axiosPrivate } from '../src/api/axios';
 import Chat from '../src/components/Chat';
@@ -27,7 +26,7 @@ window.HTMLElement.prototype.scrollIntoView = jest.fn();
 describe('Search page', () => {
     beforeAll(() => {
         (axiosPrivate.get as jest.Mock).mockImplementation((url) => {
-            if (url === `${backendUrl}/Chat`) {
+            if (url === '/Chat') {
                 return Promise.resolve({
                     data: [
                         { id: 1, usernames: ['JohnDoe'] },
@@ -35,7 +34,7 @@ describe('Search page', () => {
                     ],
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Chat/1/Messages`) {
+            } else if (url === '/Chat/1/Messages') {
                 return Promise.resolve({
                     data: [
                         { id: 1, senderId: 1, content: 'Hello', timeSent: '2023-01-01T00:00:00Z' },
@@ -43,14 +42,14 @@ describe('Search page', () => {
                     ],
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Search/Users/Username?searchString=SomeOtherUser`) {
+            } else if (url === '/Search/Users/Username?searchString=SomeOtherUser') {
                 return Promise.resolve({
                     data: [
                         { id: 4, username: 'SomeOtherUser' }
                     ],
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Search/Users/Username?searchString=JohnDoe`) {
+            } else if (url === '/Search/Users/Username?searchString=JohnDoe') {
                 return Promise.resolve({
                     data: [
                         { id: 1, username: 'JohnDoe' }
@@ -62,7 +61,7 @@ describe('Search page', () => {
             }
         });
         (axiosPrivate.post as jest.Mock).mockImplementation((url) => {
-            if (url === `${backendUrl}/Chat`) {
+            if (url === '/Chat') {
                 return Promise.resolve({
                     data: {
                         id: 3,
@@ -70,7 +69,7 @@ describe('Search page', () => {
                     },
                     status: 200
                 });
-            } else if (url === `${backendUrl}/Chat/1/Messages`) {
+            } else if (url === '/Chat/1/Messages') {
                 const newMessage = { id: 3, senderId: 1, content: 'SomeMessage', timeSent: '2023-01-01T00:00:00Z' };
                 mockHubConnection.simulateMessage('ReceiveMessage', newMessage);
                 return Promise.resolve({

@@ -4,7 +4,6 @@ import { useState } from "react";
 import MultipleRectangleSelector from "../components/MultipleRectangleSelector";
 import { useForm } from "react-hook-form";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { backendUrl } from "../constants/constants";
 import axios from "axios";
 import { UserSearchResult } from "../types/UserSearchResult";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +30,7 @@ function Search() {
             Gender: genders
         };
 
-        const apiUrl = `${backendUrl}/Search/Users/Profile`;
+        const apiUrl = '/Search/Users/Profile';
 
         axiosPrivate.post(apiUrl, JSON.stringify(dataToSubmit), {
             withCredentials: true,

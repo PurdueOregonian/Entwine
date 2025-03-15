@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import Profile from '../src/pages/Profile';
 import { axiosPrivate } from '../src/api/axios';
@@ -26,9 +25,11 @@ describe('Profile page', () => {
             ]),
           });
           (axiosPrivate.get as jest.Mock).mockImplementation((url) => {
-            if (url === `${backendUrl}/Profile`) {
+            if (url === '/Profile') {
                 return Promise.resolve({
                     data: {
+                        id: 1,
+                        username: 'testUsername',
                         dateOfBirth: '2002-10-04',
                         gender: 'Male',
                         interests: [3],
@@ -40,7 +41,7 @@ describe('Profile page', () => {
                     },
                     status: 200
                 });
-            } else if (url.startsWith(`${backendUrl}/Location`)) {
+            } else if (url.startsWith('/Location')) {
                 return Promise.resolve({
                     data: {
                         city: 'NewCity',
@@ -120,7 +121,7 @@ describe('Profile page', () => {
         });
 
         const [url, data, config] = (axiosPrivate.post as jest.Mock).mock.calls[0];
-        expect(url).toBe(`${backendUrl}/Profile/Save`);
+        expect(url).toBe('/Profile/Save');
 
         const parsedData = JSON.parse(data);
         expect(parsedData).toEqual(expect.objectContaining({

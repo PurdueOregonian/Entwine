@@ -1,16 +1,14 @@
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import useStaticData from "../hooks/useStaticData";
 import useProfileData from "../hooks/useProfileData";
 
 function UserProfile() {
-    const { auth } = useAuth();
     const { userIdFromRoute } = useParams();
-    const userId = userIdFromRoute ?? auth.userId?.toString();
+    const userId = userIdFromRoute;
     const { interestMap } = useStaticData();
 
-    const { username, age, gender, interests, loaded } = useProfileData(userId!);
+    const { username, age, gender, interests, loaded } = useProfileData(userId);
 
     return (
         <>

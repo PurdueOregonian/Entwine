@@ -3,7 +3,6 @@ import axiosModule from "axios";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { backendUrl } from "../constants/constants";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import ColoredMessage from "../components/ColoredMessage";
 
@@ -22,7 +21,7 @@ const Register = () => {
         try {
             if (formData.Password === formData.ConfirmPassword) {
                 await axios.post(
-                    `${backendUrl}/Auth/Register`,
+                    '/Auth/Register',
                     JSON.stringify({
                         Username: formData.Username,
                         Password: formData.Password

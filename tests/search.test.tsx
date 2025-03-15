@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import { axiosPrivate } from '../src/api/axios';
 import Search from '../src/pages/Search';
@@ -45,7 +44,7 @@ describe('Search page', () => {
         fireEvent.click(searchButton);
 
         await waitFor(() => {
-            expect(axiosPrivate.post).toHaveBeenCalledWith(`${backendUrl}/Search/Users/Profile`,
+            expect(axiosPrivate.post).toHaveBeenCalledWith('/Search/Users/Profile',
                 JSON.stringify({
                     MinAge: 23,
                     MaxAge: 84,

@@ -28,7 +28,7 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
 
   const { auth } = useAuth();
 
-  const apiUrl = `${backendUrl}${isCommunityChat ? '/Community' : ''}/Chat`;
+  const apiUrl = `${isCommunityChat ? '/Community' : ''}/Chat`;
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

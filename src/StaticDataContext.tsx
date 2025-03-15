@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
-import { backendUrl } from './constants/constants';
 import { axiosPrivate } from './api/axios';
 
 interface StaticDataContextType {
@@ -22,7 +21,7 @@ export const StaticDataProvider: React.FC<StaticDataProviderProps> = ({ children
     useEffect(() => {
         const fetchInterests = async () => {
             try {
-                const response = await axiosPrivate.get(`${backendUrl}/Interest`);
+                const response = await axiosPrivate.get('/Interest');
                 const interestsData: Interest[] = response.data;
                 const interestsMap = new Map(interestsData.map(interest => [interest.id, interest]));
                 setInterests(interestsMap);
@@ -33,7 +32,7 @@ export const StaticDataProvider: React.FC<StaticDataProviderProps> = ({ children
 
         const fetchInterestCategories = async () => {
             try {
-                const response = await axiosPrivate.get(`${backendUrl}/Interest/Category`);
+                const response = await axiosPrivate.get('/Interest/Category');
                 const categoriesData: InterestCategory[] = response.data;
                 const categoriesMap = new Map(categoriesData.map(category => [category.id, category]));
                 setInterestCategories(categoriesMap);

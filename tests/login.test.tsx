@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { backendUrl } from '../src/constants/constants';
 import { MemoryRouter as Router } from "react-router-dom";
 import axios from '../src/api/axios';
 import Login from '../src/Auth/Login';
@@ -33,7 +32,7 @@ describe('Login component', () => {
         fireEvent.click(registerSubmit);
 
         await waitFor(() => {
-            expect(axios.post).toHaveBeenCalledWith(`${backendUrl}/Auth/Login`,
+            expect(axios.post).toHaveBeenCalledWith('/Auth/Login',
                 JSON.stringify({
                     Username: 'testuser',
                     Password: 'testpassword'

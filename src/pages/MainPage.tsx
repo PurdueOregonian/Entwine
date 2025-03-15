@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { backendUrl } from "../constants/constants";
 import { axiosPrivate } from "../api/axios";
 import { CommunityChatData } from "../types/CommunityChatData";
 import axios from "axios";
@@ -11,7 +10,7 @@ function MainPage() {
     const [error, setError] = useState<string | null>(null);
     const [chats, setChats] = useState<CommunityChatData[]>([]);
     useEffect(() => {
-        const apiUrl = `${backendUrl}/Community`;
+        const apiUrl = '/Community';
 
         axiosPrivate.get(apiUrl, {
             withCredentials: true,

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
-import { backendUrl } from "../constants/constants";
 import DatePicker from "./DatePicker";
 import LocationComponent from "./LocationComponent";
 import { useEffect, useRef, useState } from "react";
@@ -97,7 +96,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
             Location: location
         };
 
-        const apiUrl = `${backendUrl}/Profile/Save`;
+        const apiUrl = '/Profile/Save';
 
         axiosPrivate.post(apiUrl, JSON.stringify(dataToSubmit), {
             withCredentials: true,
@@ -131,7 +130,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     };
 
     useEffect(() => {
-        const apiUrl = `${backendUrl}/Profile`;
+        const apiUrl = '/Profile';
 
         axiosPrivate.get(apiUrl, {
             withCredentials: true,

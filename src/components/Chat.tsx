@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import SearchIcon from '@mui/icons-material/Search';
 import { Tooltip } from '@mui/material';
@@ -26,7 +25,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const apiUrl = `${backendUrl}/Chat`;
+  const apiUrl = '/Chat';
 
   useEffect(() => {
     axiosPrivate.get(`${apiUrl}`)
@@ -78,7 +77,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
 
   const searchUsers = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axiosPrivate.get(`${backendUrl}/Search/Users/Username?searchString=${searchQuery}`)
+    axiosPrivate.get(`/Search/Users/Username?searchString=${searchQuery}`)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Network response was not ok');

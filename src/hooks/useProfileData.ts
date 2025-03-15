@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { backendUrl } from "../constants/constants";
 import { RetrievedOtherProfileData as PublicProfileData } from "../types/RetrievedOtherProfileData";
 import { Gender } from "../types/Gender";
 
-const useProfileData = (userId: string) => {
+const useProfileData = (userId: string | undefined) => {
   const [username, setUsername] = useState('');
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState<Gender | null>(null);
@@ -16,7 +15,7 @@ const useProfileData = (userId: string) => {
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const apiUrl = `${backendUrl}/Profile/${userId}`;
+    const apiUrl = userId ? `/Profile/${userId}` : '/Profile';
 
     axiosPrivate.get(apiUrl, {
       withCredentials: true,

@@ -1,4 +1,3 @@
-import { backendUrl } from "../constants/constants";
 import useAuth from "./useAuth";
 import useAxiosPrivate from "./useAxiosPrivate";
 
@@ -9,7 +8,7 @@ const useLogout = () => {
     const logout = async () => {
         setAuth({});
         try {
-            await axiosPrivate.post(`${backendUrl}/Auth/Logout`,
+            await axiosPrivate.post('/Auth/Logout',
             {},
             {
                 withCredentials: true

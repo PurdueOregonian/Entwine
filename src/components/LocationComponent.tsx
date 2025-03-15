@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
-import { backendUrl } from '../constants/constants';
 import { axiosPrivate } from '../api/axios';
 import { Location } from '../types/Location';
 
@@ -15,7 +14,7 @@ const LocationComponent = (props: LocationProps): React.ReactElement => {
     const showLocation = async (location: GeolocationPosition) => {
         const latitude = location.coords.latitude;
         const longitude = location.coords.longitude;
-        const apiUrl = `${backendUrl}/Location?latitude=${latitude}&longitude=${longitude}`;
+        const apiUrl = `/Location?latitude=${latitude}&longitude=${longitude}`;
         
         axiosPrivate.get(apiUrl, {
             withCredentials: true,
