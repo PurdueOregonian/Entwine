@@ -42,9 +42,13 @@ const ColoredMessage = forwardRef((_, ref) => {
     return (
         <>
             {visible && (
-                <Typography style={{ color, transition: 'opacity 1s', opacity: fadingOut ? 0 : 1 }}>
-                    {message}
-                </Typography>
+                <div style={{ color, transition: 'opacity 1s', opacity: fadingOut ? 0 : 1 }}>
+                    {message.split('\n').map((line, index) => (
+                        <Typography key={index} component="span" style={{ display: 'block' }}>
+                            {line}
+                        </Typography>
+                    ))}
+                </div>
             )}
         </>
     );
