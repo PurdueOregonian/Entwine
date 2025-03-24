@@ -13,7 +13,7 @@ type ProfilePopupProps = {
 
 const ProfilePopup = ({ userId, onClose, position }: ProfilePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null);
-    const { username, age, gender, interests, loaded } = useProfileData(userId);
+    const { profileData } = useProfileData(userId);
     const { interestMap } = useStaticData();
     const navigate = useNavigate();
 
@@ -36,16 +36,16 @@ const ProfilePopup = ({ userId, onClose, position }: ProfilePopupProps) => {
         className="profilePopupContent"
         style={{ top: position.y, left: position.x }}
         onClick={(e) => e.stopPropagation()}>
-            {loaded && (
+            {profileData && (
                 <>
                     <a className="navLink font-semibold" onClick={() => navigate(`/Profile/${userId}`)}>
-                        {username}
+                        {profileData.username}
                     </a>
-                    <Typography>Age: {age}</Typography>
-                    <Typography>Gender: {gender}</Typography>
-                    <Typography>Interests: {interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
+                    <Typography>Age: {profileData.age}</Typography>
+                    <Typography>Gender: {profileData.gender}</Typography>
+                    <Typography>Interests: {profileData.interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                 </>)}
-            {!loaded && <Typography>Loading...</Typography>}
+            {!profileData && <Typography>Loading...</Typography>}
         </Box>
     );
 };

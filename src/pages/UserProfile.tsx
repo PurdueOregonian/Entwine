@@ -8,24 +8,30 @@ function UserProfile() {
     const userId = userIdFromRoute;
     const { interestMap } = useStaticData();
 
-    const { username, age, gender, interests, loaded } = useProfileData(userId);
+    const { profileData } = useProfileData(userId);
 
     return (
         <>
-            {loaded &&
+            {profileData &&
                 <div className="center">
-                    <Typography variant="h4">{username}</Typography>
+                    <Typography variant="h4">{profileData.username}</Typography>
                     <div className="flex center gap-2.5">
                         <Typography>Age</Typography>
-                        <Typography>{age}</Typography>
+                        <Typography>{profileData.age}</Typography>
                     </div>
                     <div className="flex center gap-2.5">
                         <Typography>Gender</Typography>
-                        <Typography>{gender}</Typography>
+                        <Typography>{profileData.gender}</Typography>
                     </div>
                     <div className="flex center gap-2.5">
                         <Typography>Interests</Typography>
-                        <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
+                        <Typography>{profileData.interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
+                    </div>
+                    <div className="flex center gap-2.5">
+                        <Typography>Location</Typography>
+                        {profileData.location &&
+                            <Typography>{profileData.location.city}, {profileData.location.state ?? profileData.location.country}</Typography>
+                        }
                     </div>
                 </div>
             }
