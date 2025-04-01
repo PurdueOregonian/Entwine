@@ -5,7 +5,7 @@ import DatePicker from "./DatePicker";
 import LocationComponent from "./LocationComponent";
 import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "./RectangleSelector";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { IconButton, Modal, Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
 import ColoredMessage from "./ColoredMessage";
@@ -211,18 +211,13 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 aria-labelledby="edit-interests-modal"
                                 aria-describedby="edit-interests-modal-description"
                             >
-                                <Box className="editProfileModal">
-                                    <Typography id="edit-interests-modal" variant="h6" component="h2">
-                                        Edit Interests
-                                    </Typography>
-                                    <EditInterests
-                                        onClose={() => setIsProfileModalOpen(false)}
-                                        interests={interests}
-                                        setInterests={setInterests}
-                                        interestMap={interestMap}
-                                        interestCategoryMap={interestCategoryMap}
-                                    />
-                                </Box>
+                                <EditInterests
+                                    onClose={() => setIsProfileModalOpen(false)}
+                                    interests={interests}
+                                    setInterests={setInterests}
+                                    interestMap={interestMap}
+                                    interestCategoryMap={interestCategoryMap}
+                                />
                             </Modal>
                         </div>
                         <div className="flex center gap-2.5">

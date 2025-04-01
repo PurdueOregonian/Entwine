@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import InterestChip from "./InterestChip";
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -20,13 +20,18 @@ const EditInterests = ({ onClose, interests, setInterests, interestMap, interest
     }
 
     return (
-        <Box>
-            <CloseIcon
-                data-testid="closeEditInterests"
-                className="topRightButton muiClickableButton"
-                onClick={onClose}
-            >
-            </CloseIcon>
+        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black shadow-md p-4">
+            <Typography variant="h6" component="h2">
+                Edit Interests
+            </Typography>
+            <Tooltip title="Close">
+                <CloseIcon
+                    data-testid="closeEditInterests"
+                    className="topRightButton muiClickableButton"
+                    onClick={onClose}
+                >
+                </CloseIcon>
+            </Tooltip>
             {Array.from(interestCategoryMap.values()).map(category => (
                 <Box key={category.id} mb={2}>
                     <Typography variant="h6">{category.name}</Typography>

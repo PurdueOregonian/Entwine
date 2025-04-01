@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { axiosPrivate } from "../api/axios";
 import { CommunityChatData } from "../types/CommunityChatData";
 import axios from "axios";
-import CommunityChat from "../components/CommunityChat";
 import { RetrievedCommunityData } from "../types/RetrievedCommunityData";
+import Community from "../components/Community";
 
 function MainPage() {
     const [loading, setLoading] = useState(true);
@@ -45,9 +45,7 @@ function MainPage() {
     
     return (
         <>
-            <CommunityChat
-                chats={chats}
-            />
+            <Community />
         </>
     );
 }
