@@ -31,7 +31,9 @@ const AddEventForm = ({ setEventForm }: AddEventFormProps) => {
                 return response.data;
             })
             .then((data) => {
-                var chatId = data.id;
+                if(data.id){
+                    setEventForm(false);
+                }
             })
             .catch((err) => {
                 console.error('Error adding event:', err);
