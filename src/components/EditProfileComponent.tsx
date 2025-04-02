@@ -5,16 +5,16 @@ import DatePicker from "./DatePicker";
 import LocationComponent from "./LocationComponent";
 import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "./RectangleSelector";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
 import ColoredMessage from "./ColoredMessage";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import { useNavigate } from "react-router-dom";
-import EditInterests from "./EditInterests";
 import EditIcon from '@mui/icons-material/Edit';
 import useStaticData from "../hooks/useStaticData";
 import { Location } from "../types/Location";
+import EditInterestsModal from "./EditInterestsModal";
 
 type EditProfileComponentProps = {
     redirectOnSuccess: boolean;
@@ -31,7 +31,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
     const navigate = useNavigate();
     const { interestMap, interestCategoryMap } = useStaticData();
-    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+    const [isInterestsModalOpen, setIsInterestsModalOpen] = useState(false);
 
     const {
         handleSubmit
@@ -199,28 +199,20 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                             <Typography>{interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                             <IconButton
                                 data-testid="editInterestsButton"
-                                onClick={() => setIsProfileModalOpen(true)}
+                                onClick={() => setIsInterestsModalOpen(true)}
                                 aria-label="edit interests"
                                 component="span">
                                 <EditIcon />
                             </IconButton>
 
-                            <Modal
-                                open={isProfileModalOpen}
-                                onClose={() => setIsProfileModalOpen(false)}
-                                aria-labelledby="edit-interests-modal"
-                                aria-describedby="edit-interests-modal-description"
-                            >
-                                <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black shadow-md p-4">
-                                    <EditInterests
-                                        onClose={() => setIsProfileModalOpen(false)}
-                                        interests={interests}
-                                        setInterests={setInterests}
-                                        interestMap={interestMap}
-                                        interestCategoryMap={interestCategoryMap}
-                                    />
-                                </Box>
-                            </Modal>
+                            <EditInterestsModal
+                                open={isInterestsModalOpen}
+                                setOpen={setIsInterestsModalOpen}
+                                interests={interests}
+                                setInterests={setInterests}
+                                interestMap={interestMap}
+                                interestCategoryMap={interestCategoryMap}
+                            />
                         </div>
                         <div className="flex justify-center items-center gap-2.5">
                             <Typography>Location</Typography>

@@ -4,8 +4,7 @@ import { CommunityChatData } from '../types/CommunityChatData';
 import { axiosPrivate } from '../api/axios';
 import axios from "axios";
 import { RetrievedCommunityData } from '../types/RetrievedCommunityData';
-import { Box, Modal } from '@mui/material';
-import EventCalendar from './EventCalendar';
+import EventCalendarModal from './EventCalendarModal';
 
 const Community: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -59,18 +58,10 @@ const Community: React.FC = () => {
           onClick={() => setIsEventCalendarOpen(true)}>
             Events
         </button>
-        <Modal
-            open={isEventCalendarOpen}
-            onClose={() => setIsEventCalendarOpen(false)}
-            aria-labelledby="event-calendar-modal"
-            aria-describedby="event-calendar-modal-description"
-        >
-          <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
-            <EventCalendar
-                onClose={() => setIsEventCalendarOpen(false)}
-            />
-          </Box>
-        </Modal>
+        <EventCalendarModal
+          open={isEventCalendarOpen} 
+          setOpen={setIsEventCalendarOpen}
+        />
         <div className='text-2xl font-semibold m-2'>Chats</div>
         <>
           <ul className="chatList">
