@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import PasswordInput from "../components/PasswordInput";
+import PasswordInput from "../components/formcomponents/PasswordInput";
+
+type LoginForm = {
+    username: string;
+    password: string;
+}
 
 const Login = () => {
 
@@ -17,9 +22,9 @@ const Login = () => {
     const {
         register,
         handleSubmit
-    } = useForm();
+    } = useForm<LoginForm>();
 
-    const onSubmit = async (formData: any) => {
+    const onSubmit = async (formData: LoginForm) => {
         try {
             const response = await axios.post(
                 '/Auth/Login',
@@ -33,8 +38,8 @@ const Login = () => {
             const userId = response?.data?.userId;
             const token = response?.data?.accessToken;
             setAuth({
-                username: formData.Username,
-                password: formData.Password,
+                username: formData.username,
+                password: formData.password,
                 token: token,
                 userId: userId
             });
@@ -96,10 +101,10 @@ const Login = () => {
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col justify-center items-center">
-                    <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
+                    <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("username")}></input>
                     <PasswordInput
                         register={register}
-                        fieldValue="Password"
+                        fieldValue="password"
                         placeholder="Password"
                     />
                 </div>

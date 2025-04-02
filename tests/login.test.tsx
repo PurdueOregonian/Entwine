@@ -26,7 +26,7 @@ describe('Login component', () => {
     test('renders the Login component', async () => {
         const usernameInput = screen.getByTestId('loginUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-        const passwordInput = screen.getByTestId('passwordInput-Password');
+        const passwordInput = screen.getByTestId('passwordInput-password');
         fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
         const registerSubmit = screen.getByTestId('loginSubmit');
         fireEvent.click(registerSubmit);
@@ -34,8 +34,8 @@ describe('Login component', () => {
         await waitFor(() => {
             expect(axios.post).toHaveBeenCalledWith('/Auth/Login',
                 JSON.stringify({
-                    Username: 'testuser',
-                    Password: 'testpassword'
+                    username: 'testuser',
+                    password: 'testpassword'
                 }),
                 {
                     headers: {

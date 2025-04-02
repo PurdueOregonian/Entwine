@@ -5,7 +5,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import ColoredMessage from "../components/ColoredMessage";
-import PasswordInput from "../components/PasswordInput";
+import PasswordInput from "../components/formcomponents/PasswordInput";
+
+type RegisterForm = {
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
 
 const Register = () => {
 
@@ -15,17 +21,17 @@ const Register = () => {
     const {
         register,
         handleSubmit
-    } = useForm();
+    } = useForm<RegisterForm>();
 
-    const onSubmit = async (formData: any) => {
+    const onSubmit = async (formData: RegisterForm) => {
 
         try {
-            if (formData.Password === formData.ConfirmPassword) {
+            if (formData.password === formData.confirmPassword) {
                 await axios.post(
                     '/Auth/Register',
                     JSON.stringify({
-                        Username: formData.Username,
-                        Password: formData.Password
+                        Username: formData.username,
+                        Password: formData.password
                     }),
                     {
                         headers: {
@@ -77,9 +83,9 @@ const Register = () => {
             />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col justify-center items-center">
-                    <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
-                    <PasswordInput register={register} fieldValue="Password" placeholder="Password" />
-                    <PasswordInput register={register} fieldValue="ConfirmPassword" placeholder="Confirm Password" />
+                    <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("username")}></input>
+                    <PasswordInput register={register} fieldValue="password" placeholder="Password" />
+                    <PasswordInput register={register} fieldValue="confirmPassword" placeholder="Confirm Password" />
                 </div>
                 <div className="form-control flex flex-col justify-center items-center">
                     <button className="button" data-testid="registerSubmit" type="submit">Register</button>
