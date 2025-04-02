@@ -5,7 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import AddEventForm from "./AddEventForm";
 
 type EventCalendarProps = {
@@ -48,19 +48,15 @@ const EventCalendar = ({ onClose }: EventCalendarProps) => {
     }, [])
 
     if (loading) return (
-        <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
-            <div>Loading...</div>
-        </Box>
+        <div>Loading...</div>
     );
 
     if (error) return (
-        <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
-            <div>{error}</div>
-        </Box>
+        <div>{error}</div>
     );
     
     return (
-        <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
+        <>
             <Tooltip title="Close">
                 <CloseIcon
                     data-testid="closeEventCalendar"
@@ -82,7 +78,7 @@ const EventCalendar = ({ onClose }: EventCalendarProps) => {
                 </>
             }
             
-        </Box>
+        </>
     );
 }
 

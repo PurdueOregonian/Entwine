@@ -5,7 +5,7 @@ import DatePicker from "./DatePicker";
 import LocationComponent from "./LocationComponent";
 import { useEffect, useRef, useState } from "react";
 import RectangleSelector from "./RectangleSelector";
-import { IconButton, Modal, Typography } from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
 import ColoredMessage from "./ColoredMessage";
@@ -211,13 +211,15 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                                 aria-labelledby="edit-interests-modal"
                                 aria-describedby="edit-interests-modal-description"
                             >
-                                <EditInterests
-                                    onClose={() => setIsProfileModalOpen(false)}
-                                    interests={interests}
-                                    setInterests={setInterests}
-                                    interestMap={interestMap}
-                                    interestCategoryMap={interestCategoryMap}
-                                />
+                                <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black shadow-md p-4">
+                                    <EditInterests
+                                        onClose={() => setIsProfileModalOpen(false)}
+                                        interests={interests}
+                                        setInterests={setInterests}
+                                        interestMap={interestMap}
+                                        interestCategoryMap={interestCategoryMap}
+                                    />
+                                </Box>
                             </Modal>
                         </div>
                         <div className="flex justify-center items-center gap-2.5">

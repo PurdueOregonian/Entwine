@@ -20,7 +20,7 @@ const EditInterests = ({ onClose, interests, setInterests, interestMap, interest
     }
 
     return (
-        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black shadow-md p-4">
+        <>
             <Typography variant="h6" component="h2">
                 Edit Interests
             </Typography>
@@ -49,7 +49,7 @@ const EditInterests = ({ onClose, interests, setInterests, interestMap, interest
                     </Box>
                 </Box>
             ))}
-        </Box>
+        </>
     );
 };
 

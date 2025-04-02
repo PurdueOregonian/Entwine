@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ArrowBack from '@mui/icons-material/ArrowBack';
-import { Box, TextField, Tooltip, Typography } from "@mui/material";
+import { TextField, Tooltip, Typography } from "@mui/material";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useForm } from "react-hook-form";
 
@@ -33,7 +33,10 @@ const AddEventForm = ({ setEventForm }: AddEventFormProps) => {
             .then((data) => {
                 var chatId = data.id;
             })
-            .catch((err) => console.error('Error adding event:', err));
+            .catch((err) => {
+                console.error('Error adding event:', err);
+                setError('Error adding event. Please try again later.');
+            });
     }
 
     if (error) return <div>{error}</div>;
