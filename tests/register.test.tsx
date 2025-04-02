@@ -26,9 +26,9 @@ describe('Register component', () => {
     test('renders the Register component', async () => {
         const usernameInput = screen.getByTestId('registerUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-        const passwordInput = screen.getByTestId('registerPasswordInput');
+        const passwordInput = screen.getByTestId('passwordInput-Password');
         fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
-        const passwordConfirmInput = screen.getByTestId('registerConfirmPasswordInput');
+        const passwordConfirmInput = screen.getByTestId('passwordInput-ConfirmPassword');
         fireEvent.change(passwordConfirmInput, { target: { value: 'testpassword' } });
         const registerSubmit = screen.getByTestId('registerSubmit');
         fireEvent.click(registerSubmit);
@@ -50,9 +50,9 @@ describe('Register component', () => {
     test('does not register if passwords do not match', async () => {
         const usernameInput = screen.getByTestId('registerUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-        const passwordInput = screen.getByTestId('registerPasswordInput');
+        const passwordInput = screen.getByTestId('passwordInput-Password');
         fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
-        const passwordConfirmInput = screen.getByTestId('registerConfirmPasswordInput');
+        const passwordConfirmInput = screen.getByTestId('passwordInput-ConfirmPassword');
         fireEvent.change(passwordConfirmInput, { target: { value: 'nottestpassword' } });
         const registerSubmit = screen.getByTestId('registerSubmit');
         await act(async () => fireEvent.click(registerSubmit));

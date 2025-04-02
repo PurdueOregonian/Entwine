@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import PasswordInput from "../components/PasswordInput";
 
 const Login = () => {
 
@@ -14,7 +13,6 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const [errorMessage, setErrorMessage] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const {
         register,
@@ -99,12 +97,11 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col justify-center items-center">
                     <input className="loginField" placeholder="Username" data-testid="loginUsernameInput" {...register("Username")}></input>
-                    <div className="passwordContainer flex">
-                        <input type={passwordVisible ? "text" : "password"} className="pr-9 loginField" placeholder="Password" data-testid="loginPasswordInput" {...register("Password")}></input>
-                        {passwordVisible
-                            ? <VisibilityIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />
-                            : <VisibilityOffIcon onClick={() => setPasswordVisible(!passwordVisible)} className="passwordIcon" />}
-                    </div>
+                    <PasswordInput
+                        register={register}
+                        fieldValue="Password"
+                        placeholder="Password"
+                    />
                 </div>
                 <div className="form-control">
                     <button className="button" type="submit" data-testid="loginSubmit">Login</button>

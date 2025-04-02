@@ -26,7 +26,7 @@ describe('Login component', () => {
     test('renders the Login component', async () => {
         const usernameInput = screen.getByTestId('loginUsernameInput');
         fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-        const passwordInput = screen.getByTestId('loginPasswordInput');
+        const passwordInput = screen.getByTestId('passwordInput-Password');
         fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
         const registerSubmit = screen.getByTestId('loginSubmit');
         fireEvent.click(registerSubmit);

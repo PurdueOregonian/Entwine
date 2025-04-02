@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ColoredMessageData } from "../types/ColoredMessageData";
 import ColoredMessage from "../components/ColoredMessage";
+import PasswordInput from "../components/PasswordInput";
 
 const Register = () => {
 
@@ -77,8 +78,8 @@ const Register = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col justify-center items-center">
                     <input className="loginField" placeholder="Username" data-testid="registerUsernameInput" {...register("Username")}></input>
-                    <input type="password" className="loginField" placeholder="Password" data-testid="registerPasswordInput" {...register("Password")}></input>
-                    <input type="password" className="loginField" placeholder="Confirm Password" data-testid="registerConfirmPasswordInput" {...register("ConfirmPassword")}></input>
+                    <PasswordInput register={register} fieldValue="Password" placeholder="Password" />
+                    <PasswordInput register={register} fieldValue="ConfirmPassword" placeholder="Confirm Password" />
                 </div>
                 <div className="form-control flex flex-col justify-center items-center">
                     <button className="button" data-testid="registerSubmit" type="submit">Register</button>
