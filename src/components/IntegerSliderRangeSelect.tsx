@@ -57,7 +57,7 @@ const IntegerSliderRangeSelect: React.FC<IntegerSliderRangeSelectProps> = ({
     };
 
     return (
-        <div className="flex center gap-5 w-100">
+        <div className="flex justify-center items-center gap-5 w-100">
             <TextField
                 label="Min"
                 type="number"

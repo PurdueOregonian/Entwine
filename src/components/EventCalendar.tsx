@@ -6,6 +6,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Tooltip } from "@mui/material";
+import AddEventForm from "./AddEventForm";
 
 type EventCalendarProps = {
     onClose: () => void;
@@ -15,6 +16,7 @@ const EventCalendar = ({ onClose }: EventCalendarProps) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [events, setEvents] = useState<Event[]>([]);
+    const [eventForm, setEventForm] = useState(false);
     useEffect(() => {
         const apiUrl = '/Events';
 
@@ -45,13 +47,20 @@ const EventCalendar = ({ onClose }: EventCalendarProps) => {
             });
     }, [])
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return (
+        <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
+            <div>Loading...</div>
+        </Box>
+    );
 
-    if (error) return <div>{error}</div>;
+    if (error) return (
+        <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
+            <div>{error}</div>
+        </Box>
+    );
     
     return (
         <Box className="bg-white border-2 border-black shadow-md p-4 w-19/20 h-19/20 translate-x-1/40 translate-y-1/40 flex flex-col">
-            <button className="absolute left-1/2 -translate-x-1/2 top-2 button">Add Event</button>
             <Tooltip title="Close">
                 <CloseIcon
                     data-testid="closeEventCalendar"
@@ -61,11 +70,18 @@ const EventCalendar = ({ onClose }: EventCalendarProps) => {
                 >
                 </CloseIcon>
             </Tooltip>
-            <FullCalendar
-                height="115%"
-                events={events}
-                plugins={[dayGridPlugin, interactionPlugin]}
-            />
+            {eventForm && <AddEventForm setEventForm={setEventForm} />}
+            {!eventForm &&
+                <>
+                    <button className="absolute left-1/2 -translate-x-1/2 top-2 button" onClick={() => setEventForm(true)}>Add Event</button>
+                    <FullCalendar
+                        height="115%"
+                        events={events}
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                    />
+                </>
+            }
+            
         </Box>
     );
 }

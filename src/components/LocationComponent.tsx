@@ -38,7 +38,7 @@ const LocationComponent = (props: LocationProps): React.ReactElement => {
         navigator.geolocation.getCurrentPosition(showLocation);
     }
     return (
-        <div className="flex center gap-2.5">
+        <div className="flex justify-center items-center gap-2.5">
             {location && (
                 <Typography>{location.city}, {location.state ?? location.country}</Typography>
             )}

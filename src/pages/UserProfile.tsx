@@ -13,21 +13,21 @@ function UserProfile() {
     return (
         <>
             {profileData &&
-                <div className="center">
+                <div className="justify-center items-center">
                     <Typography variant="h4">{profileData.username}</Typography>
-                    <div className="flex center gap-2.5">
+                    <div className="flex justify-center items-center gap-2.5">
                         <Typography>Age</Typography>
                         <Typography>{profileData.age}</Typography>
                     </div>
-                    <div className="flex center gap-2.5">
+                    <div className="flex justify-center items-center gap-2.5">
                         <Typography>Gender</Typography>
                         <Typography>{profileData.gender}</Typography>
                     </div>
-                    <div className="flex center gap-2.5">
+                    <div className="flex justify-center items-center gap-2.5">
                         <Typography>Interests</Typography>
                         <Typography>{profileData.interests.map(interestId => interestMap.get(interestId)?.name ?? '').join(', ')}</Typography>
                     </div>
-                    <div className="flex center gap-2.5">
+                    <div className="flex justify-center items-center gap-2.5">
                         <Typography>Location</Typography>
                         {profileData.location &&
                             <Typography>{profileData.location.city}, {profileData.location.state ?? profileData.location.country}</Typography>

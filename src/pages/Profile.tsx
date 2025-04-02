@@ -8,7 +8,7 @@ function Profile() {
     const [profileMode, setProfileMode] = useState<ProfileMode>('View');
     return (
         <>
-            <div className="center">
+            <div className="justify-center items-center">
                 {profileMode === 'View' && <UserProfile />}
                 {profileMode === 'Edit' && <EditProfileComponent
                     redirectOnSuccess={false}
