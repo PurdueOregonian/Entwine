@@ -1,16 +1,19 @@
 import { Typography } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
-import { axiosPrivate } from '../api/axios';
-import { Location } from '../types/Location';
+import { axiosPrivate } from '../../api/axios';
+import { Location } from '../../types/Location';
+import { FieldValues, Path, UseFormWatch } from 'react-hook-form';
 
-type LocationProps = {
-    location: Location | null;
-    setLocation: React.Dispatch<React.SetStateAction<Location | null>>;
+type LocationProps<TForm extends FieldValues> = {
+    fieldValue: Path<TForm>
+    setValue: (field: Path<TForm>, value: Location) => void
+    watch: UseFormWatch<TForm>;
 };
 
-const LocationComponent = (props: LocationProps): React.ReactElement => {
-    const { location, setLocation } = props;
+const LocationComponent = <TForm extends FieldValues>(
+    {fieldValue, setValue, watch}: LocationProps<TForm>): React.ReactElement => {
+    const location = watch(fieldValue) as Location | null;
     const showLocation = async (location: GeolocationPosition) => {
         const latitude = location.coords.latitude;
         const longitude = location.coords.longitude;
@@ -26,7 +29,7 @@ const LocationComponent = (props: LocationProps): React.ReactElement => {
                 if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                setLocation(response.data);
+                setValue(fieldValue, response.data);
             })
             .catch(error => {
                 if (axios.isAxiosError(error)) {

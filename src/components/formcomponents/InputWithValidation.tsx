@@ -1,35 +1,40 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-type InputWithValidationProps = {
+type InputWithValidationProps<T extends FieldValues> = {
+    register: UseFormRegister<T>
+    fieldValue: Path<T>;
     label: string;
     testId: string;
     placeholder: string;
-    input: string;
-    setInput: React.Dispatch<React.SetStateAction<string>>;
     validateInput: (input: string) => boolean;
-    onBlur?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    processValue?: (input: string) => string;
 }
 
-const InputWithValidation: React.FC<InputWithValidationProps> = ({
-    label, testId, placeholder, input, setInput, validateInput, onBlur
-}) => {
+const InputWithValidation = <T extends FieldValues>({
+    register,
+    fieldValue,
+    label,
+    testId,
+    placeholder,
+    validateInput,
+    processValue
+}: InputWithValidationProps<T>) => {
 
     const [isValid, setIsValid] = useState(true);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setInput(e.target.value);
-    };
-
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (processValue) {
+            let value = e.target.value;
+            value = processValue(value);
+            e.target.value = value;
+        }
         if (validateInput(e.target.value)) {
             setIsValid(true);
         }
         else{
             setIsValid(false);
-        }
-        if (onBlur) {
-            onBlur(e);
         }
     }
 
@@ -37,9 +42,6 @@ const InputWithValidation: React.FC<InputWithValidationProps> = ({
         <TextField
             label={label}
             type="text"
-            value={input}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
             placeholder={placeholder}
             slotProps={{
                 htmlInput: {
@@ -52,6 +54,11 @@ const InputWithValidation: React.FC<InputWithValidationProps> = ({
                     }
                 }
             }}
+            {...register(fieldValue, {
+                onBlur: (e) => {
+                    handleBlur(e);
+                },
+            })}
         />
     );
 }

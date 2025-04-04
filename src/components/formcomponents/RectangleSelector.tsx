@@ -1,15 +1,18 @@
 import React from 'react';
+import { FieldValues, Path, UseFormWatch } from 'react-hook-form';
 
-type RectangleSelectorProps<T extends string> = {
-    labels: T[];
-    selected: T | null;
-    setSelected: React.Dispatch<React.SetStateAction<T | null>>;
+type RectangleSelectorProps<TForm extends FieldValues, T extends string> = {
+    fieldValue: Path<TForm>
+    setValue: (field: Path<TForm>, value: T) => void
+    watch: UseFormWatch<TForm>;
+    labels: T[]
 };
 
-const RectangleSelector = <T extends string>(props: RectangleSelectorProps<T>): React.ReactElement => {
-    const {labels, selected, setSelected} = props;
+const RectangleSelector = <TForm extends FieldValues, T extends string>(props: RectangleSelectorProps<TForm, T>): React.ReactElement => {
+    const {fieldValue, setValue, watch, labels} = props;
+    const selected = watch(fieldValue) as T;
     const handleClick = (label: T) => {
-        setSelected(label);
+        setValue(fieldValue, label);
     };
 
     return (

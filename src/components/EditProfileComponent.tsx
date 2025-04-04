@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import axios from "axios";
-import DatePicker from "./DatePicker";
-import LocationComponent from "./LocationComponent";
+import DatePicker, { dateSchema } from "./formcomponents/DatePicker";
+import LocationComponent from "./formcomponents/LocationComponent";
 import { useEffect, useRef, useState } from "react";
-import RectangleSelector from "./RectangleSelector";
+import RectangleSelector from "./formcomponents/RectangleSelector";
 import { IconButton, Typography } from "@mui/material";
 import { RetrievedProfileData } from "../types/RetrievedProfileData";
 import { Gender } from "../types/Gender";
@@ -13,57 +13,82 @@ import { ColoredMessageData } from "../types/ColoredMessageData";
 import { useNavigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import useStaticData from "../hooks/useStaticData";
-import { Location } from "../types/Location";
-import EditInterestsModal from "./EditInterestsModal";
+import EditInterestsModal from "./formcomponents/EditInterestsModal";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const EditProfileSchema = z.object({
+    ...dateSchema,
+    gender: z.nativeEnum(Gender, {
+        required_error: "Gender not selected",
+    }),
+    interests: z.array(z.number().int()),
+    location: z.object({
+        city: z.string(),
+        state: z.string().optional(),
+        country: z.string()
+    }, {
+        required_error: "Location not selected",
+    })
+});
+
+type EditProfileForm = z.infer<typeof EditProfileSchema>;
 
 type EditProfileComponentProps = {
     redirectOnSuccess: boolean;
 };
 
 const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnSuccess }) => {
-    const [month, setMonth] = useState('');
-    const [day, setDay] = useState('');
-    const [year, setYear] = useState('');
-    const [gender, setGender] = useState<Gender | null>(null);
-    const [interests, setInterests] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
-    const [location, setLocation] = useState<Location | null>(null);
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
     const navigate = useNavigate();
     const { interestMap, interestCategoryMap } = useStaticData();
     const [isInterestsModalOpen, setIsInterestsModalOpen] = useState(false);
 
     const {
+        register,
+        setValue,
+        watch,
         handleSubmit
-    } = useForm();
+    } = useForm<EditProfileForm>({
+        resolver: zodResolver(EditProfileSchema)
+    });
+    const interests = watch('interests') as number[] || [];
     const axiosPrivate = useAxiosPrivate();
 
-    const isValidDate: () => boolean = () => {
-        const yearNumber = Number(year);
-        const monthNumber = Number(month);
-        const dayNumber = Number(day);
-        if (isNaN(monthNumber) || isNaN(dayNumber) || isNaN(yearNumber)) {
-            return false;
-        }
+    const isValidDate: (year: string, month: string, day: string) => boolean = (
+        year: string,
+        month: string,
+        day: string
+    ) => {
+        const yearNum = Number(year);
+        const monthNum = Number(month);
+        const dayNum = Number(day);
 
-        if (yearNumber < 1000 || yearNumber > (new Date()).getUTCFullYear()) {
-            return false;
-        }
+        const date = new Date(yearNum, monthNum - 1, dayNum);
 
-        if (monthNumber < 1 || monthNumber > 12) {
-            return false;
-        }
-
-        const daysInMonth = new Date(yearNumber, monthNumber, 0).getDate();
-        if (dayNumber < 1 || dayNumber > daysInMonth) {
-            return false;
-        }
-
-        return true;
+        return (
+            date.getFullYear() === yearNum &&
+            date.getMonth() === monthNum - 1 &&
+            date.getDate() === dayNum
+        );
     }
 
-    const onSubmit = () => {
-        if (!isValidDate()) {
+    const onInvalid = (errors: any) => {
+        console.error("Validation Errors:", errors);
+    
+        const errorMessages = Object.values(errors).map((error: any) => error.message);
+    
+        if (coloredMessageRef.current) {
+            coloredMessageRef.current.showMessage({
+                color: "red",
+                message: errorMessages.join("\n")
+            });
+        }
+    };
+
+    const onSubmit = (formData: EditProfileForm) => {
+        if (!isValidDate(formData.year, formData.month, formData.day)) {
             coloredMessageRef.current?.showMessage({
                 color: 'red',
                 message: 'Date is invalid'
@@ -71,29 +96,13 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
             return;
         }
 
-        if (!gender) {
-            coloredMessageRef.current?.showMessage({
-                color: 'red',
-                message: 'Gender not selected'
-            });
-            return;
-        }
-
-        if (location === null) {
-            coloredMessageRef.current?.showMessage({
-                color: 'red',
-                message: 'Location not selected'
-            });
-            return;
-        }
-
-        const dateOfBirth = `${year}-${month}-${day}`;
+        const dateOfBirth = `${formData.year}-${formData.month}-${formData.day}`;
 
         const dataToSubmit = {
             DateOfBirth: dateOfBirth,
-            Gender: gender,
-            Interests: interests,
-            Location: location
+            Gender: formData.gender,
+            Interests: formData.interests,
+            Location: formData.location
         };
 
         const apiUrl = '/Profile/Save';
@@ -147,17 +156,17 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
             .then((data: RetrievedProfileData) => {
                 if (data.dateOfBirth) {
                     const [year, month, day] = data.dateOfBirth.split('-').map(String);
-                    setYear(year);
-                    setMonth(month);
-                    setDay(day);
+                    setValue('year', year);
+                    setValue('month', month);
+                    setValue('day', day);
                 } else {
-                    setYear('');
-                    setMonth('');
-                    setDay('');
+                    setValue('year', '');
+                    setValue('month', '');
+                    setValue('day', '');
                 }
-                setGender(data.gender ?? null);
-                setInterests(data.interests ?? []);
-                setLocation(data.location ?? null);
+                setValue('gender', data.gender);
+                setValue('interests', data.interests ?? []);
+                setValue('location', data.location ?? null);
                 setLoaded(true);
             })
             .catch(error => {
@@ -173,25 +182,22 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
     return (
         <>
             {loaded &&
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                     <div className="justify-center items-center">
                         <div className="flex justify-center items-center gap-2.5">
                             <Typography>Date of Birth</Typography>
                             <DatePicker
-                                month={month}
-                                day={day}
-                                year={year}
-                                setMonth={setMonth}
-                                setDay={setDay}
-                                setYear={setYear}
+                                register={register}
+                                schema={EditProfileSchema}
                             />
                         </div>
                         <div className="flex justify-center items-center gap-2.5">
                             <Typography>Gender</Typography>
                             <RectangleSelector
-                                labels={["Male", "Female", "Other"]}
-                                selected={gender}
-                                setSelected={setGender}
+                                fieldValue="gender"
+                                setValue={setValue}
+                                watch={watch}
+                                labels={Object.values(Gender)}
                             />
                         </div>
                         <div className="flex justify-center items-center gap-2.5">
@@ -208,17 +214,19 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({ redirectOnS
                             <EditInterestsModal
                                 open={isInterestsModalOpen}
                                 setOpen={setIsInterestsModalOpen}
-                                interests={interests}
-                                setInterests={setInterests}
                                 interestMap={interestMap}
                                 interestCategoryMap={interestCategoryMap}
+                                fieldValue="interests"
+                                setValue={setValue}
+                                watch={watch}
                             />
                         </div>
                         <div className="flex justify-center items-center gap-2.5">
                             <Typography>Location</Typography>
                             <LocationComponent
-                                location={location}
-                                setLocation={setLocation}
+                                fieldValue="location"
+                                setValue={setValue}
+                                watch={watch}
                             />
                         </div>
                         <div className="form-control">

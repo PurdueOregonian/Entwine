@@ -4,13 +4,13 @@ import axios from "axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { RetrievedOtherProfileData as PublicProfileData } from "../types/RetrievedOtherProfileData";
 
-const useProfileData = (userId: string | undefined) => {
+const useProfileData = (userId: string) => {
   const [profileData, setProfileData] = useState<PublicProfileData | null>(null);
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const apiUrl = userId ? `/Profile/${userId}` : '/Profile';
+    const apiUrl = `/Profile/${userId}`;
 
     axiosPrivate.get(apiUrl, {
       withCredentials: true,

@@ -1,22 +1,26 @@
 import { Box, Modal, Tooltip, Typography } from "@mui/material";
-import InterestChip from "./InterestChip";
+import InterestChip from "../InterestChip";
 import CloseIcon from '@mui/icons-material/Close';
+import { FieldValues, Path, UseFormWatch } from "react-hook-form";
 
-type EditInterestsProps = {
+type EditInterestsProps<TForm extends FieldValues> = {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    interests: number[];
-    setInterests: (interests: number[]) => void;
     interestMap: Map<number, Interest>;
     interestCategoryMap: Map<number, InterestCategory>;
+    fieldValue: Path<TForm>;
+    setValue: (field: Path<TForm>, value: number[]) => void;
+    watch: UseFormWatch<TForm>;
 }
 
-const EditInterestsModal = ({ open, setOpen, interests, setInterests, interestMap, interestCategoryMap }: EditInterestsProps) => {
+const EditInterestsModal = <TForm extends FieldValues>(
+    { open, setOpen, interestMap, interestCategoryMap, fieldValue, setValue, watch }: EditInterestsProps<TForm>) => {
+    const interests = watch(fieldValue) as number[] || [];
     const handleClick = (interest: Interest) => {
         if (interests.includes(interest.id)) {
-            setInterests(interests.filter(id => id !== interest.id));
+            setValue(fieldValue, interests.filter(id => id !== interest.id));
         } else {
-            setInterests([...interests, interest.id]);
+            setValue(fieldValue, [...interests, interest.id]);
         }
     }
 

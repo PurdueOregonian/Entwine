@@ -14,7 +14,6 @@ type RegisterForm = {
 }
 
 const Register = () => {
-
     const navigate = useNavigate();
     const coloredMessageRef = useRef<{ showMessage: (data: ColoredMessageData) => void }>();
 
