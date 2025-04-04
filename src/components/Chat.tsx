@@ -75,8 +75,7 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  const searchUsers = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const searchUsers = () => {
     axiosPrivate.get(`/Search/Users/Username?searchString=${searchQuery}`)
       .then((response) => {
         if (response.status !== 200) {
@@ -134,23 +133,26 @@ const Chat: React.FC<ChatProps> = ({ isOpen, setIsOpen }) => {
         <div className="chat-contents">
           {showSearch && (
             <div className="search-bar">
-              <form onSubmit={searchUsers}>
-                <div className="searchContainer">
-                  <input
-                    data-testid="searchInput"
-                    className="w-70 h-9 m-1 p-1 pr-9 rounded-md border-2 text-lg"
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search users..."
-                  />
-                  <Tooltip title="Search">
-                    <button data-testid="searchButton" type="submit" className='searchButton'>
-                      <SearchIcon />
-                    </button>
-                  </Tooltip>
-                </div>
-              </form>
+              <div className="searchContainer">
+                <input
+                  data-testid="searchInput"
+                  className="w-70 h-9 m-1 p-1 pr-9 rounded-md border-2 text-lg"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      searchUsers();
+                    }
+                  }}
+                  placeholder="Search users..."
+                />
+                <Tooltip title="Search">
+                  <button onClick={() => searchUsers()} data-testid="searchButton" className='searchButton'>
+                    <SearchIcon />
+                  </button>
+                </Tooltip>
+              </div>
               <ul className="chatList">
                 {searchResults.map((result) => (
                   <li data-testid={`user-search-result-${result.username}`} key={result.id} onClick={() => handleAddChat(result)}>

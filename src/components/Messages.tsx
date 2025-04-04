@@ -66,8 +66,7 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
     };
   }, [chatId]);
 
-  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const sendMessage = () => {
     if (message === '') {
       return;
     }
@@ -115,21 +114,24 @@ const Messages: React.FC<MessagesProps> = ({ chatId, isCommunityChat }) => {
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={sendMessage}>
-        <div>
-          <input
-            data-testid="messageBox"
-            className="messageBox w-70 h-9 m-1 p-1 rounded-md border-2 text-lg outline-none bg-white"
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Send a message..."
-          />
-          <button data-testid="sendMessageButton" type="submit" className='sendMessageButton'>
-            <SendIcon />
-          </button>
-        </div>
-      </form>
+      <div>
+        <input
+          data-testid="messageBox"
+          className="messageBox w-70 h-9 m-1 p-1 rounded-md border-2 text-lg outline-none bg-white"
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
+          placeholder="Send a message..."
+        />
+        <button onClick={() => sendMessage()} data-testid="sendMessageButton" className='sendMessageButton'>
+          <SendIcon />
+        </button>
+      </div>
       {popupUserId && (
         <ProfilePopupPortal userId={popupUserId} onClose={handleClosePopup} position={popupPosition} />
       )}
